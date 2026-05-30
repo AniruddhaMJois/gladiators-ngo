@@ -182,7 +182,7 @@ const DirectorySearch = () => {
               <MapPin size={14} /> {program.location || (program.ngoId?.location === 'Bangalore' ? (language === 'KN' ? 'ಬೆಂಗಳೂರು' : language === 'HI' ? 'बेंगलुरु' : 'Bangalore') : (program.ngoId?.location || program.ngoId?.headquarters || 'Location TBD'))}
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', color: '#10B981', fontWeight: 600, marginBottom: '1.25rem' }}>
-              <Users size={14} /> {program.volunteerCount || 0} {'volunteers' || 'Volunteers'}
+              <Users size={14} /> {program.volunteerCount || 0} Volunteers
             </div>
             <div style={{ marginTop: 'auto', paddingTop: '1rem', borderTop: '1px solid var(--color-border)', display: 'flex', gap: '0.5rem' }}>
               {(() => {

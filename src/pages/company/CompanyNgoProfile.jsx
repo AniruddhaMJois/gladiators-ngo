@@ -164,6 +164,9 @@ const CompanyNgoProfile = () => {
                   <span className={`badge ${p.status === 'Completed' ? 'badge-secondary' : 'badge-primary'}`}>{p.status}</span>
                 </div>
                 <p style={{ fontSize: '0.9rem', color: '#64748B', marginBottom: '1rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.description}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', color: '#10B981', fontWeight: 600, marginBottom: '0.75rem' }}>
+                  <Users size={14} /> {p.volunteerCount || 0} Volunteers
+                </div>
                 <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                   {p.rolesNeeded?.map((role, i) => (
                     <span key={i} className="badge badge-primary" style={{ padding: '0.15rem 0.4rem', fontSize: '0.75rem' }}>{role}</span>
