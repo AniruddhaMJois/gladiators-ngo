@@ -77,17 +77,11 @@ const ImpactProfile = () => {
       return;
     }
     const updatedGallery = [...(user.mediaGallery || []), galleryFormData];
-    try {
-      await fetch('http://localhost:5000/api/auth/profile', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ gcId: user.gcId, updatedData: { mediaGallery: updatedGallery } })
-      });
-      updateUserProfile({ mediaGallery: updatedGallery });
+    const res = await updateUserProfile({ mediaGallery: updatedGallery });
+    if (res.success) {
       setIsGalleryModalOpen(false);
       showToast('Activity saved successfully!', 'success');
-    } catch (e) {
-      console.error(e);
+    } else {
       showToast('Failed to save activity.', 'error');
     }
   };
@@ -95,19 +89,13 @@ const ImpactProfile = () => {
   const handleDeleteGalleryItem = async (itemToDelete) => {
     if (!(await askConfirm('Delete this entire gallery activity?'))) return;
     const updatedGallery = user.mediaGallery.filter(i => i !== itemToDelete && i._id !== itemToDelete._id);
-    try {
-      await fetch('http://localhost:5000/api/auth/profile', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ gcId: user.gcId, updatedData: { mediaGallery: updatedGallery } })
-      });
-      updateUserProfile({ mediaGallery: updatedGallery });
+    const res = await updateUserProfile({ mediaGallery: updatedGallery });
+    if (res.success) {
       if (selectedGalleryItem && (selectedGalleryItem === itemToDelete || selectedGalleryItem._id === itemToDelete._id)) {
         setIsGalleryModalOpen(false);
       }
       showToast('Activity deleted.', 'info');
-    } catch (e) {
-      console.error(e);
+    } else {
       showToast('Failed to delete gallery item.', 'error');
     }
   };
@@ -123,20 +111,14 @@ const ImpactProfile = () => {
     const updatedGallery = [...user.mediaGallery];
     updatedGallery[itemIndex] = updatedItem;
     
-    try {
-      await fetch('http://localhost:5000/api/auth/profile', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ gcId: user.gcId, updatedData: { mediaGallery: updatedGallery } })
-      });
-      updateUserProfile({ mediaGallery: updatedGallery });
+    const res = await updateUserProfile({ mediaGallery: updatedGallery });
+    if (res.success) {
       setSelectedGalleryItem(updatedItem);
       if (activeImageIndex >= updatedImages.length && activeImageIndex > 0) {
         setActiveImageIndex(activeImageIndex - 1);
       }
       showToast('Photo deleted.', 'info');
-    } catch (e) {
-      console.error(e);
+    } else {
       showToast('Failed to delete photo.', 'error');
     }
   };
