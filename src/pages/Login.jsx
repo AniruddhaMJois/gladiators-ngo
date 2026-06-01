@@ -85,7 +85,7 @@ const LoginPage = () => {
         maxWidth: 520, 
         padding: '3rem 2.5rem', 
         border: '1px solid rgba(255, 255, 255, 0.15)',
-        background: '#FFFFFF',
+        background: 'transparent',
         boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
         borderRadius: '1.5rem'
       }}>
@@ -101,10 +101,10 @@ const LoginPage = () => {
           }}>
             <img src="/images/logo.png" alt="GladiConnect Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
-          <h1 className="text-gradient" style={{ fontSize: '1.75rem', marginBottom: '0.4rem', fontWeight: 800, color: '#1E293B' }}>
+          <h1 className="text-gradient" style={{ fontSize: '1.75rem', marginBottom: '0.4rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
             Access Your Account
           </h1>
-          <p style={{ fontSize: '0.9rem', color: '#475569', margin: 0 }}>
+          <p style={{ fontSize: '0.9rem', color: 'var(--color-text-secondary)', margin: 0 }}>
             Enter your GC-ID and 6-digit PIN to access your portal
           </p>
         </div>
@@ -113,7 +113,7 @@ const LoginPage = () => {
         <div style={{ 
           display: 'flex', 
           gap: '0.35rem', 
-          background: '#F1F5F9', 
+          background: 'rgba(255, 255, 255, 0.06)', 
           padding: '0.3rem', 
           borderRadius: '0.75rem', 
           marginBottom: '2rem',
@@ -137,8 +137,8 @@ const LoginPage = () => {
                   border: 'none',
                   borderRadius: '0.5rem',
                   cursor: 'pointer',
-                  background: isActive ? '#3D5A34' : 'transparent',
-                  color: isActive ? '#FFFFFF' : '#475569',
+                  background: isActive ? 'var(--color-primary-dark)' : 'transparent',
+                  color: isActive ? 'transparent' : 'var(--color-text-secondary)',
                   transition: 'all 0.2s ease-out'
                 }}
               >
@@ -162,13 +162,13 @@ const LoginPage = () => {
 
         <form onSubmit={handleLoginSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-            <label className="form-label" style={{ color: '#475569', fontWeight: 700, fontSize: '0.8rem' }}>
+            <label className="form-label" style={{ color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.8rem' }}>
               {'GC-ID *'.replace('GC-ID', `GC-${selectedRole.toUpperCase()} ID`)}
             </label>
             <div style={{ position: 'relative' }}>
               <div style={{ 
                 position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', 
-                color: '#64748B', display: 'flex', alignItems: 'center'
+                color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center'
               }}>
                 {selectedRole === 'volunteer' && <Users size={18} />}
                 {selectedRole === 'ngo' && <Building2 size={18} />}
@@ -182,8 +182,8 @@ const LoginPage = () => {
                   paddingRight: '2.5rem',
                   borderColor: '#CBD5E1', 
                   borderWidth: '2px', 
-                  background: '#FFFFFF', 
-                  color: '#1E293B',
+                  background: 'transparent', 
+                  color: 'var(--color-text-primary)',
                   fontWeight: 600,
                   textTransform: 'uppercase',
                   letterSpacing: '0.05em',
@@ -198,11 +198,11 @@ const LoginPage = () => {
           </div>
 
           <div className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-            <label className="form-label" style={{ color: '#475569', fontWeight: 700, fontSize: '0.8rem' }}>
+            <label className="form-label" style={{ color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.8rem' }}>
               6-Digit Secure PIN *
             </label>
             <div style={{ position: 'relative' }}>
-              <KeyRound size={18} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#64748B' }} />
+              <KeyRound size={18} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-secondary)' }} />
               <input
                 type="password"
                 className="form-input"
@@ -212,8 +212,8 @@ const LoginPage = () => {
                   paddingRight: '2.5rem',
                   borderColor: '#CBD5E1', 
                   borderWidth: '2px', 
-                  background: '#FFFFFF', 
-                  color: '#1E293B',
+                  background: 'transparent', 
+                  color: 'var(--color-text-primary)',
                   fontWeight: 700,
                   letterSpacing: '0.2em',
                   textAlign: 'center'
@@ -232,8 +232,8 @@ const LoginPage = () => {
             style={{ 
               width: '100%', 
               padding: '0.85rem', 
-              background: '#3D5A34', 
-              color: '#FFFFFF', 
+              background: 'var(--color-primary-dark)', 
+              color: 'transparent', 
               fontWeight: 800,
               fontSize: '1rem',
               display: 'flex',
@@ -251,7 +251,7 @@ const LoginPage = () => {
         </form>
 
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>
-          <p style={{ fontSize: '0.85rem', color: '#64748B', margin: 0 }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', margin: 0 }}>
             Don\
           </p>
           <button
@@ -263,7 +263,7 @@ const LoginPage = () => {
             style={{
               background: 'none',
               border: 'none',
-              color: '#3D5A34',
+              color: 'var(--color-primary-dark)',
               fontWeight: 800,
               cursor: 'pointer',
               fontSize: '0.85rem',
@@ -278,12 +278,12 @@ const LoginPage = () => {
         {/* In-memory notice */}
         <div style={{
           marginTop: '2rem',
-          background: '#F8FAFC',
+          background: 'rgba(255, 255, 255, 0.03)',
           border: '1px solid #E2E8F0',
           borderRadius: '0.75rem',
           padding: '0.75rem',
           fontSize: '0.75rem',
-          color: '#64748B',
+          color: 'var(--color-text-secondary)',
           textAlign: 'center',
           display: 'flex',
           alignItems: 'center',
