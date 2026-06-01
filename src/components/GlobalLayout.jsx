@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useTheme } from '../context/ThemeContext';
 import {
   UserCircle, Phone, Globe, LogOut, ChevronDown, X, Heart, Building2,
-  Briefcase, ShieldCheck, Check, Edit3, Save, User, MapPin, Hash, UserCheck, Trash2, Home, ArrowLeft, Award
+  Briefcase, ShieldCheck, Check, Edit3, Save, User, MapPin, Hash, UserCheck, Trash2, Home, ArrowLeft, Award, Moon, Sun
 } from 'lucide-react';
 
 const taglines = {
@@ -33,6 +34,7 @@ const taglines = {
 
 const GlobalLayout = () => {
   const { user, logout, isAuthenticated, updateUserProfile } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const location = useLocation();
   const [showDropdown, setShowDropdown] = useState(false);
@@ -476,6 +478,24 @@ const GlobalLayout = () => {
           }}>
             <Phone size={15} style={{ color: 'var(--color-primary)' }} className="pulse-animation" />
             <span style={{ color: 'var(--color-text-secondary)' }}>24/7 Helpline</span>
+          </button>
+
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            style={{
+              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+              width: '36px', height: '36px',
+              borderRadius: '50%', border: '1px solid #E2E8F0', cursor: 'pointer',
+              background: 'rgba(255, 255, 255, 0.03)',
+              color: 'var(--color-text-secondary)',
+              transition: 'all var(--transition-fast)'
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'; e.currentTarget.style.color = 'var(--color-text-primary)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)'; e.currentTarget.style.color = 'var(--color-text-secondary)'; }}
+            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          >
+            {theme === 'light' ? <Moon size={16} /> : <Sun size={16} />}
           </button>
 
           {/* Custom Language Dropdown that controls hidden Google Translate */}
