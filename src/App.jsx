@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 
 import { ToastProvider } from './context/ToastContext';
 import { ConfirmProvider } from './context/ConfirmContext';
+import { ThemeProvider } from './context/ThemeContext';
 import GlobalLayout from './components/GlobalLayout';
 
 // Pages
@@ -49,7 +50,7 @@ const ScrollToTop = () => {
 const App = () => {
   return (
     <AuthProvider>
-
+      <ThemeProvider>
         <ToastProvider>
           <ConfirmProvider>
             <BrowserRouter>
@@ -126,7 +127,7 @@ const App = () => {
             </BrowserRouter>
           </ConfirmProvider>
         </ToastProvider>
-
+      </ThemeProvider>
     </AuthProvider>
   );
 };
