@@ -13,6 +13,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 const chatRoutes = require('./routes/chat');
+const chatbotRoutes = require('./routes/chatbotRoutes');
 const programRoutes = require('./routes/programs');
 const applicationRoutes = require('./routes/applications');
 const logRoutes = require('./routes/logs');
@@ -22,6 +23,7 @@ const userRoutes = require('./routes/users');
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/chat', chatRoutes);
+app.use('/api/chatbot', chatbotRoutes);
 app.use('/api/programs', programRoutes);
 app.use('/api/applications', applicationRoutes);
 app.use('/api/logs', logRoutes);
