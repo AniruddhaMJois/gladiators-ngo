@@ -7,6 +7,7 @@ import {
   UserCircle, Phone, Globe, LogOut, ChevronDown, X, Heart, Building2,
   Briefcase, ShieldCheck, Check, Edit3, Save, User, MapPin, Hash, UserCheck, Trash2, Home, ArrowLeft, Award, Moon, Sun
 } from 'lucide-react';
+import GlobalChatbot from './chat/GlobalChatbot';
 
 const taglines = {
   EN: [
@@ -1613,6 +1614,8 @@ const GlobalLayout = () => {
           })()}
         </div>
       )}
+      
+      <GlobalChatbot />
     </div>
   );
 };
