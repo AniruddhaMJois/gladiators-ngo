@@ -157,13 +157,13 @@ const DirectorySearch = () => {
       </div>
 
       {/* Program Cards */}
-      <div className="grid grid-md-3">
+      <div className="bento-grid">
         {filtered.length === 0 ? (
-          <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem', color: 'var(--color-text-secondary)' }}>
+          <div className="bento-item bento-col-12" style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-text-secondary)' }}>
             No programs available at the moment.
           </div>
         ) : filtered.map(program => (
-          <div key={program._id} className="glass-card" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
+          <div key={program._id} className="bento-item bento-col-4" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
               <h3 style={{ fontSize: '1.05rem', fontWeight: 700, color: 'var(--color-primary)', lineHeight: 1.3, margin: 0 }}>{program.title}</h3>
             </div>
@@ -603,13 +603,13 @@ const ImpactDashboard = ({ badgeData, fetchBadgesAndStats }) => {
 
   return (
     <div className="animate-fade-in space-y-6">
-      <div className="grid grid-md-3">
+      <div className="bento-grid">
         {[
           { icon: Clock, label: 'Hours Volunteered', value: hoursVolunteered.toString(), color: 'var(--color-primary)', bg: 'rgba(0, 0, 0, 0.05)' },
           { icon: Award, label: 'Badges Earned', value: badgesCount.toString(), color: 'var(--color-secondary)', bg: 'rgba(0, 0, 0, 0.05)' },
           { icon: Calendar, label: 'Events Attended', value: eventsAttended.toString(), color: 'var(--color-warning)', bg: 'rgba(0, 0, 0, 0.05)' }
         ].map((s, i) => (
-          <div key={i} className="stat-card">
+          <div key={i} className="bento-item bento-col-4 stat-card">
             <div className="stat-icon" style={{ background: s.bg }}>
               <s.icon size={20} style={{ color: s.color }} />
             </div>
@@ -628,7 +628,7 @@ const ImpactDashboard = ({ badgeData, fetchBadgesAndStats }) => {
         {!badgeData?.badges || badgeData.badges.length === 0 ? (
           <p style={{ color: 'var(--color-text-secondary)', fontSize: '0.9rem', margin: 0 }}>You haven't earned any badges yet. Keep volunteering to unlock achievements!</p>
         ) : (
-          <div className="grid grid-md-4" style={{ gap: '1.5rem' }}>
+          <div className="bento-grid" style={{ gap: '1.5rem' }}>
             {badgeData.badges.map((badge, idx) => {
               const imgMap = {
                 'Bronze': '/badges/bronze.png',
@@ -643,7 +643,7 @@ const ImpactDashboard = ({ badgeData, fetchBadgesAndStats }) => {
                 'Platinum': '#4A148C'
               };
               return (
-                <div key={idx} className="glass-card card-hover animate-fade-in" style={{ padding: '1.25rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', border: `1.5px solid ${colorMap[badge.level] || 'var(--color-secondary)'}33` }}>
+                <div key={idx} className="bento-item bento-col-3 card-hover animate-fade-in" style={{ padding: '1.25rem', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center', border: `1.5px solid ${colorMap[badge.level] || 'var(--color-secondary)'}33` }}>
                   <img src={imgMap[badge.level] || '/badges/bronze.png'} alt={badge.name} style={{ width: 72, height: 72, objectFit: 'contain', marginBottom: '0.75rem', filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))' }} />
                   <h4 style={{ fontSize: '1rem', fontWeight: 800, margin: '0 0 0.15rem 0', color: 'var(--color-text-primary)' }}>{badge.name}</h4>
                   <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', fontWeight: 700, color: colorMap[badge.level], letterSpacing: '0.05em', display: 'block', marginBottom: '0.5rem' }}>{badge.level} Tier</span>
