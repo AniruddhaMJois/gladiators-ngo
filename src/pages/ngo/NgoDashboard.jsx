@@ -533,13 +533,13 @@ const ManagementSuite = () => {
         <button className="btn btn-primary" onClick={() => setShowBroadcastModal(true)}><Plus size={16} /> Broadcast Need</button>
       </div>
 
-      <div className="grid grid-md-3">
+      <div className="bento-grid">
         {[
           { label: 'Total Volunteers', value: activeVolunteers.toString(), color: 'var(--color-primary)', bg: 'rgba(0, 0, 0, 0.05)' },
           { label: 'Active Campaigns', value: activeCampaigns.toString(), color: 'var(--color-secondary)', bg: 'rgba(0, 0, 0, 0.05)' },
           { label: 'Total Hours Logged', value: realHours.toString(), color: 'var(--color-warning)', bg: 'rgba(0, 0, 0, 0.05)' }
         ].map((s, i) => (
-          <div key={i} className="stat-card">
+          <div key={i} className="bento-item bento-col-4 stat-card">
             <div className="stat-icon" style={{ background: s.bg }}><span style={{ color: s.color, fontWeight: 800 }}>●</span></div>
             <div className="stat-value" style={{ color: s.color }}>{s.value}</div>
             <div className="stat-label">{s.label}</div>
@@ -548,16 +548,16 @@ const ManagementSuite = () => {
       </div>
 
       <h3 className="section-title" style={{ marginTop: '2rem' }}>Broadcasted Programs</h3>
-      <div className="grid grid-md-2" style={{ marginBottom: '2rem' }}>
+      <div className="bento-grid" style={{ marginBottom: '2rem' }}>
         {programs.length === 0 ? (
-          <div className="glass-card" style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-secondary)', gridColumn: '1 / -1' }}>
+          <div className="bento-item bento-col-12" style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-secondary)' }}>
             No programs broadcasted yet. Click 'Broadcast Need' to start!
           </div>
         ) : programs.map(program => {
           const pApps = applications.filter(a => a.programId?._id === program._id || a.programId === program._id);
           const approved = pApps.filter(a => a.status === 'Approved').length;
           return (
-            <div key={program._id} className="glass-card" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
+            <div key={program._id} className="bento-item bento-col-6" style={{ padding: '1.5rem', display: 'flex', flexDirection: 'column' }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
                 <h4 style={{ fontSize: '1.1rem', fontWeight: 600, color: 'var(--color-primary)', margin: 0 }}>{program.title}</h4>
                 <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
