@@ -145,7 +145,7 @@ const GlobalChatbot = () => {
           zIndex: 10000,
           width: '350px',
           height: '500px',
-          background: 'var(--color-bg-card)',
+          background: 'var(--color-surface)',
           borderRadius: '1rem',
           boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
           display: 'flex',
@@ -155,7 +155,8 @@ const GlobalChatbot = () => {
           transform: isOpen ? 'scale(1) translateY(0)' : 'scale(0.8) translateY(20px)',
           opacity: isOpen ? 1 : 0,
           pointerEvents: isOpen ? 'auto' : 'none',
-          border: '1px solid rgba(226, 232, 240, 0.5)'
+          border: '1px solid var(--color-border)',
+          backdropFilter: 'blur(24px)'
         }}
       >
         {/* Header */}
@@ -199,7 +200,7 @@ const GlobalChatbot = () => {
           display: 'flex',
           flexDirection: 'column',
           gap: '1rem',
-          background: 'rgba(0,0,0,0.01)'
+          background: 'var(--color-background)'
         }}>
           {messages.map((msg, index) => (
             <div
@@ -226,8 +227,8 @@ const GlobalChatbot = () => {
                 {msg.role === 'user' ? <User size={16} /> : <Bot size={16} />}
               </div>
               <div style={{
-                background: msg.role === 'user' ? 'var(--color-accent)' : 'var(--color-bg-card)',
-                color: msg.role === 'user' ? 'white' : 'var(--color-text-primary)',
+                background: msg.role === 'user' ? 'var(--color-accent)' : 'var(--color-surface)',
+                color: msg.role === 'user' ? '#fff' : 'var(--color-text-primary)',
                 padding: '0.6rem 0.8rem',
                 borderRadius: '1rem',
                 borderTopRightRadius: msg.role === 'user' ? 0 : '1rem',
@@ -235,7 +236,7 @@ const GlobalChatbot = () => {
                 fontSize: '0.9rem',
                 lineHeight: 1.4,
                 boxShadow: '0 2px 5px rgba(0,0,0,0.05)',
-                border: msg.role === 'user' ? 'none' : '1px solid #E2E8F0'
+                border: msg.role === 'user' ? 'none' : '1px solid var(--color-border)'
               }}>
                 {msg.content}
               </div>
@@ -254,8 +255,8 @@ const GlobalChatbot = () => {
                     key={i}
                     onClick={() => handleSend(faq)}
                     style={{
-                      background: 'rgba(255, 255, 255, 0.5)',
-                      border: '1px solid var(--color-primary-light)',
+                      background: 'var(--color-surface)',
+                      border: '1px solid var(--color-border)',
                       color: 'var(--color-primary)',
                       padding: '0.5rem 0.8rem',
                       borderRadius: '0.5rem',
@@ -265,7 +266,7 @@ const GlobalChatbot = () => {
                       transition: 'all 0.2s',
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.background = 'var(--color-primary-light)'}
-                    onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.5)'}
+                    onMouseLeave={(e) => e.currentTarget.style.background = 'var(--color-surface)'}
                   >
                     {faq}
                   </button>
@@ -283,8 +284,8 @@ const GlobalChatbot = () => {
                 <Bot size={16} />
               </div>
               <div style={{
-                background: 'var(--color-bg-card)', padding: '0.6rem 1rem', borderRadius: '1rem',
-                borderTopLeftRadius: 0, fontSize: '0.9rem', border: '1px solid #E2E8F0'
+                background: 'var(--color-surface)', padding: '0.6rem 1rem', borderRadius: '1rem',
+                borderTopLeftRadius: 0, fontSize: '0.9rem', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)'
               }}>
                 <span className="dot-pulse">typing...</span>
               </div>
@@ -296,8 +297,8 @@ const GlobalChatbot = () => {
         {/* Input */}
         <div style={{
           padding: '0.8rem',
-          borderTop: '1px solid #E2E8F0',
-          background: 'var(--color-bg-card)',
+          borderTop: '1px solid var(--color-border)',
+          background: 'var(--color-surface)',
           display: 'flex',
           gap: '0.5rem'
         }}>
@@ -311,7 +312,9 @@ const GlobalChatbot = () => {
               flex: 1,
               padding: '0.6rem 1rem',
               borderRadius: '2rem',
-              border: '1px solid #E2E8F0',
+              border: '1px solid var(--color-border)',
+              background: 'var(--color-background)',
+              color: 'var(--color-text-primary)',
               outline: 'none',
               fontSize: '0.9rem',
               fontFamily: 'inherit'
@@ -321,8 +324,8 @@ const GlobalChatbot = () => {
             onClick={() => handleSend()}
             disabled={!input.trim() || isLoading}
             style={{
-              background: input.trim() && !isLoading ? 'var(--color-primary)' : '#E2E8F0',
-              color: 'white',
+              background: input.trim() && !isLoading ? 'var(--color-primary)' : 'var(--color-border)',
+              color: '#fff',
               border: 'none',
               borderRadius: '50%',
               width: '40px',
