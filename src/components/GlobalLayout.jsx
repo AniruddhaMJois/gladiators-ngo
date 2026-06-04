@@ -366,15 +366,7 @@ const GlobalLayout = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <nav className="glass-panel" style={{
-        position: 'fixed', top: '1rem', left: '1.5rem', right: '1.5rem', zIndex: 50,
-        padding: '0.75rem 1.5rem',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        background: 'transparent',
-        border: '1px solid #E2E8F0',
-        boxShadow: 'var(--shadow-md)',
-        borderRadius: 'var(--radius-xl)'
-      }}>
+      <nav className="nav-island">
         {/* Left side: Logo */}
         <div
           style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
@@ -571,21 +563,18 @@ const GlobalLayout = () => {
 
       {/* Left-Side Profile Widget */}
       {isAuthenticated && user && !isLandingPage && (
-        <div style={{
-          position: 'fixed', left: '1.5rem', top: '7.5rem', zIndex: 900,
-          background: 'transparent',
-          borderRadius: '1.25rem',
-          padding: '1rem 1.25rem',
-          boxShadow: 'var(--shadow-lg)',
-          borderLeft: `8px solid ${
+        <div className="bento-item" style={{
+          position: 'fixed', left: '1.5rem', top: '6.5rem', zIndex: 900,
+          borderLeft: `4px solid ${
             user.role === 'volunteer' ? 'var(--color-primary)' :
             user.role === 'ngo' ? 'var(--color-primary)' : 'var(--color-accent)'
           }`,
           display: 'flex',
           alignItems: 'center',
           gap: '1rem',
-          animation: 'fadeIn 0.3s ease-out',
-          cursor: 'pointer'
+          animation: 'slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+          cursor: 'pointer',
+          padding: '1rem'
         }}
         onClick={() => navigate(`/${user.role}/profile`)}>
           {/* Left Column: Avatar */}
