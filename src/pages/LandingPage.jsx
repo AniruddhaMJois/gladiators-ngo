@@ -66,55 +66,72 @@ const LandingPage = () => {
       </div>
 
       {/* Hero Text */}
-      <div style={{ textAlign: 'center', maxWidth: 800, marginBottom: '4rem' }} className="animate-fade-in">
+      <div style={{ textAlign: 'center', maxWidth: 900, marginBottom: '4rem' }} className="animate-fade-in">
         <h1 style={{
-          fontSize: 'clamp(3rem, 8vw, 6rem)',
+          fontSize: 'clamp(3.5rem, 8vw, 7rem)',
           fontWeight: 800,
-          lineHeight: 1.1,
-          marginBottom: '1rem',
-          letterSpacing: '-0.04em'
+          lineHeight: 1.05,
+          marginBottom: '1.5rem',
+          letterSpacing: '-0.04em',
+          textShadow: '0 10px 30px rgba(0,0,0,0.5)'
         }}>
           Bridge the <span className="text-gradient">Gap.</span><br />
           Amplify <span className="text-gradient-secondary">Impact.</span>
         </h1>
         <p style={{
-          fontSize: 'clamp(1.1rem, 2vw, 1.25rem)',
+          fontSize: 'clamp(1.15rem, 2vw, 1.35rem)',
           lineHeight: 1.6,
           color: 'var(--color-text-secondary)',
-          maxWidth: 600,
-          margin: '0 auto 2rem auto'
+          maxWidth: 650,
+          margin: '0 auto 2.5rem auto',
+          fontWeight: 500
         }}>
           The state-of-the-art platform connecting NGOs, volunteers, and companies to drive collective, measurable social impact.
         </p>
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <button className="btn btn-primary" onClick={() => navigate('/volunteer/onboarding')} style={{ fontSize: '1.1rem', padding: '1rem 2rem' }}>Get Started <ArrowRight size={18} /></button>
+            <button className="btn btn-outline" onClick={() => {
+                document.getElementById('roles-section')?.scrollIntoView({ behavior: 'smooth' });
+            }} style={{ fontSize: '1.1rem', padding: '1rem 2rem' }}>Explore Roles</button>
+        </div>
       </div>
 
-      {/* Role Cards */}
-      <div className="animate-fade-in" style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: '2rem',
+      {/* Role Cards - Bento Grid */}
+      <div id="roles-section" className="bento-grid animate-fade-in" style={{
         width: '100%',
-        maxWidth: 1000,
+        maxWidth: 1100,
         marginBottom: '4rem'
       }}>
-        {roles.map(role => (
+        {roles.map((role, idx) => (
           <div
             key={role.key}
-            className="role-card"
+            className="bento-item role-card bento-col-4"
             onClick={() => navigate(role.path)}
+            style={{ 
+                animationDelay: `${idx * 150}ms`,
+                display: 'flex', flexDirection: 'column', height: '100%',
+                padding: '1rem'
+            }}
           >
             <div style={{
-              width: '100%', height: 200, marginBottom: '1.5rem',
-              borderRadius: 'var(--radius-lg)', overflow: 'hidden'
+              width: '100%', flex: 1, minHeight: 240, marginBottom: '1.25rem',
+              borderRadius: 'var(--radius-md)', overflow: 'hidden', position: 'relative'
             }}>
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)', zIndex: 1 }} />
               <img src={role.image} alt={role.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div style={{ position: 'absolute', bottom: '1rem', left: '1rem', zIndex: 2, right: '1rem' }}>
+                  <h3 style={{ fontSize: '1.75rem', marginBottom: '0.25rem', color: '#fff' }}>
+                    {role.title}
+                  </h3>
+                  <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.7)', margin: 0, fontWeight: 500 }}>
+                    {role.description}
+                  </p>
+              </div>
             </div>
-            <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>
-              {role.title}
-            </h3>
-            <p style={{ fontSize: '1rem', color: 'var(--color-text-secondary)', margin: 0 }}>
-              {role.description}
-            </p>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', color: 'var(--color-primary)', padding: '0 0.5rem' }}>
+                <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>Join as {role.title}</span>
+                <ArrowRight size={18} />
+            </div>
           </div>
         ))}
       </div>
