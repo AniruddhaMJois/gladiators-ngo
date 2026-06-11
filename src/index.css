@@ -82,6 +82,10 @@
   --shadow-lg: 0 32px 64px -12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255,255,255,1);
 }
 
+html {
+  font-size: 18px; /* Globally increases all rem-based sizes by ~12.5% */
+}
+
 *, *::before, *::after {
   margin: 0;
   padding: 0;
