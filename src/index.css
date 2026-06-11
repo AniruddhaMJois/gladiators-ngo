@@ -69,7 +69,7 @@
   --color-accent: #0891B2;
   --color-accent-light: #06B6D4;
   
-  --color-background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 50%, #f3e8ff 100%);
+  --color-background: linear-gradient(135deg, #bae6fd 0%, #a78bfa 100%);
   --color-surface: rgba(255, 255, 255, 0.35);
   --color-surface-hover: rgba(255, 255, 255, 0.6);
   
