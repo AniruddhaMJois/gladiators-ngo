@@ -120,14 +120,17 @@ const LoginPage = () => {
           {['volunteer', 'ngo', 'company'].map(role => {
             const isActive = selectedRole === role;
             let activeColor = 'var(--color-primary)';
-            let activeBg = 'rgba(139, 92, 246, 0.1)';
+            let activeBg = 'var(--color-primary)';
+            let shadowColor = 'rgba(139, 92, 246, 0.4)';
             if (role === 'ngo') {
               activeColor = '#0EA5E9'; // Sky Blue
-              activeBg = 'rgba(14, 165, 233, 0.1)';
+              activeBg = '#0EA5E9';
+              shadowColor = 'rgba(14, 165, 233, 0.4)';
             }
             if (role === 'company') {
               activeColor = '#F59E0B'; // Amber
-              activeBg = 'rgba(245, 158, 11, 0.1)';
+              activeBg = '#F59E0B';
+              shadowColor = 'rgba(245, 158, 11, 0.4)';
             }
             return (
               <button
@@ -139,9 +142,9 @@ const LoginPage = () => {
                 className={`role-btn ${isActive ? 'role-btn-active prismatic-edge' : 'role-btn-inactive'}`}
                 style={isActive ? {
                   borderColor: activeColor,
-                  color: activeColor,
+                  color: '#FFFFFF',
                   background: activeBg,
-                  boxShadow: `0 0 16px ${activeBg}`,
+                  boxShadow: `0 4px 12px ${shadowColor}`,
                   fontWeight: 800
                 } : {}}
               >
