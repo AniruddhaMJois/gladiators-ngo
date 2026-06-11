@@ -107,11 +107,21 @@ const LoginPage = () => {
           }}>
             <img src="/images/logo.png" alt="GladiConnect Logo" style={{ width: '65%', height: '65%', objectFit: 'contain' }} />
           </div>
-          <h1 className="text-gradient" style={{ fontSize: '2rem', marginBottom: '0.5rem', fontWeight: 800, color: 'var(--color-text-primary)', letterSpacing: '-0.02em' }}>
+          <h1 style={{ 
+            fontSize: '2rem', marginBottom: '0.5rem', fontWeight: 800, 
+            color: selectedRole === 'ngo' ? '#0EA5E9' : selectedRole === 'company' ? '#F59E0B' : 'var(--color-primary)', 
+            letterSpacing: '-0.02em',
+            transition: 'color 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+          }}>
             Welcome Back
           </h1>
           <p style={{ fontSize: '0.95rem', color: 'var(--color-text-secondary)', margin: 0, fontWeight: 500 }}>
-            Enter your credentials to access your <span style={{color: 'var(--color-primary)', fontWeight: 700, textTransform: 'capitalize'}}>{selectedRole}</span> portal
+            Enter your credentials to access your <span style={{
+              color: selectedRole === 'ngo' ? '#0EA5E9' : selectedRole === 'company' ? '#F59E0B' : 'var(--color-primary)', 
+              fontWeight: 700, 
+              textTransform: 'capitalize',
+              transition: 'color 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
+            }}>{selectedRole}</span> portal
           </p>
         </div>
 
