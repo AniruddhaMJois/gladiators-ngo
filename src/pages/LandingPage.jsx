@@ -38,7 +38,7 @@ const LandingPage = () => {
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', padding: '8rem 1.5rem 4rem 1.5rem', position: 'relative', zIndex: 1 }}>
       
       {/* SDG Badge */}
-      <div className="sdg-badge animate-fade-in" style={{ marginBottom: '2.5rem' }}>
+      <div className="badge badge-primary prismatic-edge animate-fade-in" style={{ marginBottom: '2.5rem', padding: '0.6rem 1.5rem', gap: '0.5rem' }}>
         <span>✨</span>
         <span>SDG 16 &amp; 17 · GLADICONNECT</span>
       </div>
@@ -105,12 +105,12 @@ const LandingPage = () => {
         {roles.map((role, idx) => (
           <div
             key={role.key}
-            className="bento-item role-card bento-col-4"
+            className="bento-item role-card prismatic-edge bento-col-4"
             onClick={() => navigate(role.path)}
             style={{ 
                 animationDelay: `${idx * 150}ms`,
                 display: 'flex', flexDirection: 'column', height: '100%',
-                padding: '1rem'
+                padding: '1.25rem'
             }}
           >
             <div style={{
@@ -150,7 +150,7 @@ const LandingPage = () => {
           'SDG 4 — Education',
           'SDG 13 — Climate Action'
         ].map((tag, i) => (
-          <span key={i} className="sdg-tag">{tag}</span>
+          <span key={i} className="badge badge-secondary prismatic-edge" style={{ fontWeight: 800 }}>{tag}</span>
         ))}
       </div>
     </div>
