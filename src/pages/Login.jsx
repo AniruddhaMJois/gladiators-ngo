@@ -87,22 +87,31 @@ const LoginPage = () => {
         borderRadius: 'var(--radius-xl)'
       }}>
         {/* Floating circular glowing logo area */}
-        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2.5rem', position: 'relative' }}>
+          {/* Decorative rotating aura */}
+          <div style={{
+            position: 'absolute', top: '-10px', left: '50%', transform: 'translateX(-50%)',
+            width: 120, height: 120, borderRadius: '50%',
+            background: 'conic-gradient(from 0deg, var(--color-primary), var(--color-accent), var(--color-primary))',
+            animation: 'spin 4s linear infinite', opacity: 0.15, filter: 'blur(12px)', zIndex: -1
+          }} />
           <div style={{
             width: 100, height: 100, borderRadius: '50%', overflow: 'hidden',
             display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-            background: 'rgba(255, 255, 255, 0.05)',
-            boxShadow: '0 0 24px rgba(107,143,94,0.3)',
-            border: '2px solid rgba(74, 103, 69, 0.1)',
-            marginBottom: '1rem'
+            background: 'var(--color-surface)', backdropFilter: 'blur(10px)',
+            boxShadow: '0 0 0 4px var(--color-surface-hover), 0 10px 25px -5px rgba(0,0,0,0.1)',
+            border: '1px solid var(--color-border)',
+            marginBottom: '1.25rem',
+            position: 'relative',
+            zIndex: 1
           }}>
-            <img src="/images/logo.png" alt="GladiConnect Logo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src="/images/logo.png" alt="GladiConnect Logo" style={{ width: '65%', height: '65%', objectFit: 'contain' }} />
           </div>
-          <h1 className="text-gradient" style={{ fontSize: '1.75rem', marginBottom: '0.4rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>
-            Access Your Account
+          <h1 className="text-gradient" style={{ fontSize: '2rem', marginBottom: '0.5rem', fontWeight: 800, color: 'var(--color-text-primary)', letterSpacing: '-0.02em' }}>
+            Welcome Back
           </h1>
-          <p style={{ fontSize: '0.9rem', color: 'var(--color-text-secondary)', margin: 0 }}>
-            Enter your GC-ID and 6-digit PIN to access your portal
+          <p style={{ fontSize: '0.95rem', color: 'var(--color-text-secondary)', margin: 0, fontWeight: 500 }}>
+            Enter your credentials to access your <span style={{color: 'var(--color-primary)', fontWeight: 700, textTransform: 'capitalize'}}>{selectedRole}</span> portal
           </p>
         </div>
 
@@ -144,28 +153,37 @@ const LoginPage = () => {
             </label>
             <div style={{ position: 'relative' }}>
               <div style={{ 
-                position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', 
-                color: 'var(--color-text-secondary)', display: 'flex', alignItems: 'center'
+                position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', 
+                color: 'var(--color-primary)', display: 'flex', alignItems: 'center',
+                background: 'var(--color-surface-hover)', padding: '0.6rem', borderRadius: '0.5rem',
+                boxShadow: '0 2px 5px rgba(0,0,0,0.05)'
               }}>
-                {selectedRole === 'volunteer' && <Users size={18} />}
-                {selectedRole === 'ngo' && <Building2 size={18} />}
-                {selectedRole === 'company' && <Briefcase size={18} />}
+                {selectedRole === 'volunteer' && <Users size={16} />}
+                {selectedRole === 'ngo' && <Building2 size={16} />}
+                {selectedRole === 'company' && <Briefcase size={16} />}
               </div>
               <input
                 type="text"
                 className="form-input"
                 style={{ 
-                  paddingLeft: '2.5rem', 
-                  paddingRight: '2.5rem',
+                  paddingLeft: '3.5rem', 
+                  paddingRight: '1.5rem',
+                  paddingTop: '1rem',
+                  paddingBottom: '1rem',
                   borderColor: 'var(--color-border)', 
                   borderWidth: '2px', 
-                  background: 'transparent', 
+                  background: 'var(--color-surface)', 
                   color: 'var(--color-text-primary)',
                   fontWeight: 600,
                   textTransform: 'uppercase',
                   letterSpacing: '0.05em',
-                  textAlign: 'center'
+                  borderRadius: '0.75rem',
+                  transition: 'all 0.3s ease',
+                  boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)',
+                  width: '100%'
                 }}
+                onFocus={e => { e.target.style.borderColor = 'var(--color-primary)'; e.target.style.boxShadow = '0 0 0 4px rgba(139, 92, 246, 0.1)'; }}
+                onBlur={e => { e.target.style.borderColor = 'var(--color-border)'; e.target.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.02)'; }}
                 placeholder={`e.g. ${getPrefix()}123456`}
                 value={gcId}
                 onChange={e => setGcId(e.target.value)}
@@ -179,22 +197,36 @@ const LoginPage = () => {
               6-Digit Secure PIN *
             </label>
             <div style={{ position: 'relative' }}>
-              <KeyRound size={18} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-secondary)' }} />
+              <div style={{ 
+                position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', 
+                color: 'var(--color-primary)', display: 'flex', alignItems: 'center',
+                background: 'var(--color-surface-hover)', padding: '0.6rem', borderRadius: '0.5rem',
+                boxShadow: '0 2px 5px rgba(0,0,0,0.05)'
+              }}>
+                <KeyRound size={16} />
+              </div>
               <input
                 type="password"
                 className="form-input"
                 maxLength={6}
                 style={{ 
-                  paddingLeft: '2.5rem', 
-                  paddingRight: '2.5rem',
+                  paddingLeft: '3.5rem', 
+                  paddingRight: '1.5rem',
+                  paddingTop: '1rem',
+                  paddingBottom: '1rem',
                   borderColor: 'var(--color-border)', 
                   borderWidth: '2px', 
-                  background: 'transparent', 
+                  background: 'var(--color-surface)', 
                   color: 'var(--color-text-primary)',
                   fontWeight: 700,
                   letterSpacing: '0.2em',
-                  textAlign: 'center'
+                  borderRadius: '0.75rem',
+                  transition: 'all 0.3s ease',
+                  boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.02)',
+                  width: '100%'
                 }}
+                onFocus={e => { e.target.style.borderColor = 'var(--color-primary)'; e.target.style.boxShadow = '0 0 0 4px rgba(139, 92, 246, 0.1)'; }}
+                onBlur={e => { e.target.style.borderColor = 'var(--color-border)'; e.target.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.02)'; }}
                 placeholder="••••••"
                 value={pin}
                 onChange={e => setPin(e.target.value.replace(/\D/g, ''))}
@@ -206,9 +238,14 @@ const LoginPage = () => {
           <button 
             type="submit" 
             className="btn btn-primary prismatic-edge" 
-            style={{ width: '100%', marginTop: '1rem', padding: '1rem' }}
+            style={{ 
+              width: '100%', marginTop: '1rem', padding: '1rem', 
+              fontSize: '1.1rem', fontWeight: 800, letterSpacing: '0.02em',
+              display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem',
+              boxShadow: '0 8px 20px -6px rgba(109, 40, 217, 0.5)'
+            }}
           >
-            Access CSR Portal <ArrowRight size={18} />
+            Access {selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1)} Portal <ArrowRight size={18} />
           </button>
         </form>
 
