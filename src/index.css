@@ -24,6 +24,9 @@
   --color-border: rgba(255, 255, 255, 0.08);
   --color-border-glow: rgba(139, 92, 246, 0.3);
   
+  --color-nav-btn: rgba(255, 255, 255, 0.05);
+  --color-nav-btn-hover: rgba(255, 255, 255, 0.1);
+  
   --color-danger: #F43F5E;
   --color-warning: #F59E0B;
   --color-success: #10B981;
@@ -77,6 +80,9 @@
   --color-border: rgba(0, 0, 0, 0.1);
   --color-border-glow: rgba(109, 40, 217, 0.2);
   
+  --color-nav-btn: rgba(109, 40, 217, 0.08);
+  --color-nav-btn-hover: rgba(109, 40, 217, 0.16);
+  
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,1);
   --shadow-lg: 0 32px 64px -12px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255,255,255,1);
@@ -128,8 +134,8 @@ body::after {
   background: radial-gradient(circle, rgba(6,182,212,0.1) 0%, transparent 70%);
   animation: drift2 25s ease-in-out infinite alternate;
 }
-[data-theme='light'] body::before { background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%); opacity: 0.8; }
-[data-theme='light'] body::after { background: radial-gradient(circle, rgba(6,182,212,0.06) 0%, transparent 70%); opacity: 0.8; }
+[data-theme='light'] body::before { background: radial-gradient(circle, rgba(139,92,246,0.2) 0%, transparent 70%); opacity: 1; }
+[data-theme='light'] body::after { background: radial-gradient(circle, rgba(6,182,212,0.18) 0%, transparent 70%); opacity: 1; }
 
 @keyframes drift1 {
   0% { transform: translate(0, 0) scale(1); }

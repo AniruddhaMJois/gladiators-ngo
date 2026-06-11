@@ -414,12 +414,12 @@ const GlobalLayout = () => {
             onClick={handleBack}
             style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem',
-              background: 'rgba(255,255,255,0.05)', color: 'var(--color-text-secondary)', border: '1px solid #E2E8F0',
+              background: 'var(--color-nav-btn)', color: 'var(--color-text-secondary)', border: '1px solid #E2E8F0',
               borderRadius: 'var(--radius-md)', padding: '0.65rem 1.1rem', fontWeight: 600, fontSize: '0.95rem',
               cursor: 'pointer', transition: 'all 0.2s ease', outline: 'none'
             }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'; e.currentTarget.style.color = 'var(--color-text-primary)'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = 'var(--color-text-secondary)'; }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'var(--color-nav-btn-hover)'; e.currentTarget.style.color = 'var(--color-text-primary)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'var(--color-nav-btn)'; e.currentTarget.style.color = 'var(--color-text-secondary)'; }}
             title="Back"
           >
             <ArrowLeft size={18} />
@@ -430,12 +430,12 @@ const GlobalLayout = () => {
             onClick={handleHome}
             style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem',
-              background: 'rgba(255, 255, 255, 0.03)', color: 'var(--color-text-primary)', border: '1px solid #E2E8F0',
+              background: 'var(--color-nav-btn)', color: 'var(--color-text-primary)', border: '1px solid #E2E8F0',
               borderRadius: 'var(--radius-md)', padding: '0.65rem 1.1rem', fontWeight: 600, fontSize: '0.95rem',
               cursor: 'pointer', transition: 'all 0.2s ease', outline: 'none'
             }}
-            onMouseEnter={e => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)'}
+            onMouseEnter={e => e.currentTarget.style.background = 'var(--color-nav-btn-hover)'}
+            onMouseLeave={e => e.currentTarget.style.background = 'var(--color-nav-btn)'}
             title="Home"
           >
             <Home size={18} />
@@ -466,7 +466,7 @@ const GlobalLayout = () => {
             border: '1px solid #E2E8F0',
             borderRadius: 'var(--radius-md)',
             padding: '0.65rem 1.2rem',
-            background: 'rgba(255, 255, 255, 0.03)',
+            background: 'var(--color-nav-btn)',
             cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600, fontSize: '0.95rem'
           }}>
             <Phone size={18} style={{ color: 'var(--color-primary)' }} className="pulse-animation" />
@@ -480,12 +480,12 @@ const GlobalLayout = () => {
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
               width: '42px', height: '42px',
               borderRadius: '50%', border: '1px solid #E2E8F0', cursor: 'pointer',
-              background: 'rgba(255, 255, 255, 0.03)',
+              background: 'var(--color-nav-btn)',
               color: 'var(--color-text-secondary)',
               transition: 'all var(--transition-fast)'
             }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'; e.currentTarget.style.color = 'var(--color-text-primary)'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)'; e.currentTarget.style.color = 'var(--color-text-secondary)'; }}
+            onMouseEnter={e => { e.currentTarget.style.background = 'var(--color-nav-btn-hover)'; e.currentTarget.style.color = 'var(--color-text-primary)'; }}
+            onMouseLeave={e => { e.currentTarget.style.background = 'var(--color-nav-btn)'; e.currentTarget.style.color = 'var(--color-text-secondary)'; }}
             title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
           >
             {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
@@ -500,12 +500,12 @@ const GlobalLayout = () => {
                 padding: '0.65rem 1.2rem', fontSize: '0.95rem', fontWeight: 600,
                 borderRadius: 'var(--radius-md)', border: '1px solid #E2E8F0', cursor: 'pointer',
                 fontFamily: 'inherit',
-                background: 'rgba(255, 255, 255, 0.03)',
+                background: 'var(--color-nav-btn)',
                 color: 'var(--color-text-primary)',
                 transition: 'all var(--transition-fast)'
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.06)'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)'; }}
+              onMouseEnter={e => { e.currentTarget.style.background = 'var(--color-nav-btn-hover)'; }}
+              onMouseLeave={e => { e.currentTarget.style.background = 'var(--color-nav-btn)'; }}
             >
               <Globe size={18} style={{ color: 'var(--color-text-secondary)' }} />
               {activeLang}
@@ -517,7 +517,7 @@ const GlobalLayout = () => {
                 <div onClick={() => setShowLangDropdown(false)} style={{ position: 'fixed', inset: 0, zIndex: 998 }} />
                 <div style={{
                   position: 'absolute', top: 'calc(100% + 0.5rem)', right: 0, zIndex: 999,
-                  background: 'rgba(255,255,255,0.05)', border: '1px solid #E2E8F0', borderRadius: '0.5rem',
+                  background: 'var(--color-surface)', border: '1px solid #E2E8F0', borderRadius: '0.5rem',
                   boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', overflow: 'hidden', minWidth: '120px'
                 }}>
                   {languages.map((lang) => (
@@ -527,12 +527,12 @@ const GlobalLayout = () => {
                       style={{
                         padding: '0.75rem 1.2rem', fontSize: '1rem', fontWeight: 500,
                         cursor: 'pointer', color: activeLang === lang.label ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
-                        background: activeLang === lang.label ? 'rgba(255, 255, 255, 0.06)' : 'transparent',
+                        background: activeLang === lang.label ? 'var(--color-nav-btn-hover)' : 'transparent',
                         borderBottom: '1px solid #F1F5F9',
                         display: 'flex', alignItems: 'center', justifyContent: 'space-between'
                       }}
-                      onMouseEnter={e => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.03)'}
-                      onMouseLeave={e => e.currentTarget.style.background = activeLang === lang.label ? 'rgba(255, 255, 255, 0.06)' : 'transparent'}
+                      onMouseEnter={e => e.currentTarget.style.background = 'var(--color-nav-btn)'}
+                      onMouseLeave={e => e.currentTarget.style.background = activeLang === lang.label ? 'var(--color-nav-btn-hover)' : 'transparent'}
                     >
                       {lang.label}
                       {activeLang === lang.label && <Check size={18} color="#4A6741" />}
