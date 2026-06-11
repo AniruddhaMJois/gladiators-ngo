@@ -68,7 +68,7 @@ const LandingPage = () => {
       {/* Hero Text */}
       <div style={{ textAlign: 'center', maxWidth: 900, marginBottom: '4rem' }} className="animate-fade-in">
         <h1 style={{
-          fontSize: 'clamp(3.5rem, 8vw, 7rem)',
+          fontSize: 'clamp(2.5rem, 6vw, 5rem)',
           fontWeight: 800,
           lineHeight: 1.05,
           marginBottom: '1.5rem',
