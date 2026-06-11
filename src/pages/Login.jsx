@@ -80,14 +80,11 @@ const LoginPage = () => {
         pointerEvents: 'none'
       }} />
 
-      <div className="glass-card animate-fade-in" style={{ 
+      <div className="glass-card animate-fade-in prismatic-edge" style={{ 
         width: '100%', 
         maxWidth: 520, 
         padding: '3rem 2.5rem', 
-        border: '1px solid rgba(255, 255, 255, 0.15)',
-        background: 'transparent',
-        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-        borderRadius: '1.5rem'
+        borderRadius: 'var(--radius-xl)'
       }}>
         {/* Floating circular glowing logo area */}
         <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
@@ -110,15 +107,7 @@ const LoginPage = () => {
         </div>
 
         {/* Role Selector Tabs */}
-        <div style={{ 
-          display: 'flex', 
-          gap: '0.35rem', 
-          background: 'rgba(255, 255, 255, 0.06)', 
-          padding: '0.3rem', 
-          borderRadius: '0.75rem', 
-          marginBottom: '2rem',
-          border: '1px solid #E2E8F0'
-        }}>
+        <div className="role-selector-container" style={{ marginBottom: '2.5rem' }}>
           {['volunteer', 'ngo', 'company'].map(role => {
             const isActive = selectedRole === role;
             return (
@@ -128,19 +117,7 @@ const LoginPage = () => {
                   setSelectedRole(role);
                   setErrorMessage('');
                 }}
-                style={{
-                  flex: 1,
-                  padding: '0.5rem 0',
-                  fontSize: '0.8rem',
-                  fontWeight: isActive ? 800 : 600,
-                  textTransform: 'capitalize',
-                  border: 'none',
-                  borderRadius: '0.5rem',
-                  cursor: 'pointer',
-                  background: isActive ? 'var(--color-primary-dark)' : 'transparent',
-                  color: isActive ? 'transparent' : 'var(--color-text-secondary)',
-                  transition: 'all 0.2s ease-out'
-                }}
+                className={`role-btn ${isActive ? 'role-btn-active prismatic-edge' : 'role-btn-inactive'}`}
               >
                 {role}
               </button>
@@ -228,23 +205,8 @@ const LoginPage = () => {
 
           <button 
             type="submit" 
-            className="btn btn-primary" 
-            style={{ 
-              width: '100%', 
-              padding: '0.85rem', 
-              background: 'var(--color-primary-dark)', 
-              color: 'transparent', 
-              fontWeight: 800,
-              fontSize: '1rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: '0.5rem',
-              border: 'none',
-              cursor: 'pointer',
-              marginTop: '0.5rem',
-              borderRadius: '0.75rem'
-            }}
+            className="btn btn-primary prismatic-edge" 
+            style={{ width: '100%', marginTop: '1rem', padding: '1rem' }}
           >
             Access CSR Portal <ArrowRight size={18} />
           </button>
