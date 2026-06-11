@@ -209,7 +209,7 @@ const NgoProfile = () => {
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '1rem 1rem 3rem' }}>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem', cursor: 'pointer', color: '#64748B', width: 'fit-content' }} onClick={() => navigate('/ngo/dashboard')}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem', cursor: 'pointer', color: 'var(--color-text-muted)', width: 'fit-content' }} onClick={() => navigate('/ngo/dashboard')}>
         <ArrowLeft size={18} />
         <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>Back to Dashboard</span>
       </div>
@@ -274,7 +274,7 @@ const NgoProfile = () => {
               </div>
 
               <div className="profile-summary-info-text">
-                <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#1E293B', margin: '0 0 0.25rem', lineHeight: 1.3 }}>{user.name}</h2>
+                <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: '0 0 0.25rem', lineHeight: 1.3 }}>{user.name}</h2>
                 <div style={{ margin: '0.25rem 0' }}>
                   <div style={{
                     display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
@@ -287,8 +287,8 @@ const NgoProfile = () => {
                     <span>GC-NGO Verified</span>
                   </div>
                 </div>
-                <div style={{ padding: '0.4rem 0.75rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', fontSize: '0.9rem', fontWeight: 700, color: '#334155', fontFamily: 'monospace' }}>
-                  <span style={{ fontSize: '0.7rem', color: '#64748B', display: 'block', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', lineHeight: 1.2, marginBottom: '0.15rem' }}>NGO Darpan ID</span>
+                <div style={{ padding: '0.4rem 0.75rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-text-primary)', fontFamily: 'monospace' }}>
+                  <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', display: 'block', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', lineHeight: 1.2, marginBottom: '0.15rem' }}>NGO Darpan ID</span>
                   {(() => {
                     const darpan = user.ngoDarpanId || '';
                     const clean = darpan.replace(/\s/g, '');
@@ -337,7 +337,7 @@ const NgoProfile = () => {
             
             {/* Header toggle */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1.5px solid #E2E8F0', paddingBottom: '0.75rem' }}>
-              <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#1E293B', margin: 0, fontFamily: 'var(--font-title)' }}>
+              <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: 0, fontFamily: 'var(--font-title)' }}>
                 {isEditing ? 'Modify NGO Records' : 'NGO Verification Registry'}
               </h3>
               {!isEditing && (
@@ -378,19 +378,19 @@ const NgoProfile = () => {
                 
                 {/* NGO Name */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                  <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Organization Registered Name</label>
+                  <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Organization Registered Name</label>
                   {isEditing ? (
                     <input
                       type="text"
                       name="name"
                       required
                       className="form-input"
-                      style={{ color: '#1E293B', background: '#FFFFFF', border: '1.5px solid #CBD5E1' }}
+                      style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1.5px solid var(--color-border)' }}
                       value={formData.name}
                       onChange={handleChange}
                     />
                   ) : (
-                    <div style={{ padding: '0.75rem 1rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', color: '#1E293B', fontWeight: 600 }}>
+                    <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600 }}>
                       {user.name}
                     </div>
                   )}
@@ -401,7 +401,7 @@ const NgoProfile = () => {
                   
                   {/* Official Email */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                    <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Official NGO Email ID</label>
+                    <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Official NGO Email ID</label>
                     {isEditing ? (
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                         <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -411,7 +411,7 @@ const NgoProfile = () => {
                             required
                             disabled={otpVerified && formData.email !== user?.email}
                             className="form-input"
-                            style={{ flex: 1, color: '#1E293B', background: (otpVerified && formData.email !== user?.email) ? '#E2E8F0' : '#FFFFFF', border: '1.5px solid #CBD5E1' }}
+                            style={{ flex: 1, color: 'var(--color-text-primary)', background: (otpVerified && formData.email !== user?.email) ? '#E2E8F0' : '#FFFFFF', border: '1.5px solid var(--color-border)' }}
                             value={formData.email}
                             onChange={handleChange}
                           />
@@ -434,7 +434,7 @@ const NgoProfile = () => {
                               placeholder="Enter 6-digit OTP"
                               value={otp}
                               onChange={e => setOtp(e.target.value.replace(/\D/g, ''))}
-                              style={{ flex: 1, padding: '0.5rem 0.75rem', border: '1.5px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.9rem', textAlign: 'center', letterSpacing: '0.2em', fontWeight: 700 }}
+                              style={{ flex: 1, padding: '0.5rem 0.75rem', border: '1.5px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '0.9rem', textAlign: 'center', letterSpacing: '0.2em', fontWeight: 700 }}
                             />
                             <button
                               type="button"
@@ -452,8 +452,8 @@ const NgoProfile = () => {
                         )}
                       </div>
                     ) : (
-                      <div style={{ padding: '0.75rem 1rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', color: '#1E293B', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Mail size={15} style={{ color: '#64748B' }} />
+                      <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <Mail size={15} style={{ color: 'var(--color-text-muted)' }} />
                         {user.email}
                       </div>
                     )}
@@ -461,20 +461,20 @@ const NgoProfile = () => {
 
                   {/* Website */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                    <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Website / Web Portal</label>
+                    <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Website / Web Portal</label>
                     {isEditing ? (
                       <input
                         type="url"
                         name="website"
                         className="form-input"
-                        style={{ color: '#1E293B', background: '#FFFFFF', border: '1.5px solid #CBD5E1' }}
+                        style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1.5px solid var(--color-border)' }}
                         value={formData.website}
                         onChange={handleChange}
                         placeholder="https://example.org"
                       />
                     ) : (
-                      <div style={{ padding: '0.75rem 1rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', color: '#1E293B', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Globe size={15} style={{ color: '#64748B' }} />
+                      <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <Globe size={15} style={{ color: 'var(--color-text-muted)' }} />
                         {user.website ? (
                           <a href={user.website} target="_blank" rel="noopener noreferrer" style={{ color: '#00695C', textDecoration: 'underline' }}>
                             {user.website}
@@ -490,21 +490,21 @@ const NgoProfile = () => {
 
                 {/* HQ Headquarters Address */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                  <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Headquarters Address</label>
+                  <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Headquarters Address</label>
                   {isEditing ? (
                     <textarea
                       name="headquarters"
                       required
                       className="form-input"
                       rows="3"
-                      style={{ color: '#1E293B', background: '#FFFFFF', border: '1.5px solid #CBD5E1', minHeight: 80, resize: 'vertical', padding: '0.6rem 0.75rem' }}
+                      style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1.5px solid var(--color-border)', minHeight: 80, resize: 'vertical', padding: '0.6rem 0.75rem' }}
                       value={formData.headquarters}
                       onChange={handleChange}
                       placeholder="Full official office headquarters address"
                     />
                   ) : (
-                    <div style={{ padding: '0.85rem 1rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', color: '#1E293B', fontWeight: 600, display: 'flex', alignItems: 'flex-start', gap: '0.5rem', lineHeight: 1.5 }}>
-                      <MapPin size={16} style={{ color: '#64748B', marginTop: '0.15rem', flexShrink: 0 }} />
+                    <div style={{ padding: '0.85rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600, display: 'flex', alignItems: 'flex-start', gap: '0.5rem', lineHeight: 1.5 }}>
+                      <MapPin size={16} style={{ color: 'var(--color-text-muted)', marginTop: '0.15rem', flexShrink: 0 }} />
                       <span style={{ whiteSpace: 'pre-wrap' }}>{user.headquarters}</span>
                     </div>
                   )}
@@ -512,19 +512,19 @@ const NgoProfile = () => {
 
                 {/* About NGO */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                  <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>About NGO</label>
+                  <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>About NGO</label>
                   {isEditing ? (
                     <textarea
                       name="about"
                       className="form-input"
                       rows="3"
-                      style={{ color: '#1E293B', background: '#FFFFFF', border: '1.5px solid #CBD5E1', minHeight: 80, resize: 'vertical', padding: '0.6rem 0.75rem' }}
+                      style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1.5px solid var(--color-border)', minHeight: 80, resize: 'vertical', padding: '0.6rem 0.75rem' }}
                       value={formData.about}
                       onChange={handleChange}
                       placeholder="Write about your NGO..."
                     />
                   ) : (
-                    <div style={{ padding: '0.85rem 1rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', color: '#1E293B', fontWeight: 600, display: 'flex', alignItems: 'flex-start', gap: '0.5rem', lineHeight: 1.5 }}>
+                    <div style={{ padding: '0.85rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600, display: 'flex', alignItems: 'flex-start', gap: '0.5rem', lineHeight: 1.5 }}>
                       <span style={{ whiteSpace: 'pre-wrap' }}>{user.about || 'No information provided.'}</span>
                     </div>
                   )}
@@ -535,12 +535,12 @@ const NgoProfile = () => {
                   
                   {/* Focus Domain Select */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                    <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>NGO Core Focus Domain</label>
+                    <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>NGO Core Focus Domain</label>
                     {isEditing ? (
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                         <select
                           className="form-input"
-                          style={{ color: '#1E293B', background: '#FFFFFF', border: '1.5px solid #CBD5E1' }}
+                          style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1.5px solid var(--color-border)' }}
                           value={formData.domain}
                           onChange={handleDomainChange}
                         >
@@ -556,15 +556,15 @@ const NgoProfile = () => {
                             required
                             placeholder="Specify custom focus domain"
                             className="form-input animate-fade-in"
-                            style={{ color: '#1E293B', background: '#FFFFFF', border: '1.5px solid #CBD5E1' }}
+                            style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1.5px solid var(--color-border)' }}
                             value={formData.customDomain}
                             onChange={handleChange}
                           />
                         )}
                       </div>
                     ) : (
-                      <div style={{ padding: '0.75rem 1rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', color: '#1E293B', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Shield size={15} style={{ color: '#64748B' }} />
+                      <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <Shield size={15} style={{ color: 'var(--color-text-muted)' }} />
                         {user.domain} Focus
                       </div>
                     )}
@@ -582,8 +582,8 @@ const NgoProfile = () => {
                 </div>
 
                 {/* Sub-Section: Point of Contact (POC) Records */}
-                <div style={{ borderTop: '1px solid #E2E8F0', marginTop: '1rem', paddingTop: '1rem' }}>
-                  <h4 style={{ fontSize: '1rem', fontWeight: 800, color: '#1E293B', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <div style={{ borderTop: '1px solid var(--color-border)', marginTop: '1rem', paddingTop: '1rem' }}>
+                  <h4 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--color-text-primary)', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <User size={16} style={{ color: '#00695C' }} /> Point of Contact (POC) Details
                   </h4>
 
@@ -591,19 +591,19 @@ const NgoProfile = () => {
                     
                     {/* POC Name */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                      <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>POC Full Name</label>
+                      <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>POC Full Name</label>
                       {isEditing ? (
                         <input
                           type="text"
                           name="pocName"
                           required
                           className="form-input"
-                          style={{ color: '#1E293B', background: '#FFFFFF', border: '1.5px solid #CBD5E1' }}
+                          style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1.5px solid var(--color-border)' }}
                           value={formData.pocName}
                           onChange={handleChange}
                         />
                       ) : (
-                        <div style={{ padding: '0.75rem 1rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', color: '#1E293B', fontWeight: 600 }}>
+                        <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600 }}>
                           {user.pocName}
                         </div>
                       )}
@@ -611,19 +611,19 @@ const NgoProfile = () => {
 
                     {/* POC Designation */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                      <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>POC Designation</label>
+                      <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>POC Designation</label>
                       {isEditing ? (
                         <input
                           type="text"
                           name="pocDesignation"
                           required
                           className="form-input"
-                          style={{ color: '#1E293B', background: '#FFFFFF', border: '1.5px solid #CBD5E1' }}
+                          style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1.5px solid var(--color-border)' }}
                           value={formData.pocDesignation}
                           onChange={handleChange}
                         />
                       ) : (
-                        <div style={{ padding: '0.75rem 1rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', color: '#1E293B', fontWeight: 600 }}>
+                        <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600 }}>
                           {user.pocDesignation || 'Director'}
                         </div>
                       )}
@@ -635,21 +635,21 @@ const NgoProfile = () => {
                     
                     {/* POC Phone */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                      <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>POC Phone Number</label>
+                      <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>POC Phone Number</label>
                       {isEditing ? (
                         <input
                           type="text"
                           name="pocPhone"
                           required
                           className="form-input"
-                          style={{ color: '#1E293B', background: '#FFFFFF', border: '1.5px solid #CBD5E1' }}
+                          style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1.5px solid var(--color-border)' }}
                           value={formData.pocPhone}
                           onChange={handleChange}
                           placeholder="10-digit number"
                         />
                       ) : (
-                        <div style={{ padding: '0.75rem 1rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', color: '#1E293B', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                          <Phone size={14} style={{ color: '#64748B' }} />
+                        <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <Phone size={14} style={{ color: 'var(--color-text-muted)' }} />
                           +91 {user.pocPhone}
                         </div>
                       )}
@@ -657,20 +657,20 @@ const NgoProfile = () => {
 
                     {/* POC Email */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                      <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.04em' }}>POC Official Email</label>
+                      <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>POC Official Email</label>
                       {isEditing ? (
                         <input
                           type="email"
                           name="pocEmail"
                           required
                           className="form-input"
-                          style={{ color: '#1E293B', background: '#FFFFFF', border: '1.5px solid #CBD5E1' }}
+                          style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1.5px solid var(--color-border)' }}
                           value={formData.pocEmail}
                           onChange={handleChange}
                         />
                       ) : (
-                        <div style={{ padding: '0.75rem 1rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', color: '#1E293B', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                          <Mail size={14} style={{ color: '#64748B' }} />
+                        <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                          <Mail size={14} style={{ color: 'var(--color-text-muted)' }} />
                           {user.pocEmail}
                         </div>
                       )}
@@ -684,7 +684,7 @@ const NgoProfile = () => {
 
               {/* Action Save/Discard buttons */}
               {isEditing && (
-                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', borderTop: '1px solid #E2E8F0', paddingTop: '1.25rem' }}>
+                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', borderTop: '1px solid var(--color-border)', paddingTop: '1.25rem' }}>
                   <button
                     type="button"
                     onClick={() => setIsEditing(false)}
@@ -723,8 +723,8 @@ const NgoProfile = () => {
             width: '90%', maxWidth: 400, padding: '2rem',
             textAlign: 'center', border: '1px solid rgba(255, 255, 255, 0.25)',
             boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2)',
-            background: '#FFFFFF', borderRadius: '1.25rem',
-            color: '#1E293B'
+            background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: '1.25rem',
+            color: 'var(--color-text-primary)'
           }}>
             <div style={{
               width: 56, height: 56, borderRadius: '50%', background: '#FEF2F2',
@@ -733,10 +733,10 @@ const NgoProfile = () => {
             }}>
               <LogOut size={24} />
             </div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1E293B', marginBottom: '0.5rem' }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text-primary)', marginBottom: '0.5rem' }}>
               Confirm NGO Logout
             </h3>
-            <p style={{ fontSize: '0.9rem', color: '#64748B', marginBottom: '1.75rem', lineHeight: 1.5 }}>
+            <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', marginBottom: '1.75rem', lineHeight: 1.5 }}>
               Do you want to logout? Any unsaved changes in your session will be cleared.
             </p>
             <div style={{ display: 'flex', gap: '0.75rem' }}>
@@ -744,7 +744,7 @@ const NgoProfile = () => {
                 onClick={() => setShowLogoutConfirm(false)}
                 className="btn"
                 style={{
-                  flex: 1, padding: '0.75rem', background: '#F1F5F9', color: '#475569',
+                  flex: 1, padding: '0.75rem', background: 'var(--color-surface-hover)', backdropFilter: 'blur(12px)', color: 'var(--color-text-secondary)',
                   border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontWeight: 600, cursor: 'pointer'
                 }}
               >

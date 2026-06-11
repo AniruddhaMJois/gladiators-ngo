@@ -272,8 +272,8 @@ const CompanyOnboarding = () => {
         maxWidth: 580, 
         padding: '3rem 2.5rem', 
         borderRadius: '1.5rem', 
-        background: '#FFFFFF', 
-        border: '1px solid #E2E8F0',
+        background: 'var(--color-surface)', backdropFilter: 'blur(20px)', 
+        border: '1px solid var(--color-border)',
         boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.04)' 
       }}>
         
@@ -295,8 +295,8 @@ const CompanyOnboarding = () => {
             {bufferStatus === 'verifying' && (
               <>
                 <Loader2 size={36} className="animate-spin" style={{ color: '#F39C12', marginBottom: '1rem' }} />
-                <p style={{ fontWeight: 700, fontSize: '1.1rem', color: '#334155' }}>Connecting to DigiLocker Aadhaar Gateway...</p>
-                <p style={{ fontSize: '0.85rem', color: '#64748B', marginTop: '0.25rem' }}>Verifying POC Aadhaar and {formData.cin.length} character corporate CIN.</p>
+                <p style={{ fontWeight: 700, fontSize: '1.1rem', color: 'var(--color-text-primary)' }}>Connecting to DigiLocker Aadhaar Gateway...</p>
+                <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginTop: '0.25rem' }}>Verifying POC Aadhaar and {formData.cin.length} character corporate CIN.</p>
               </>
             )}
 
@@ -304,7 +304,7 @@ const CompanyOnboarding = () => {
               <>
                 <CheckCircle size={44} style={{ color: '#2E7D32', marginBottom: '1rem' }} />
                 <h3 style={{ fontWeight: 800, fontSize: '1.5rem', color: '#2E7D32', margin: 0 }}>Verified Successfully</h3>
-                <p style={{ fontSize: '0.9rem', color: '#475569', marginTop: '0.5rem' }}>Corporate CIN & Aadhaar matching checks completed.</p>
+                <p style={{ fontSize: '0.9rem', color: 'var(--color-text-secondary)', marginTop: '0.5rem' }}>Corporate CIN & Aadhaar matching checks completed.</p>
               </>
             )}
 
@@ -312,7 +312,7 @@ const CompanyOnboarding = () => {
               <>
                 <Loader2 size={36} className="animate-spin" style={{ color: '#2E7D32', marginBottom: '1rem' }} />
                 <h3 style={{ fontWeight: 800, fontSize: '1.5rem', color: '#2E7D32', margin: 0 }}>Registering</h3>
-                <p style={{ fontSize: '0.9rem', color: '#475569', marginTop: '0.5rem' }}>Creating secure GC-Company credentials...</p>
+                <p style={{ fontSize: '0.9rem', color: 'var(--color-text-secondary)', marginTop: '0.5rem' }}>Creating secure GC-Company credentials...</p>
               </>
             )}
           </div>
@@ -328,26 +328,26 @@ const CompanyOnboarding = () => {
             }}>
               <CheckCircle size={36} />
             </div>
-            <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: '#1E293B', marginBottom: '0.5rem' }}>Company Onboarded!</h2>
-            <p style={{ fontSize: '0.95rem', color: '#475569', marginBottom: '2rem' }}>
+            <h2 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--color-text-primary)', marginBottom: '0.5rem' }}>Company Onboarded!</h2>
+            <p style={{ fontSize: '0.95rem', color: 'var(--color-text-secondary)', marginBottom: '2rem' }}>
               Your company has been verified and registered successfully. Please record your login credentials.
             </p>
 
             <div style={{ 
-              background: '#F8FAFC', border: '1px dashed #CBD5E1', 
+              background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1px dashed #CBD5E1', 
               borderRadius: '1rem', padding: '1.5rem', marginBottom: '2.5rem',
               textAlign: 'left', display: 'flex', flexDirection: 'column', gap: '0.75rem' 
             }}>
               <div>
-                <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>GC-Company ID</span>
+                <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', fontWeight: 700, textTransform: 'uppercase' }}>GC-Company ID</span>
                 <div style={{ fontSize: '1.5rem', fontWeight: 900, color: '#3D5A34', fontFamily: 'monospace', letterSpacing: '0.05em', marginTop: '0.2rem' }}>
                   {generatedUser.gcId}
                 </div>
               </div>
-              <hr style={{ border: 'none', borderTop: '1px solid #E2E8F0', margin: '0.25rem 0' }} />
+              <hr style={{ border: 'none', borderTop: '1px solid var(--color-border)', margin: '0.25rem 0' }} />
               <div>
-                <span style={{ fontSize: '0.8rem', color: '#64748B', fontWeight: 700, textTransform: 'uppercase' }}>Secure 6-Digit PIN</span>
-                <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#1E293B', marginTop: '0.2rem' }}>
+                <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', fontWeight: 700, textTransform: 'uppercase' }}>Secure 6-Digit PIN</span>
+                <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-text-primary)', marginTop: '0.2rem' }}>
                   {generatedUser.pin}
                 </div>
               </div>
@@ -372,15 +372,15 @@ const CompanyOnboarding = () => {
             {/* Header */}
             <div className="animate-fade-in" style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
               <div style={{
-                width: 60, height: 60, borderRadius: '50%', background: '#F1F5F9',
+                width: 60, height: 60, borderRadius: '50%', background: 'var(--color-surface-hover)', backdropFilter: 'blur(12px)',
                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem'
               }}>
                 <Briefcase size={26} style={{ color: '#4A6741' }} />
               </div>
-              <h1 style={{ fontSize: '1.65rem', marginBottom: '0.5rem', color: '#1E293B', fontWeight: 800 }}>
+              <h1 style={{ fontSize: '1.65rem', marginBottom: '0.5rem', color: 'var(--color-text-primary)', fontWeight: 800 }}>
                 {step === 0 ? 'Corporate Portal' : 'Corporate Onboarding'}
               </h1>
-              <p style={{ fontSize: '0.9rem', color: '#475569' }}>
+              <p style={{ fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
                 {step === 0 ? 'Register your enterprise or log in to coordinate CSR activities.' : `$Step ${step}$ of 5: Enter details`}
               </p>
             </div>
@@ -421,7 +421,7 @@ const CompanyOnboarding = () => {
                 <button
                   onClick={() => navigate('/login?role=company')}
                   style={{
-                    width: '100%', background: 'rgba(241, 245, 249, 0.65)', border: '2px solid #E2E8F0',
+                    width: '100%', background: 'var(--color-surface-hover)', backdropFilter: 'blur(12px)', border: '2px solid var(--color-border)',
                     borderRadius: '1rem', padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.25rem',
                     textAlign: 'left', cursor: 'pointer', transition: 'all 0.3s ease'
                   }}
@@ -432,15 +432,15 @@ const CompanyOnboarding = () => {
                     <Lock size={18} style={{ color: '#4A6741' }} />
                   </div>
                   <div>
-                    <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#1E293B', margin: '0 0 0.15rem 0' }}>Login</h3>
-                    <p style={{ fontSize: '0.8rem', color: '#475569', margin: 0 }}>Access your corporate CSR portal using your GC-Company ID and 6-digit PIN.</p>
+                    <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: '0 0 0.15rem 0' }}>Login</h3>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', margin: 0 }}>Access your corporate CSR portal using your GC-Company ID and 6-digit PIN.</p>
                   </div>
                 </button>
 
                 <button
                   onClick={() => setStep(1)}
                   style={{
-                    width: '100%', background: 'rgba(241, 245, 249, 0.65)', border: '2px solid #E2E8F0',
+                    width: '100%', background: 'var(--color-surface-hover)', backdropFilter: 'blur(12px)', border: '2px solid var(--color-border)',
                     borderRadius: '1rem', padding: '1.5rem', display: 'flex', alignItems: 'center', gap: '1.25rem',
                     textAlign: 'left', cursor: 'pointer', transition: 'all 0.3s ease'
                   }}
@@ -451,8 +451,8 @@ const CompanyOnboarding = () => {
                     <Plus size={18} style={{ color: '#4A6741' }} />
                   </div>
                   <div>
-                    <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: '#1E293B', margin: '0 0 0.15rem 0' }}>Register Enterprise</h3>
-                    <p style={{ fontSize: '0.8rem', color: '#475569', margin: 0 }}>Validate via Corporate CIN and DigiLocker to start matching CSR opportunities.</p>
+                    <h3 style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: '0 0 0.15rem 0' }}>Register Enterprise</h3>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', margin: 0 }}>Validate via Corporate CIN and DigiLocker to start matching CSR opportunities.</p>
                   </div>
                 </button>
               </div>
@@ -462,24 +462,24 @@ const CompanyOnboarding = () => {
             {step === 1 && (
               <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569' }}>Name of the Company *</label>
+                  <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>Name of the Company *</label>
                   <input
                     type="text"
                     required
                     placeholder="Enter registered corporate name"
                     value={formData.name}
                     onChange={e => setFormData({ ...formData, name: e.target.value })}
-                    style={{ padding: '0.65rem 0.75rem', border: '2px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.9rem' }}
+                    style={{ padding: '0.65rem 0.75rem', border: '2px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '0.9rem' }}
                   />
                 </div>
 
                 <div style={{ display: 'flex', gap: '1rem' }}>
                   <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569' }}>Industry Sector *</label>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>Industry Sector *</label>
                     <select
                       value={formData.sector}
                       onChange={e => setFormData({ ...formData, sector: e.target.value })}
-                      style={{ padding: '0.65rem 0.75rem', border: '2px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.9rem', background: '#FFFFFF' }}
+                      style={{ padding: '0.65rem 0.75rem', border: '2px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '0.9rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }}
                     >
                       <option value="Technology">Technology</option>
                       <option value="Finance & Banking">Finance & Banking</option>
@@ -490,45 +490,45 @@ const CompanyOnboarding = () => {
                     </select>
                   </div>
                   <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569' }}>Official Website URL</label>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>Official Website URL</label>
                     <input
                       type="text"
                       required
                       placeholder="https://www.company.com"
                       value={formData.website}
                       onChange={e => setFormData({ ...formData, website: e.target.value })}
-                      style={{ padding: '0.65rem 0.75rem', border: '2px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.9rem' }}
+                      style={{ padding: '0.65rem 0.75rem', border: '2px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '0.9rem' }}
                     />
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569' }}>Official Corporate Email ID *</label>
+                  <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>Official Corporate Email ID *</label>
                   <input
                     type="email"
                     required
                     placeholder="csr@company.com"
                     value={formData.email}
                     onChange={e => setFormData({ ...formData, email: e.target.value })}
-                    style={{ padding: '0.65rem 0.75rem', border: '2px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.9rem' }}
+                    style={{ padding: '0.65rem 0.75rem', border: '2px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '0.9rem' }}
                   />
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569' }}>Headquarters Address *</label>
+                  <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>Headquarters Address *</label>
                   <textarea
                     required
                     rows={2}
                     placeholder="Corporate HQ address"
                     value={formData.hqAddress}
                     onChange={e => setFormData({ ...formData, hqAddress: e.target.value })}
-                    style={{ padding: '0.65rem 0.75rem', border: '2px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.9rem', resize: 'vertical' }}
+                    style={{ padding: '0.65rem 0.75rem', border: '2px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '0.9rem', resize: 'vertical' }}
                   />
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569' }}>CIN Number (exactly 21 characters/digits) *</label>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>CIN Number (exactly 21 characters/digits) *</label>
                     <span style={{ fontSize: '0.75rem', fontWeight: 600, color: formData.cin.length === 21 ? '#2E7D32' : '#E67E22' }}>
                       {formData.cin.length} / 21
                     </span>
@@ -540,7 +540,7 @@ const CompanyOnboarding = () => {
                     placeholder="e.g. L01234KA2026PLC012345"
                     value={formData.cin}
                     onChange={e => setFormData({ ...formData, cin: e.target.value.toUpperCase() })}
-                    style={{ padding: '0.65rem 0.75rem', border: '2px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.9rem', fontFamily: 'monospace', letterSpacing: '0.05em' }}
+                    style={{ padding: '0.65rem 0.75rem', border: '2px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '0.9rem', fontFamily: 'monospace', letterSpacing: '0.05em' }}
                   />
                 </div>
 
@@ -549,7 +549,7 @@ const CompanyOnboarding = () => {
                   <button
                     type="button"
                     onClick={() => setStep(0)}
-                    style={{ flex: 1, padding: '0.75rem', background: '#F1F5F9', color: '#475569', border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem' }}
+                    style={{ flex: 1, padding: '0.75rem', background: 'var(--color-surface-hover)', backdropFilter: 'blur(12px)', color: 'var(--color-text-secondary)', border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem' }}
                   >
                     <ArrowLeft size={16} /> Back
                   </button>
@@ -568,18 +568,18 @@ const CompanyOnboarding = () => {
             {step === 2 && (
               <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                  <label style={{ fontSize: '0.85rem', fontWeight: 700, color: '#475569' }}>Selected CSR Focus Areas *</label>
+                  <label style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>Selected CSR Focus Areas *</label>
                   <div style={{
                     display: 'flex', flexWrap: 'wrap', gap: '0.4rem',
-                    border: '2px solid #CBD5E1', padding: '0.75rem',
-                    borderRadius: '0.5rem', minHeight: '60px', background: '#F8FAFC',
+                    border: '2px solid var(--color-border)', padding: '0.75rem',
+                    borderRadius: '0.5rem', minHeight: '60px', background: 'var(--color-surface)', backdropFilter: 'blur(20px)',
                     alignItems: 'center'
                   }}>
                     {formData.csrFocusAreas.length > 0 ? (
                       formData.csrFocusAreas.map((csr, idx) => (
                         <span key={idx} style={{
                           display: 'inline-flex', alignItems: 'center', gap: '0.25rem',
-                          background: '#E2E8F0', color: '#334155', padding: '0.25rem 0.5rem',
+                          background: '#E2E8F0', color: 'var(--color-text-primary)', padding: '0.25rem 0.5rem',
                           borderRadius: '0.25rem', fontSize: '0.8rem', fontWeight: 600
                         }}>
                           {csr}
@@ -610,7 +610,7 @@ const CompanyOnboarding = () => {
                         if (csrInput.trim()) handleAddCsr(csrInput);
                       }
                     }}
-                    style={{ flex: 1, padding: '0.6rem 0.75rem', border: '2px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.9rem' }}
+                    style={{ flex: 1, padding: '0.6rem 0.75rem', border: '2px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '0.9rem' }}
                   />
                   <button
                     type="button"
@@ -624,7 +624,7 @@ const CompanyOnboarding = () => {
                 </div>
 
                 <div>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#64748B', display: 'block', marginBottom: '0.5rem' }}>Predefined CSR Sectors:</label>
+                  <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-muted)', display: 'block', marginBottom: '0.5rem' }}>Predefined CSR Sectors:</label>
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
                     {quickCsrFocus.map((csr, i) => {
                       const selected = formData.csrFocusAreas.includes(csr);
@@ -654,7 +654,7 @@ const CompanyOnboarding = () => {
                   <button
                     type="button"
                     onClick={() => setStep(1)}
-                    style={{ flex: 1, padding: '0.75rem', background: '#F1F5F9', color: '#475569', border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem' }}
+                    style={{ flex: 1, padding: '0.75rem', background: 'var(--color-surface-hover)', backdropFilter: 'blur(12px)', color: 'var(--color-text-secondary)', border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem' }}
                   >
                     <ArrowLeft size={16} /> Back
                   </button>
@@ -672,35 +672,35 @@ const CompanyOnboarding = () => {
             {/* Step 3: Primary Contact Person Details & OTP */}
             {step === 3 && (
               <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <h3 style={{ fontSize: '1rem', fontWeight: 800, color: '#1E293B', borderBottom: '1px solid #E2E8F0', paddingBottom: '0.5rem', margin: 0 }}>Primary Point of Contact Details</h3>
+                <h3 style={{ fontSize: '1rem', fontWeight: 800, color: 'var(--color-text-primary)', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.5rem', margin: 0 }}>Primary Point of Contact Details</h3>
                 
                 <div style={{ display: 'flex', gap: '1rem' }}>
                   <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569' }}>Full Name *</label>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>Full Name *</label>
                     <input
                       type="text"
                       required
                       placeholder="POC Full Name"
                       value={formData.pocName}
                       onChange={e => setFormData({ ...formData, pocName: e.target.value })}
-                      style={{ padding: '0.65rem 0.75rem', border: '2px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.9rem' }}
+                      style={{ padding: '0.65rem 0.75rem', border: '2px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '0.9rem' }}
                     />
                   </div>
                   <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569' }}>Designation</label>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>Designation</label>
                     <input
                       type="text"
                       required
                       placeholder="e.g. CSR Head, VP HR"
                       value={formData.pocDesignation}
                       onChange={e => setFormData({ ...formData, pocDesignation: e.target.value })}
-                      style={{ padding: '0.65rem 0.75rem', border: '2px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.9rem' }}
+                      style={{ padding: '0.65rem 0.75rem', border: '2px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '0.9rem' }}
                     />
                   </div>
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569' }}>Phone Number *</label>
+                  <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>Phone Number *</label>
                   <input
                     type="text"
                     required
@@ -708,14 +708,14 @@ const CompanyOnboarding = () => {
                     placeholder="10-digit POC phone number"
                     value={formData.pocPhone}
                     onChange={e => setFormData({ ...formData, pocPhone: e.target.value.replace(/\D/g, '') })}
-                    style={{ padding: '0.65rem 0.75rem', border: '2px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.9rem' }}
+                    style={{ padding: '0.65rem 0.75rem', border: '2px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '0.9rem' }}
                   />
                 </div>
 
                 {/* POC Email Verification Block */}
-                <div style={{ background: '#F8FAFC', padding: '1.25rem', borderRadius: '0.75rem', border: '1px solid #E2E8F0', display: 'flex', flexDirection: 'column', gap: '0.75rem', minHeight: '220px' }}>
+                <div style={{ background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '1.25rem', borderRadius: '0.75rem', border: '1px solid var(--color-border)', display: 'flex', flexDirection: 'column', gap: '0.75rem', minHeight: '220px' }}>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569' }}>POC Professional Email *</label>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>POC Professional Email *</label>
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                       <input
                         type="email"
@@ -724,7 +724,7 @@ const CompanyOnboarding = () => {
                         placeholder="poc.name@company.com"
                         value={formData.pocEmail}
                         onChange={e => setFormData({ ...formData, pocEmail: e.target.value })}
-                        style={{ flex: 1, padding: '0.6rem 0.75rem', border: '2px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.9rem', background: otpVerified ? '#E2E8F0' : '#FFFFFF' }}
+                        style={{ flex: 1, padding: '0.6rem 0.75rem', border: '2px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '0.9rem', background: otpVerified ? '#E2E8F0' : '#FFFFFF' }}
                       />
                       {!otpVerified && (
                         <button
@@ -751,7 +751,7 @@ const CompanyOnboarding = () => {
 
                   {otpSent && !otpVerified && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem', animation: 'fadeIn 0.2s ease-out' }}>
-                      <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B' }}>Enter 6-Digit OTP *</label>
+                      <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)' }}>Enter 6-Digit OTP *</label>
                       <div style={{ display: 'flex', gap: '0.5rem' }}>
                         <input
                            type="text"
@@ -759,7 +759,7 @@ const CompanyOnboarding = () => {
                            placeholder="e.g. 123456"
                            value={formData.otp}
                            onChange={e => setFormData({ ...formData, otp: e.target.value.replace(/\D/g, '') })}
-                           style={{ flex: 1, padding: '0.5rem 0.75rem', border: '2px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.9rem', textAlign: 'center', letterSpacing: '0.2em', fontWeight: 700 }}
+                           style={{ flex: 1, padding: '0.5rem 0.75rem', border: '2px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '0.9rem', textAlign: 'center', letterSpacing: '0.2em', fontWeight: 700 }}
                         />
                         <button
                           type="button"
@@ -787,7 +787,7 @@ const CompanyOnboarding = () => {
                   <button
                     type="button"
                     onClick={() => setStep(2)}
-                    style={{ flex: 1, padding: '0.75rem', background: '#F1F5F9', color: '#475569', border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem' }}
+                    style={{ flex: 1, padding: '0.75rem', background: 'var(--color-surface-hover)', backdropFilter: 'blur(12px)', color: 'var(--color-text-secondary)', border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem' }}
                   >
                     <ArrowLeft size={16} /> Back
                   </button>
@@ -806,7 +806,7 @@ const CompanyOnboarding = () => {
             {step === 4 && (
               <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div style={{
-                  background: '#F1F5F9', padding: '1rem', borderRadius: '0.5rem', fontSize: '0.8rem', color: '#475569',
+                  background: 'var(--color-surface-hover)', backdropFilter: 'blur(12px)', padding: '1rem', borderRadius: '0.5rem', fontSize: '0.8rem', color: 'var(--color-text-secondary)',
                   display: 'flex', alignItems: 'flex-start', gap: '0.5rem', borderLeft: '4px solid #4A6741'
                 }}>
                   <Shield size={18} style={{ color: '#4A6741', flexShrink: 0 }} />
@@ -816,7 +816,7 @@ const CompanyOnboarding = () => {
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569' }}>Enter 6-Digit PIN *</label>
+                  <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>Enter 6-Digit PIN *</label>
                   <input
                     type="password"
                     maxLength={6}
@@ -824,12 +824,12 @@ const CompanyOnboarding = () => {
                     placeholder="••••••"
                     value={formData.pin}
                     onChange={e => setFormData({ ...formData, pin: e.target.value.replace(/\D/g, '') })}
-                    style={{ padding: '0.65rem 0.75rem', border: '2px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '1.1rem', letterSpacing: '0.2em', fontWeight: 700, textAlign: 'center' }}
+                    style={{ padding: '0.65rem 0.75rem', border: '2px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '1.1rem', letterSpacing: '0.2em', fontWeight: 700, textAlign: 'center' }}
                   />
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                  <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569' }}>Confirm 6-Digit PIN *</label>
+                  <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>Confirm 6-Digit PIN *</label>
                   <input
                     type="password"
                     maxLength={6}
@@ -837,7 +837,7 @@ const CompanyOnboarding = () => {
                     placeholder="••••••"
                     value={formData.confirmPin}
                     onChange={e => setFormData({ ...formData, confirmPin: e.target.value.replace(/\D/g, '') })}
-                    style={{ padding: '0.65rem 0.75rem', border: '2px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '1.1rem', letterSpacing: '0.2em', fontWeight: 700, textAlign: 'center' }}
+                    style={{ padding: '0.65rem 0.75rem', border: '2px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '1.1rem', letterSpacing: '0.2em', fontWeight: 700, textAlign: 'center' }}
                   />
                 </div>
 
@@ -846,7 +846,7 @@ const CompanyOnboarding = () => {
                   <button
                     type="button"
                     onClick={() => setStep(3)}
-                    style={{ flex: 1, padding: '0.75rem', background: '#F1F5F9', color: '#475569', border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem' }}
+                    style={{ flex: 1, padding: '0.75rem', background: 'var(--color-surface-hover)', backdropFilter: 'blur(12px)', color: 'var(--color-text-secondary)', border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem' }}
                   >
                     <ArrowLeft size={16} /> Back
                   </button>
@@ -865,7 +865,7 @@ const CompanyOnboarding = () => {
             {step === 5 && (
               <form onSubmit={handleVerifyAadhaar} className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
                 <div style={{ 
-                  padding: '1.5rem', border: '1px solid #E2E8F0', background: '#F8FAFC',
+                  padding: '1.5rem', border: '1px solid var(--color-border)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)',
                   borderRadius: '1rem', borderTop: '4px solid #F39C12', position: 'relative', overflow: 'hidden'
                 }}>
                   <div style={{ position: 'absolute', top: -30, right: -30, opacity: 0.05 }}>
@@ -873,14 +873,14 @@ const CompanyOnboarding = () => {
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
                     <Shield size={20} style={{ color: '#F39C12' }} />
-                    <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 800, color: '#1E293B' }}>DigiLocker Verified Gateway</h3>
+                    <h3 style={{ margin: 0, fontSize: '1rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>DigiLocker Verified Gateway</h3>
                   </div>
-                  <p style={{ fontSize: '0.8rem', color: '#475569', margin: '0 0 1rem 0', lineHeight: 1.45 }}>
+                  <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', margin: '0 0 1rem 0', lineHeight: 1.45 }}>
                     To finalize corporate registration, verify the identity of primary contact person <strong>{formData.pocName}</strong> via DigiLocker database. Enter their <strong>12-digit Aadhaar number</strong>.
                   </p>
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: '#475569' }}>Primary Contact Aadhaar Number *</label>
+                    <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>Primary Contact Aadhaar Number *</label>
                     <input
                       type="text"
                       required
@@ -897,7 +897,7 @@ const CompanyOnboarding = () => {
                           setFormData({ ...formData, pocAadhaar: parts.join(' ') });
                         }
                       }}
-                      style={{ padding: '0.65rem 0.75rem', border: '2px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '1rem', textAlign: 'center', fontWeight: 700, letterSpacing: '0.1em' }}
+                      style={{ padding: '0.65rem 0.75rem', border: '2px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '1rem', textAlign: 'center', fontWeight: 700, letterSpacing: '0.1em' }}
                     />
                   </div>
                 </div>
@@ -916,7 +916,7 @@ const CompanyOnboarding = () => {
                   <button
                     type="button"
                     onClick={() => setStep(4)}
-                    style={{ flex: 1, padding: '0.75rem', background: '#F1F5F9', color: '#475569', border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem' }}
+                    style={{ flex: 1, padding: '0.75rem', background: 'var(--color-surface-hover)', backdropFilter: 'blur(12px)', color: 'var(--color-text-secondary)', border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem' }}
                   >
                     <ArrowLeft size={16} /> Back
                   </button>

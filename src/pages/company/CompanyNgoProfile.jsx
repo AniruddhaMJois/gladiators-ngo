@@ -68,11 +68,11 @@ const CompanyNgoProfile = () => {
           )}
           <div style={{ flex: 1 }}>
             <h1 style={{ margin: '0 0 0.5rem 0', fontSize: '2.5rem' }}>{ngo.name}</h1>
-            <div style={{ display: 'flex', gap: '1.5rem', color: '#64748B', marginBottom: '1.5rem' }}>
+            <div style={{ display: 'flex', gap: '1.5rem', color: 'var(--color-text-muted)', marginBottom: '1.5rem' }}>
               <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><MapPin size={18} /> {ngo.headquarters || 'Unknown Location'}</span>
               <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Target size={18} /> {ngo.domain || 'General Cause'}</span>
             </div>
-            <p style={{ lineHeight: 1.7, color: '#334155', fontSize: '1.1rem' }}>{ngo.about || 'No details provided.'}</p>
+            <p style={{ lineHeight: 1.7, color: 'var(--color-text-primary)', fontSize: '1.1rem' }}>{ngo.about || 'No details provided.'}</p>
             
             <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem' }}>
               <button className="btn btn-primary" onClick={() => showToast('Pledge flow would start here.', 'info')}>
@@ -85,25 +85,25 @@ const CompanyNgoProfile = () => {
 
             {/* Impact Stats */}
             <div style={{ display: 'flex', gap: '1rem', marginTop: '2rem', borderTop: '1px dashed #E2E8F0', paddingTop: '2rem', flexWrap: 'wrap' }}>
-              <div style={{ flex: '1 1 120px', textAlign: 'center', background: '#F8FAFC', padding: '1rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+              <div style={{ flex: '1 1 120px', textAlign: 'center', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
                 <Users size={20} style={{ color: 'var(--color-secondary)', margin: '0 auto 0.5rem auto' }} />
-                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#334155' }}>{ngoStats.volunteers}</div>
-                <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase' }}>Volunteers</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{ngoStats.volunteers}</div>
+                <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Volunteers</div>
               </div>
-              <div style={{ flex: '1 1 120px', textAlign: 'center', background: '#F8FAFC', padding: '1rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+              <div style={{ flex: '1 1 120px', textAlign: 'center', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
                 <Clock size={20} style={{ color: 'var(--color-secondary)', margin: '0 auto 0.5rem auto' }} />
-                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#334155' }}>{ngoStats.hours}</div>
-                <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase' }}>Hours Logged</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{ngoStats.hours}</div>
+                <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Hours Logged</div>
               </div>
-              <div style={{ flex: '1 1 120px', textAlign: 'center', background: '#F8FAFC', padding: '1rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+              <div style={{ flex: '1 1 120px', textAlign: 'center', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
                 <Activity size={20} style={{ color: '#3B82F6', margin: '0 auto 0.5rem auto' }} />
-                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#334155' }}>{ngoStats.activeCampaigns}</div>
-                <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase' }}>Active Campaigns</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{ngoStats.activeCampaigns}</div>
+                <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Active Campaigns</div>
               </div>
-              <div style={{ flex: '1 1 120px', textAlign: 'center', background: '#F8FAFC', padding: '1rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+              <div style={{ flex: '1 1 120px', textAlign: 'center', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
                 <Activity size={20} style={{ color: '#94A3B8', margin: '0 auto 0.5rem auto' }} />
-                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#334155' }}>{ngoStats.endedCampaigns}</div>
-                <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase' }}>Ended Campaigns</div>
+                <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{ngoStats.endedCampaigns}</div>
+                <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Ended Campaigns</div>
               </div>
             </div>
           </div>
@@ -152,18 +152,18 @@ const CompanyNgoProfile = () => {
         
         {/* Volunteer Programs */}
         <div className="glass-card" style={{ padding: '2rem' }}>
-          <h3 style={{ marginBottom: '1.5rem', color: '#1E293B', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <h3 style={{ marginBottom: '1.5rem', color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <FileText size={20} /> Volunteer Programs
           </h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
 
             {programs.map(p => (
-              <div key={p._id} style={{ padding: '1.25rem', background: '#F8FAFC', borderRadius: '8px', borderLeft: `4px solid ${p.status === 'Completed' ? '#10B981' : 'var(--color-secondary)'}` }}>
+              <div key={p._id} style={{ padding: '1.25rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: '8px', borderLeft: `4px solid ${p.status === 'Completed' ? '#10B981' : 'var(--color-secondary)'}` }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
                   <h4 style={{ margin: 0, fontSize: '1.1rem' }}>{p.title}</h4>
                   <span className={`badge ${p.status === 'Completed' ? 'badge-secondary' : 'badge-primary'}`}>{p.status}</span>
                 </div>
-                <p style={{ fontSize: '0.9rem', color: '#64748B', marginBottom: '1rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.description}</p>
+                <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', marginBottom: '1rem', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>{p.description}</p>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', color: '#10B981', fontWeight: 600, marginBottom: '0.75rem' }}>
                   <Users size={14} /> {p.volunteerCount || 0} Volunteers
                 </div>
@@ -180,17 +180,17 @@ const CompanyNgoProfile = () => {
 
         {/* Campaigns & Detailed Expense Logs */}
         <div className="glass-card" style={{ padding: '2rem' }}>
-          <h3 style={{ marginBottom: '1.5rem', color: '#1E293B' }}>Campaigns & Expense Logs</h3>
-          <p style={{ color: '#64748B', fontSize: '0.9rem', marginBottom: '1.5rem' }}>Live feed of funds and exactly how they are being utilized.</p>
+          <h3 style={{ marginBottom: '1.5rem', color: 'var(--color-text-primary)' }}>Campaigns & Expense Logs</h3>
+          <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>Live feed of funds and exactly how they are being utilized.</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {campaigns.map(c => (
-              <div key={c._id} style={{ padding: '1.25rem', background: '#F8FAFC', borderRadius: '8px', borderLeft: `4px solid ${c.status === 'Completed' ? '#10B981' : 'var(--color-primary)'}` }}>
+              <div key={c._id} style={{ padding: '1.25rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: '8px', borderLeft: `4px solid ${c.status === 'Completed' ? '#10B981' : 'var(--color-primary)'}` }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.5rem' }}>
                   <h4 style={{ margin: 0, fontSize: '1.1rem' }}>{c.title}</h4>
                   <span className={`badge ${c.status === 'Completed' ? 'badge-secondary' : 'badge-primary'}`}>{c.status}</span>
                 </div>
                 
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', marginBottom: '0.5rem', color: '#64748B' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.9rem', marginBottom: '0.5rem', color: 'var(--color-text-muted)' }}>
                   <span>Raised: ₹{(c.raisedAmount || 0).toLocaleString()}</span>
                   <span>Goal: ₹{(c.targetAmount || 0).toLocaleString()}</span>
                 </div>
@@ -212,7 +212,7 @@ const CompanyNgoProfile = () => {
             ))}
             
             {expenses.map(e => (
-              <div key={e._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', borderBottom: '1px solid #E2E8F0' }}>
+              <div key={e._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', borderBottom: '1px solid var(--color-border)' }}>
                 <div>
                   <h5 style={{ margin: '0 0 0.25rem 0', fontSize: '1rem' }}>{e.title}</h5>
                   <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
@@ -239,11 +239,11 @@ const CompanyNgoProfile = () => {
       {/* Gallery Slideshow Modal */}
       {isGalleryModalOpen && selectedGalleryItem && (
         <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', background: 'rgba(0, 0, 0, 0.75)' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', borderRadius: '16px', background: '#ffffff', width: '100%', maxWidth: '1000px', maxHeight: '90vh' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', borderRadius: '16px', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', width: '100%', maxWidth: '1000px', maxHeight: '90vh' }}>
             {selectedGalleryItem.images && selectedGalleryItem.images.length > 0 ? (
               <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0f172a', padding: '1rem' }}>
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginBottom: '1rem' }}>
-                  <button onClick={() => setIsGalleryModalOpen(false)} style={{ background: '#FFFFFF', border: 'none', color: '#334155', cursor: 'pointer', width: 40, height: 40, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', flexShrink: 0 }}>
+                  <button onClick={() => setIsGalleryModalOpen(false)} style={{ background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: 'none', color: 'var(--color-text-primary)', cursor: 'pointer', width: 40, height: 40, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', flexShrink: 0 }}>
                     <X size={20} />
                   </button>
                 </div>
@@ -274,9 +274,9 @@ const CompanyNgoProfile = () => {
               </div>
             )}
 
-            <div style={{ padding: '1.5rem', background: '#ffffff', color: '#334155', borderTop: '1px solid #e2e8f0', flexShrink: 0 }}>
+            <div style={{ padding: '1.5rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', color: 'var(--color-text-primary)', borderTop: '1px solid var(--color-border)', flexShrink: 0 }}>
               <h3 style={{ fontSize: '1.5rem', fontWeight: 700, margin: '0 0 0.5rem', color: '#0f172a' }}>{selectedGalleryItem.title}</h3>
-              <p style={{ fontSize: '1rem', lineHeight: 1.6, opacity: 0.9, margin: 0, color: '#334155' }}>{selectedGalleryItem.description}</p>
+              <p style={{ fontSize: '1rem', lineHeight: 1.6, opacity: 0.9, margin: 0, color: 'var(--color-text-primary)' }}>{selectedGalleryItem.description}</p>
               
               {selectedGalleryItem.images && selectedGalleryItem.images.length > 1 && (
                 <div style={{ display: 'flex', gap: '0.6rem', marginTop: '1rem', justifyContent: 'center' }}>

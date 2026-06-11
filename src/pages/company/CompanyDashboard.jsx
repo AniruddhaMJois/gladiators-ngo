@@ -65,7 +65,7 @@ const ImpactTracker = () => {
             >
               <div>
                 <h4 style={{ margin: '0 0 0.5rem 0', fontSize: '1.1rem' }}>{d.campaignTitle}</h4>
-                <p style={{ margin: 0, color: '#64748B', fontWeight: 500 }}>Supported NGO: {d.ngoName}</p>
+                <p style={{ margin: 0, color: 'var(--color-text-muted)', fontWeight: 500 }}>Supported NGO: {d.ngoName}</p>
                 <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.85rem', color: '#94A3B8' }}>Donated on {new Date(d.date).toLocaleDateString()}</p>
               </div>
               <div style={{ textAlign: 'right', display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -75,19 +75,19 @@ const ImpactTracker = () => {
             </div>
             
             {expandedDonationId === d._id && (
-              <div style={{ padding: '1.5rem', borderTop: '1px solid #E2E8F0', background: '#F8FAFC' }}>
-                <h5 style={{ margin: '0 0 1rem 0', color: '#475569' }}>Expense Logs & Receipts</h5>
+              <div style={{ padding: '1.5rem', borderTop: '1px solid var(--color-border)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }}>
+                <h5 style={{ margin: '0 0 1rem 0', color: 'var(--color-text-secondary)' }}>Expense Logs & Receipts</h5>
                 {(donationExpenses[d._id] || []).length > 0 ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                     {donationExpenses[d._id].map(exp => (
-                      <div key={exp._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', background: 'white', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                      <div key={exp._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', background: 'white', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
                         <div>
                           <p style={{ margin: 0, fontWeight: 500 }}>{exp.title} <span className="badge badge-secondary">{exp.category}</span></p>
-                          <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.8rem', color: '#64748B' }}>{new Date(exp.date).toLocaleDateString()}</p>
+                          <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>{new Date(exp.date).toLocaleDateString()}</p>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                           <span style={{ fontWeight: 'bold', color: '#EF4444' }}>- ₹{exp.amountSpent.toLocaleString()}</span>
-                          <button className="icon-btn" style={{ background: '#F1F5F9' }} title="View Receipt"><FileText size={16} /></button>
+                          <button className="icon-btn" style={{ background: 'var(--color-surface-hover)', backdropFilter: 'blur(12px)' }} title="View Receipt"><FileText size={16} /></button>
                         </div>
                       </div>
                     ))}

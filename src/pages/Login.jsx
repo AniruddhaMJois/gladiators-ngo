@@ -157,7 +157,7 @@ const LoginPage = () => {
                 style={{ 
                   paddingLeft: '2.5rem', 
                   paddingRight: '2.5rem',
-                  borderColor: '#CBD5E1', 
+                  borderColor: 'var(--color-border)', 
                   borderWidth: '2px', 
                   background: 'transparent', 
                   color: 'var(--color-text-primary)',
@@ -187,7 +187,7 @@ const LoginPage = () => {
                 style={{ 
                   paddingLeft: '2.5rem', 
                   paddingRight: '2.5rem',
-                  borderColor: '#CBD5E1', 
+                  borderColor: 'var(--color-border)', 
                   borderWidth: '2px', 
                   background: 'transparent', 
                   color: 'var(--color-text-primary)',
@@ -241,7 +241,7 @@ const LoginPage = () => {
         <div style={{
           marginTop: '2rem',
           background: 'rgba(255, 255, 255, 0.03)',
-          border: '1px solid #E2E8F0',
+          border: '1px solid var(--color-border)',
           borderRadius: '0.75rem',
           padding: '0.75rem',
           fontSize: '0.75rem',

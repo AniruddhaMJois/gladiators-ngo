@@ -58,7 +58,7 @@ const DigilockerMock = ({ onVerify, entityType, isLogin }) => {
     <div style={{ 
       maxWidth: 420, margin: '0 auto', padding: '2rem', 
       borderTop: '3px solid #F39C12', position: 'relative', overflow: 'hidden',
-      background: '#F8FAFC', borderRadius: '1rem', border: '1px solid #E2E8F0'
+      background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: '1rem', border: '1px solid var(--color-border)'
     }}>
       {/* Background decoration */}
       <div style={{ position: 'absolute', top: -40, right: -40, opacity: 0.06 }}>
@@ -80,13 +80,13 @@ const DigilockerMock = ({ onVerify, entityType, isLogin }) => {
       {step === 1 && (
         <form onSubmit={handleVerify} className="animate-fade-in" style={{ position: 'relative', zIndex: 1 }}>
           <div className="form-group">
-            <label className="form-label" style={{ color: '#334155', fontWeight: 700 }}>
+            <label className="form-label" style={{ color: 'var(--color-text-primary)', fontWeight: 700 }}>
               {entityType === 'ngo' ? 'Government Registration ID' : (entityType === 'company' ? 'CIN Registration ID' : 'Aadhaar Number')}
             </label>
             <input
               type="text"
               className="form-input"
-              style={{ background: '#FFFFFF', color: '#0F172A', borderColor: '#CBD5E1', borderWidth: '2px' }}
+              style={{ background: 'var(--color-surface)', backdropFilter: 'blur(20px)', color: '#0F172A', borderColor: 'var(--color-border)', borderWidth: '2px' }}
               placeholder={entityType === 'volunteer' ? 'XXXX XXXX XXXX' : 'Enter your ID for verification'}
               value={idValue}
               onChange={handleIdChange}
@@ -106,7 +106,7 @@ const DigilockerMock = ({ onVerify, entityType, isLogin }) => {
         }}>
           <Loader2 size={40} className="animate-spin" style={{ color: '#F39C12', marginBottom: '1rem' }} />
           <p style={{ fontWeight: 600, fontSize: '0.95rem', color: '#0F172A' }}>Connecting to Government Databases...</p>
-          <p style={{ fontSize: '0.8rem', color: '#475569', marginTop: '0.25rem' }}>Please wait</p>
+          <p style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginTop: '0.25rem' }}>Please wait</p>
         </div>
       )}
 
@@ -117,7 +117,7 @@ const DigilockerMock = ({ onVerify, entityType, isLogin }) => {
         }}>
           <CheckCircle size={44} style={{ color: '#27AE60', marginBottom: '0.75rem' }} />
           <p style={{ fontSize: '1.1rem', fontWeight: 700, color: '#27AE60' }}>Verification Successful!</p>
-          <p style={{ fontSize: '0.85rem', color: '#475569', marginTop: '0.25rem' }}>Redirecting to next step...</p>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginTop: '0.25rem' }}>Redirecting to next step...</p>
         </div>
       )}
 
@@ -128,13 +128,13 @@ const DigilockerMock = ({ onVerify, entityType, isLogin }) => {
         }}>
           <span style={{ fontSize: '2.5rem', marginBottom: '0.75rem' }}>⚠️</span>
           <p style={{ fontSize: '1.1rem', fontWeight: 700, color: '#E74C3C', margin: '0 0 0.5rem 0' }}>Verification Failed</p>
-          <p style={{ fontSize: '0.85rem', color: '#64748B', lineHeight: 1.5, margin: '0 0 1.5rem 0' }}>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', lineHeight: 1.5, margin: '0 0 1.5rem 0' }}>
             DigiLocker verification is temporarily offline. Please use direct login or registration forms.
           </p>
           <button 
             type="button" 
             className="btn btn-outline" 
-            style={{ padding: '0.5rem 1.5rem', fontSize: '0.85rem', color: '#64748B', borderColor: '#CBD5E1' }}
+            style={{ padding: '0.5rem 1.5rem', fontSize: '0.85rem', color: 'var(--color-text-muted)', borderColor: 'var(--color-border)' }}
             onClick={() => {
               setIdValue('');
               setStep(1);

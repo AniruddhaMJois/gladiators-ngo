@@ -172,25 +172,25 @@ const ImpactProfile = () => {
         
         {/* Impact Stats */}
         <div style={{ display: 'flex', gap: '1rem', marginTop: '0.5rem', borderTop: '1px dashed #E2E8F0', paddingTop: '1.5rem', flexWrap: 'wrap' }}>
-          <div style={{ flex: '1 1 120px', textAlign: 'center', background: '#F8FAFC', padding: '1rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+          <div style={{ flex: '1 1 120px', textAlign: 'center', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
             <Users size={20} style={{ color: 'var(--color-secondary)', margin: '0 auto 0.5rem auto' }} />
-            <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#334155' }}>{ngoStats.volunteers}</div>
-            <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase' }}>Volunteers</div>
+            <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{ngoStats.volunteers}</div>
+            <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Volunteers</div>
           </div>
-          <div style={{ flex: '1 1 120px', textAlign: 'center', background: '#F8FAFC', padding: '1rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+          <div style={{ flex: '1 1 120px', textAlign: 'center', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
             <Clock size={20} style={{ color: 'var(--color-secondary)', margin: '0 auto 0.5rem auto' }} />
-            <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#334155' }}>{ngoStats.hours}</div>
-            <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase' }}>Hours Logged</div>
+            <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{ngoStats.hours}</div>
+            <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Hours Logged</div>
           </div>
-          <div style={{ flex: '1 1 120px', textAlign: 'center', background: '#F8FAFC', padding: '1rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+          <div style={{ flex: '1 1 120px', textAlign: 'center', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
             <Activity size={20} style={{ color: '#3B82F6', margin: '0 auto 0.5rem auto' }} />
-            <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#334155' }}>{ngoStats.activeCampaigns}</div>
-            <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase' }}>Active Campaigns</div>
+            <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{ngoStats.activeCampaigns}</div>
+            <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Active Campaigns</div>
           </div>
-          <div style={{ flex: '1 1 120px', textAlign: 'center', background: '#F8FAFC', padding: '1rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+          <div style={{ flex: '1 1 120px', textAlign: 'center', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '1rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
             <Activity size={20} style={{ color: '#94A3B8', margin: '0 auto 0.5rem auto' }} />
-            <div style={{ fontSize: '1.5rem', fontWeight: 700, color: '#334155' }}>{ngoStats.endedCampaigns}</div>
-            <div style={{ fontSize: '0.8rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase' }}>Ended Campaigns</div>
+            <div style={{ fontSize: '1.5rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{ngoStats.endedCampaigns}</div>
+            <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Ended Campaigns</div>
           </div>
         </div>
       </div>
@@ -204,7 +204,7 @@ const ImpactProfile = () => {
               const imgCount = Math.min(item.images?.length || 0, 3);
               return (
                 <div key={i} style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', cursor: 'pointer', position: 'relative' }} onClick={() => { setSelectedGalleryItem(item); setActiveImageIndex(0); setEditMode(false); setIsGalleryModalOpen(true); }}>
-                  <button onClick={(e) => { e.stopPropagation(); handleDeleteGalleryItem(item); }} style={{ position: 'absolute', top: 4, right: 4, background: '#FFFFFF', color: '#EF4444', border: 'none', borderRadius: '50%', width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 20, boxShadow: '0 2px 4px rgba(0,0,0,0.2)', cursor: 'pointer' }}>
+                  <button onClick={(e) => { e.stopPropagation(); handleDeleteGalleryItem(item); }} style={{ position: 'absolute', top: 4, right: 4, background: 'var(--color-surface)', backdropFilter: 'blur(20px)', color: '#EF4444', border: 'none', borderRadius: '50%', width: 28, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 20, boxShadow: '0 2px 4px rgba(0,0,0,0.2)', cursor: 'pointer' }}>
                     <Trash2 size={14} />
                   </button>
                   <div style={{ position: 'relative', aspectRatio: '1', width: '100%', padding: '12px' }}>
@@ -255,7 +255,7 @@ const ImpactProfile = () => {
         <div style={{ position: 'fixed', inset: 0, zIndex: 1000, background: 'rgba(0,0,0,0.9)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div style={{ position: 'relative', width: '90%', maxWidth: editMode ? 600 : 1000, height: editMode ? '85vh' : '90vh', display: 'flex', flexDirection: 'column', background: editMode ? '#fff' : 'transparent', borderRadius: editMode ? '16px' : '0' }}>
             {editMode && (
-              <button onClick={() => setIsGalleryModalOpen(false)} style={{ position: 'absolute', top: 16, right: 16, background: '#F1F5F9', border: 'none', color: '#334155', borderRadius: '50%', width: 40, height: 40, cursor: 'pointer', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <button onClick={() => setIsGalleryModalOpen(false)} style={{ position: 'absolute', top: 16, right: 16, background: 'var(--color-surface-hover)', backdropFilter: 'blur(12px)', border: 'none', color: 'var(--color-text-primary)', borderRadius: '50%', width: 40, height: 40, cursor: 'pointer', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <X size={20} />
               </button>
             )}
@@ -288,9 +288,9 @@ const ImpactProfile = () => {
                 
                 <div className="form-group">
                   <label className="form-label">Upload Photos (Max 8)</label>
-                  <div style={{ border: '2px dashed #CBD5E1', padding: '1.5rem', borderRadius: '12px', textAlign: 'center', background: '#F8FAFC', marginBottom: '1rem', cursor: 'pointer' }} onClick={() => document.getElementById('gallery-upload').click()}>
-                    <Plus size={24} style={{ color: '#64748B', margin: '0 auto 0.5rem' }} />
-                    <p style={{ margin: 0, fontSize: '0.9rem', color: '#64748B', fontWeight: 600 }}>Click to browse images</p>
+                  <div style={{ border: '2px dashed #CBD5E1', padding: '1.5rem', borderRadius: '12px', textAlign: 'center', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', marginBottom: '1rem', cursor: 'pointer' }} onClick={() => document.getElementById('gallery-upload').click()}>
+                    <Plus size={24} style={{ color: 'var(--color-text-muted)', margin: '0 auto 0.5rem' }} />
+                    <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-muted)', fontWeight: 600 }}>Click to browse images</p>
                   </div>
                   <input type="file" id="gallery-upload" multiple accept="image/*" onChange={handleImageUpload} style={{ display: 'none' }} />
                   
@@ -311,10 +311,10 @@ const ImpactProfile = () => {
                   {selectedGalleryItem.images && selectedGalleryItem.images.length > 0 ? (
                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0f172a', padding: '1rem' }}>
                       <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginBottom: '1rem' }}>
-                        <button onClick={handleDeletePhoto} style={{ background: '#FFFFFF', border: 'none', color: '#EF4444', borderRadius: '50%', width: 40, height: 40, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.5)', flexShrink: 0 }}>
+                        <button onClick={handleDeletePhoto} style={{ background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: 'none', color: '#EF4444', borderRadius: '50%', width: 40, height: 40, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(0,0,0,0.5)', flexShrink: 0 }}>
                           <Trash2 size={18} />
                         </button>
-                        <button onClick={() => setIsGalleryModalOpen(false)} style={{ background: '#FFFFFF', border: 'none', color: '#334155', cursor: 'pointer', width: 40, height: 40, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', flexShrink: 0 }}>
+                        <button onClick={() => setIsGalleryModalOpen(false)} style={{ background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: 'none', color: 'var(--color-text-primary)', cursor: 'pointer', width: 40, height: 40, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', flexShrink: 0 }}>
                           <X size={20} />
                         </button>
                       </div>
@@ -339,9 +339,9 @@ const ImpactProfile = () => {
                     </>
                   )}
 
-            <div style={{ padding: '1.5rem', background: '#ffffff', color: '#334155', borderTop: '1px solid #e2e8f0', flexShrink: 0 }}>
+            <div style={{ padding: '1.5rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', color: 'var(--color-text-primary)', borderTop: '1px solid var(--color-border)', flexShrink: 0 }}>
               <h3 style={{ fontSize: '1.5rem', fontWeight: 700, margin: '0 0 0.5rem', color: '#0f172a' }}>{selectedGalleryItem.title}</h3>
-              <p style={{ fontSize: '1rem', lineHeight: 1.6, opacity: 0.9, margin: 0, color: '#334155' }}>{selectedGalleryItem.description}</p>
+              <p style={{ fontSize: '1rem', lineHeight: 1.6, opacity: 0.9, margin: 0, color: 'var(--color-text-primary)' }}>{selectedGalleryItem.description}</p>
                     
                     {selectedGalleryItem.images && selectedGalleryItem.images.length > 1 && (
                       <div style={{ display: 'flex', gap: '0.6rem', marginTop: '1rem', justifyContent: 'center' }}>
@@ -697,7 +697,7 @@ const ManagementSuite = () => {
                   <label className="form-label">Volunteer Attendance</label>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', marginTop: '0.5rem' }}>
                     {applications.filter(a => (a.programId?._id === selectedCampaignForEnd._id || a.programId === selectedCampaignForEnd._id) && a.status === 'Approved').map(app => (
-                      <div key={app._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', background: '#F8FAFC', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                      <div key={app._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                           {app.volunteerId?.profilePhoto ? (
                             <img src={app.volunteerId.profilePhoto} alt="vol" style={{ width: 32, height: 32, borderRadius: '50%', objectFit: 'cover' }} />
@@ -706,7 +706,7 @@ const ManagementSuite = () => {
                               {app.volunteerId?.name?.charAt(0) || '?'}
                             </div>
                           )}
-                          <span style={{ fontWeight: 600, fontSize: '0.9rem', color: '#1E293B' }}>{app.volunteerId?.name || 'Volunteer'}</span>
+                          <span style={{ fontWeight: 600, fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>{app.volunteerId?.name || 'Volunteer'}</span>
                         </div>
                         <div style={{ display: 'flex', gap: '0.5rem' }}>
                           <button type="button" onClick={() => setAttendanceState(prev => ({ ...prev, [app._id]: { ...prev[app._id], status: 'Present' } }))} style={{ padding: '0.25rem 0.75rem', fontSize: '0.8rem', borderRadius: '20px', border: 'none', cursor: 'pointer', background: attendanceState[app._id]?.status === 'Present' ? '#10B981' : '#E2E8F0', color: attendanceState[app._id]?.status === 'Present' ? 'white' : '#64748B', fontWeight: 600, transition: 'all 0.2s' }}>Present</button>
@@ -751,7 +751,7 @@ const ManagementSuite = () => {
                 {selectedApp.volunteerId?.profilePhoto ? (
                   <img src={selectedApp.volunteerId.profilePhoto} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
-                  <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#64748B' }}>
+                  <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-muted)' }}>
                     <Users size={32} />
                   </div>
                 )}
@@ -799,7 +799,7 @@ const ManagementSuite = () => {
                     return (
                       <span key={idx} style={{
                         display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
-                        background: '#F8FAFC', border: `1px solid ${colorMap[badge.level]}44`,
+                        background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: `1px solid ${colorMap[badge.level]}44`,
                         color: colorMap[badge.level], padding: '0.25rem 0.5rem',
                         borderRadius: 'var(--radius-sm)', fontSize: '0.75rem', fontWeight: 700
                       }}>
@@ -1049,12 +1049,12 @@ const OfflineEventLogger = () => {
                       <span className={`badge ${isPending ? 'badge-warning' : 'badge-secondary'}`}>
                         {isPending ? 'Pending Sync' : 'Synced'}
                       </span>
-                      <button onClick={() => handleEdit(ev)} style={{ background: 'none', border: 'none', color: '#64748B', cursor: 'pointer', padding: '4px' }} title="Edit"><Edit3 size={16} /></button>
+                      <button onClick={() => handleEdit(ev)} style={{ background: 'none', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer', padding: '4px' }} title="Edit"><Edit3 size={16} /></button>
                       <button onClick={() => handleDelete(ev._id)} style={{ background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer', padding: '4px' }} title="Delete"><Trash2 size={16} /></button>
                     </div>
                   </div>
                   {ev.notes && (
-                    <div style={{ fontSize: '0.9rem', color: '#334155', width: '100%', whiteSpace: 'pre-wrap', background: 'rgba(0,0,0,0.02)', padding: '0.75rem', borderRadius: '8px', borderLeft: '3px solid var(--color-primary)' }}>
+                    <div style={{ fontSize: '0.9rem', color: 'var(--color-text-primary)', width: '100%', whiteSpace: 'pre-wrap', background: 'rgba(0,0,0,0.02)', padding: '0.75rem', borderRadius: '8px', borderLeft: '3px solid var(--color-primary)' }}>
                       {ev.notes}
                     </div>
                   )}
@@ -1196,7 +1196,7 @@ const FinanceSuite = () => {
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
             <button onClick={() => setShowExpenseModal(true)} className="btn btn-secondary"><Plus size={16}/> Add Expense Log</button>
-            <div style={{ fontSize: '1.1rem', fontWeight: 'bold', color: '#334155' }}>
+            <div style={{ fontSize: '1.1rem', fontWeight: 'bold', color: 'var(--color-text-primary)' }}>
               Grand Total Till Now: ₹{expenses.reduce((acc, r) => acc + r.totalAmount, 0)}
             </div>
           </div>
@@ -1206,7 +1206,7 @@ const FinanceSuite = () => {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
                   <div>
                     <h4 style={{ margin: 0, fontSize: '1.2rem' }}>{r.title}</h4>
-                    <p style={{ fontSize: '0.85rem', color: '#64748B', margin: '0.25rem 0 0 0' }}>{new Date(r.date).toLocaleDateString()}</p>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', margin: '0.25rem 0 0 0' }}>{new Date(r.date).toLocaleDateString()}</p>
                     {r.campaignId && <p style={{ fontSize: '0.8rem', color: 'var(--color-primary)', margin: '0.25rem 0 0 0', fontWeight: 500 }}>Campaign: {r.campaignId.title}</p>}
                   </div>
                   <div style={{ textAlign: 'right' }}>
@@ -1218,9 +1218,9 @@ const FinanceSuite = () => {
                 
                 <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1rem' }}>
                   <thead>
-                    <tr style={{ borderBottom: '1px solid #E2E8F0', textAlign: 'left' }}>
-                      <th style={{ padding: '0.5rem', color: '#475569', fontSize: '0.9rem' }}>Particulars</th>
-                      <th style={{ padding: '0.5rem', color: '#475569', fontSize: '0.9rem', textAlign: 'right' }}>Expense (₹)</th>
+                    <tr style={{ borderBottom: '1px solid var(--color-border)', textAlign: 'left' }}>
+                      <th style={{ padding: '0.5rem', color: 'var(--color-text-secondary)', fontSize: '0.9rem' }}>Particulars</th>
+                      <th style={{ padding: '0.5rem', color: 'var(--color-text-secondary)', fontSize: '0.9rem', textAlign: 'right' }}>Expense (₹)</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -1235,7 +1235,7 @@ const FinanceSuite = () => {
                 
                 {r.bills && r.bills.length > 0 && (
                   <div>
-                    <h5 style={{ fontSize: '0.85rem', color: '#475569', marginBottom: '0.5rem' }}>Uploaded Bills ({r.bills.length})</h5>
+                    <h5 style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '0.5rem' }}>Uploaded Bills ({r.bills.length})</h5>
                     <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                       {r.bills.map((bill, bIdx) => {
                         const isObject = typeof bill === 'object' && bill !== null;
@@ -1244,7 +1244,7 @@ const FinanceSuite = () => {
                         const type = isObject ? bill.fileType : (typeof url === 'string' && url.startsWith('data:application/pdf') ? 'application/pdf' : 'image/jpeg');
                         
                         return (
-                          <a key={bIdx} href={url} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem', border: '1px solid #E2E8F0', borderRadius: '6px', textDecoration: 'none', color: '#334155', background: '#F8FAFC' }}>
+                          <a key={bIdx} href={url} target="_blank" rel="noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.5rem', border: '1px solid var(--color-border)', borderRadius: '6px', textDecoration: 'none', color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }}>
                             {type.includes('pdf') ? <FileText size={20} color="#EF4444" /> : <ImageIcon size={20} color="#3B82F6" />}
                             <span style={{ fontSize: '0.85rem', maxWidth: '150px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</span>
                           </a>
@@ -1254,8 +1254,8 @@ const FinanceSuite = () => {
                   </div>
                 )}
 
-                <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #E2E8F0', display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
-                  <button onClick={() => handleEditExpense(r)} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', background: 'none', border: '1px solid #E2E8F0', color: '#64748B', fontSize: '0.85rem', cursor: 'pointer', fontWeight: 500, padding: '0.3rem 0.6rem', borderRadius: '4px', transition: 'all 0.2s' }} onMouseOver={e => {e.currentTarget.style.background = '#F8FAFC'; e.currentTarget.style.color = '#334155'}} onMouseOut={e => {e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#64748B'}}>
+                <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--color-border)', display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
+                  <button onClick={() => handleEditExpense(r)} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', background: 'none', border: '1px solid var(--color-border)', color: 'var(--color-text-muted)', fontSize: '0.85rem', cursor: 'pointer', fontWeight: 500, padding: '0.3rem 0.6rem', borderRadius: '4px', transition: 'all 0.2s' }} onMouseOver={e => {e.currentTarget.style.background = '#F8FAFC'; e.currentTarget.style.color = '#334155'}} onMouseOut={e => {e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#64748B'}}>
                     <Edit3 size={14} /> Edit Log
                   </button>
                   <button onClick={() => handleDeleteExpense(r._id)} style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', background: 'none', border: 'none', color: '#EF4444', fontSize: '0.85rem', cursor: 'pointer', fontWeight: 500, padding: '0.3rem 0.6rem', borderRadius: '4px', transition: 'background 0.2s' }} onMouseOver={e => e.currentTarget.style.background = '#FEE2E2'} onMouseOut={e => e.currentTarget.style.background = 'transparent'}>
@@ -1264,7 +1264,7 @@ const FinanceSuite = () => {
                 </div>
               </div>
             ))}
-            {expenses.length === 0 && <p style={{ color: '#64748B' }}>No expense logs created yet.</p>}
+            {expenses.length === 0 && <p style={{ color: 'var(--color-text-muted)' }}>No expense logs created yet.</p>}
           </div>
         </div>
       )}
@@ -1277,12 +1277,12 @@ const FinanceSuite = () => {
               <div key={d._id} className="glass-card" style={{ padding: '1rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div>
                   <h4 style={{ margin: 0 }}>{d.donorName || 'Anonymous'}</h4>
-                  <p style={{ fontSize: '0.85rem', color: '#64748B', margin: '0.25rem 0 0 0' }}>{new Date(d.date).toLocaleDateString()}</p>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', margin: '0.25rem 0 0 0' }}>{new Date(d.date).toLocaleDateString()}</p>
                 </div>
                 <div style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#10B981' }}>+ ₹{d.amount}</div>
               </div>
             ))}
-            {donations.length === 0 && <p style={{ color: '#64748B' }}>No donations tracked yet.</p>}
+            {donations.length === 0 && <p style={{ color: 'var(--color-text-muted)' }}>No donations tracked yet.</p>}
           </div>
         </div>
       )}
@@ -1327,30 +1327,30 @@ const FinanceSuite = () => {
                 
                 <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1rem' }}>
                   <thead>
-                    <tr style={{ background: '#F8FAFC' }}>
-                      <th style={{ padding: '0.5rem', border: '1px solid #E2E8F0', textAlign: 'left', width: '60%' }}>Particulars</th>
-                      <th style={{ padding: '0.5rem', border: '1px solid #E2E8F0', textAlign: 'left', width: '30%' }}>Expense (₹)</th>
-                      <th style={{ padding: '0.5rem', border: '1px solid #E2E8F0', textAlign: 'center', width: '10%' }}>Action</th>
+                    <tr style={{ background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }}>
+                      <th style={{ padding: '0.5rem', border: '1px solid var(--color-border)', textAlign: 'left', width: '60%' }}>Particulars</th>
+                      <th style={{ padding: '0.5rem', border: '1px solid var(--color-border)', textAlign: 'left', width: '30%' }}>Expense (₹)</th>
+                      <th style={{ padding: '0.5rem', border: '1px solid var(--color-border)', textAlign: 'center', width: '10%' }}>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     {expenseForm.rows.map((row, idx) => (
                       <tr key={idx}>
-                        <td style={{ padding: '0.5rem', border: '1px solid #E2E8F0' }}>
+                        <td style={{ padding: '0.5rem', border: '1px solid var(--color-border)' }}>
                           <input type="text" required value={row.particulars} style={{ width: '100%', border: 'none', background: 'transparent', outline: 'none' }} placeholder="E.g., Event Setup" onChange={(e) => {
                             const newRows = [...expenseForm.rows];
                             newRows[idx].particulars = e.target.value;
                             setExpenseForm({...expenseForm, rows: newRows});
                           }} />
                         </td>
-                        <td style={{ padding: '0.5rem', border: '1px solid #E2E8F0' }}>
+                        <td style={{ padding: '0.5rem', border: '1px solid var(--color-border)' }}>
                           <input type="number" required value={row.expense} style={{ width: '100%', border: 'none', background: 'transparent', outline: 'none' }} placeholder="Amount" onChange={(e) => {
                             const newRows = [...expenseForm.rows];
                             newRows[idx].expense = e.target.value;
                             setExpenseForm({...expenseForm, rows: newRows});
                           }} />
                         </td>
-                        <td style={{ padding: '0.5rem', border: '1px solid #E2E8F0', textAlign: 'center' }}>
+                        <td style={{ padding: '0.5rem', border: '1px solid var(--color-border)', textAlign: 'center' }}>
                           <button type="button" disabled={expenseForm.rows.length === 1} onClick={() => {
                             const newRows = expenseForm.rows.filter((_, rIdx) => rIdx !== idx);
                             setExpenseForm({...expenseForm, rows: newRows});
@@ -1363,8 +1363,8 @@ const FinanceSuite = () => {
                   </tbody>
                   <tfoot>
                     <tr>
-                      <td style={{ padding: '0.5rem', border: '1px solid #E2E8F0', fontWeight: 'bold', textAlign: 'right' }}>Grand Total:</td>
-                      <td colSpan="2" style={{ padding: '0.5rem', border: '1px solid #E2E8F0', fontWeight: 'bold' }}>
+                      <td style={{ padding: '0.5rem', border: '1px solid var(--color-border)', fontWeight: 'bold', textAlign: 'right' }}>Grand Total:</td>
+                      <td colSpan="2" style={{ padding: '0.5rem', border: '1px solid var(--color-border)', fontWeight: 'bold' }}>
                         ₹{expenseForm.rows.reduce((acc, row) => acc + Number(row.expense || 0), 0)}
                       </td>
                     </tr>
@@ -1382,7 +1382,7 @@ const FinanceSuite = () => {
                       const name = isObject ? b.name : `Attached Bill ${i + 1}`;
                       const type = isObject ? b.fileType : (typeof b === 'string' && b.startsWith('data:application/pdf') ? 'application/pdf' : 'image/jpeg');
                       return (
-                        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: '#475569', background: '#F8FAFC', padding: '0.4rem 0.6rem', borderRadius: '4px' }}>
+                        <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--color-text-secondary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '0.4rem 0.6rem', borderRadius: '4px' }}>
                           {type.includes('pdf') ? <FileText size={16} color="#EF4444"/> : <ImageIcon size={16} color="#3B82F6"/>}
                           <span style={{ flex: 1, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{name}</span>
                           <button type="button" onClick={() => setExpenseForm(prev => ({...prev, bills: prev.bills.filter((_, idx) => idx !== i)}))} style={{ background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer', padding: 0 }}>
@@ -1509,15 +1509,15 @@ const NgoDashboard = () => {
       {showChecklist && pendingReports.length > 0 && (
         <div style={{ position: 'fixed', bottom: '2rem', right: '2rem', background: 'white', borderRadius: '12px', boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.2)', width: '320px', padding: '1.5rem', zIndex: 1000, borderLeft: '4px solid var(--color-warning)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-            <h3 style={{ margin: 0, fontSize: '1.1rem', color: '#334155', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <h3 style={{ margin: 0, fontSize: '1.1rem', color: 'var(--color-text-primary)', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <IndianRupee size={18} style={{ color: 'var(--color-warning)' }} /> Pending Tasks
             </h3>
             <button className="icon-btn" onClick={() => setShowChecklist(false)} style={{ margin: '-0.5rem -0.5rem 0 0' }}><X size={16} /></button>
           </div>
-          <p style={{ fontSize: '0.85rem', color: '#64748B', marginBottom: '1rem' }}>You have ended campaigns that need a finance report for transparency.</p>
+          <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', marginBottom: '1rem' }}>You have ended campaigns that need a finance report for transparency.</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
             {pendingReports.map(c => (
-              <div key={c._id} style={{ background: '#F8FAFC', padding: '0.75rem', borderRadius: '8px', fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div key={c._id} style={{ background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '0.75rem', borderRadius: '8px', fontSize: '0.9rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <span style={{ fontWeight: 500 }}>{c.title}</span>
                 <button className="btn btn-outline" style={{ padding: '0.2rem 0.5rem', fontSize: '0.75rem' }} onClick={() => handleGeneratePendingReport(c._id)}>Generate</button>
               </div>

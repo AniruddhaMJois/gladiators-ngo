@@ -119,11 +119,11 @@ const CharitySearch = () => {
                     <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--color-primary)' }}>{ngo.domain || 'General'}</p>
                   </div>
                 </div>
-                <p style={{ fontSize: '0.9rem', color: '#64748B', flex: 1, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', flex: 1, display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                   {ngo.about || 'No description available.'}
                 </p>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #E2E8F0' }}>
-                  <span style={{ fontSize: '0.85rem', color: '#64748B', display: 'flex', alignItems: 'center', gap: '4px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--color-border)' }}>
+                  <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', display: 'flex', alignItems: 'center', gap: '4px' }}>
                     <MapPin size={14}/> {ngo.headquarters || 'Unknown'}
                   </span>
                   <ChevronRight size={18} style={{ color: 'var(--color-primary)' }} />
@@ -131,7 +131,7 @@ const CharitySearch = () => {
               </div>
             ))}
             {ngosList.length === 0 && (
-              <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem', color: '#64748B' }}>
+              <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '3rem', color: 'var(--color-text-muted)' }}>
                 No NGOs found matching your criteria.
               </div>
             )}

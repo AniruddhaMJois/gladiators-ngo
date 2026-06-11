@@ -365,7 +365,7 @@ const VolunteerProfile = () => {
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '1rem 1rem 3rem' }}>
       
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem', cursor: 'pointer', color: '#64748B', width: 'fit-content' }} onClick={() => navigate('/volunteer/dashboard')}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem', cursor: 'pointer', color: 'var(--color-text-muted)', width: 'fit-content' }} onClick={() => navigate('/volunteer/dashboard')}>
         <ArrowLeft size={18} />
         <span style={{ fontWeight: 600, fontSize: '0.9rem' }}>Back to Dashboard</span>
       </div>
@@ -429,7 +429,7 @@ const VolunteerProfile = () => {
               </div>
 
               <div className="profile-summary-info-text">
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#1E293B', margin: '0 0 0.25rem' }}>{user.name}</h2>
+                <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: '0 0 0.25rem' }}>{user.name}</h2>
                 <div style={{ margin: '0.25rem 0' }}>
                   <div style={{
                     display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
@@ -442,8 +442,8 @@ const VolunteerProfile = () => {
                     <span>GC-VLT Verified</span>
                   </div>
                 </div>
-                <div style={{ padding: '0.4rem 0.75rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', fontSize: '0.9rem', fontWeight: 700, color: '#334155', fontFamily: 'monospace' }}>
-                  <span style={{ fontSize: '0.7rem', color: '#64748B', display: 'block', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', lineHeight: 1.2, marginBottom: '0.15rem' }}>GladiConnect ID</span>
+                <div style={{ padding: '0.4rem 0.75rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-text-primary)', fontFamily: 'monospace' }}>
+                  <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', display: 'block', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', lineHeight: 1.2, marginBottom: '0.15rem' }}>GladiConnect ID</span>
                   {user.gcId}
                 </div>
               </div>
@@ -496,7 +496,7 @@ const VolunteerProfile = () => {
             
             {/* Header section with toggle */}
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1.5px solid #E2E8F0', paddingBottom: '0.75rem' }}>
-              <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#1E293B', margin: 0, fontFamily: 'var(--font-title)' }}>
+              <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: 0, fontFamily: 'var(--font-title)' }}>
                 {isEditing ? 'Modify Personal Records' : 'Professional Profile Record'}
               </h3>
               {!isEditing && (
@@ -532,19 +532,19 @@ const VolunteerProfile = () => {
                 
                 {/* Full Name */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                  <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Name (Government Records)</label>
+                  <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Name (Government Records)</label>
                   {isEditing ? (
                     <input
                       type="text"
                       name="name"
                       required
                       className="form-input"
-                      style={{ color: '#1E293B', background: '#FFFFFF', border: '1.5px solid #CBD5E1' }}
+                      style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1.5px solid var(--color-border)' }}
                       value={formData.name}
                       onChange={handleChange}
                     />
                   ) : (
-                    <div style={{ padding: '0.75rem 1rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', color: '#1E293B', fontWeight: 600 }}>
+                    <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600 }}>
                       {user.name}
                     </div>
                   )}
@@ -555,7 +555,7 @@ const VolunteerProfile = () => {
                   
                   {/* Email */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                    <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Official Email Address</label>
+                    <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Official Email Address</label>
                     {isEditing ? (
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                         <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -565,7 +565,7 @@ const VolunteerProfile = () => {
                             required
                             disabled={otpVerified && formData.email !== user?.email}
                             className="form-input"
-                            style={{ flex: 1, color: '#1E293B', background: (otpVerified && formData.email !== user?.email) ? '#E2E8F0' : '#FFFFFF', border: '1.5px solid #CBD5E1' }}
+                            style={{ flex: 1, color: 'var(--color-text-primary)', background: (otpVerified && formData.email !== user?.email) ? '#E2E8F0' : '#FFFFFF', border: '1.5px solid var(--color-border)' }}
                             value={formData.email}
                             onChange={handleChange}
                           />
@@ -588,7 +588,7 @@ const VolunteerProfile = () => {
                               placeholder="Enter 6-digit OTP"
                               value={otp}
                               onChange={e => setOtp(e.target.value.replace(/\D/g, ''))}
-                              style={{ flex: 1, padding: '0.5rem 0.75rem', border: '1.5px solid #CBD5E1', borderRadius: '0.5rem', fontSize: '0.9rem', textAlign: 'center', letterSpacing: '0.2em', fontWeight: 700 }}
+                              style={{ flex: 1, padding: '0.5rem 0.75rem', border: '1.5px solid var(--color-border)', borderRadius: '0.5rem', fontSize: '0.9rem', textAlign: 'center', letterSpacing: '0.2em', fontWeight: 700 }}
                             />
                             <button
                               type="button"
@@ -606,8 +606,8 @@ const VolunteerProfile = () => {
                         )}
                       </div>
                     ) : (
-                      <div style={{ padding: '0.75rem 1rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', color: '#1E293B', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Mail size={15} style={{ color: '#64748B' }} />
+                      <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <Mail size={15} style={{ color: 'var(--color-text-muted)' }} />
                         {user.email}
                       </div>
                     )}
@@ -615,21 +615,21 @@ const VolunteerProfile = () => {
 
                   {/* Phone */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                    <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Phone Number</label>
+                    <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Phone Number</label>
                     {isEditing ? (
                       <input
                         type="text"
                         name="phone"
                         required
                         className="form-input"
-                        style={{ color: '#1E293B', background: '#FFFFFF', border: '1.5px solid #CBD5E1' }}
+                        style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1.5px solid var(--color-border)' }}
                         value={formData.phone}
                         onChange={handleChange}
                         placeholder="10-digit number"
                       />
                     ) : (
-                      <div style={{ padding: '0.75rem 1rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', color: '#1E293B', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Phone size={15} style={{ color: '#64748B' }} />
+                      <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <Phone size={15} style={{ color: 'var(--color-text-muted)' }} />
                         +91 {user.phone}
                       </div>
                     )}
@@ -642,20 +642,20 @@ const VolunteerProfile = () => {
                   
                   {/* Age */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                    <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Age (Digits only)</label>
+                    <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Age (Digits only)</label>
                     {isEditing ? (
                       <input
                         type="text"
                         name="age"
                         required
                         className="form-input"
-                        style={{ color: '#1E293B', background: '#FFFFFF', border: '1.5px solid #CBD5E1' }}
+                        style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1.5px solid var(--color-border)' }}
                         value={formData.age}
                         onChange={handleChange}
                       />
                     ) : (
-                      <div style={{ padding: '0.75rem 1rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', color: '#1E293B', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Calendar size={15} style={{ color: '#64748B' }} />
+                      <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <Calendar size={15} style={{ color: 'var(--color-text-muted)' }} />
                         {user.age} Years Old
                       </div>
                     )}
@@ -677,21 +677,21 @@ const VolunteerProfile = () => {
 
                 {/* Full Address */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                  <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Full Delivery & Contact Address</label>
+                  <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Full Delivery & Contact Address</label>
                   {isEditing ? (
                     <textarea
                       name="address"
                       required
                       className="form-input"
                       rows="3"
-                      style={{ color: '#1E293B', background: '#FFFFFF', border: '1.5px solid #CBD5E1', minHeight: 80, resize: 'vertical', padding: '0.6rem 0.75rem' }}
+                      style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1.5px solid var(--color-border)', minHeight: 80, resize: 'vertical', padding: '0.6rem 0.75rem' }}
                       value={formData.address}
                       onChange={handleChange}
                       placeholder="Enter house no, street address, locality, city, state"
                     />
                   ) : (
-                    <div style={{ padding: '0.85rem 1rem', background: '#F8FAFC', borderRadius: 'var(--radius-sm)', border: '1px solid #E2E8F0', color: '#1E293B', fontWeight: 600, minHeight: 50, display: 'flex', alignItems: 'flex-start', gap: '0.5rem', lineHeight: 1.5 }}>
-                      <MapPin size={16} style={{ color: '#64748B', marginTop: '0.15rem', flexShrink: 0 }} />
+                    <div style={{ padding: '0.85rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600, minHeight: 50, display: 'flex', alignItems: 'flex-start', gap: '0.5rem', lineHeight: 1.5 }}>
+                      <MapPin size={16} style={{ color: 'var(--color-text-muted)', marginTop: '0.15rem', flexShrink: 0 }} />
                       <span style={{ whiteSpace: 'pre-wrap' }}>{user.address || user.location}</span>
                     </div>
                   )}
@@ -699,16 +699,16 @@ const VolunteerProfile = () => {
 
                 {/* Interests Tag Box */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                  <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Primary Social Impact Interests</label>
+                  <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Primary Social Impact Interests</label>
                   
                   {isEditing ? (
-                    <div style={{ padding: '1rem', background: '#F8FAFC', border: '1.5px solid #CBD5E1', borderRadius: 'var(--radius-sm)' }}>
+                    <div style={{ padding: '1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: '1.5px solid var(--color-border)', borderRadius: 'var(--radius-sm)' }}>
                       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem', marginBottom: '0.75rem', minHeight: 38, alignItems: 'center' }}>
                         {formData.interests.length > 0 ? (
                           formData.interests.map((interest, idx) => (
                             <span key={idx} style={{
                               display: 'inline-flex', alignItems: 'center', gap: '0.25rem',
-                              background: '#E2E8F0', color: '#334155', padding: '0.25rem 0.6rem',
+                              background: '#E2E8F0', color: 'var(--color-text-primary)', padding: '0.25rem 0.6rem',
                               borderRadius: '0.25rem', fontSize: '0.8rem', fontWeight: 600
                             }}>
                               {interest}
@@ -722,13 +722,13 @@ const VolunteerProfile = () => {
                             </span>
                           ))
                         ) : (
-                          <span style={{ color: '#64748B', fontSize: '0.85rem', fontStyle: 'italic' }}>Select interests from options below</span>
+                          <span style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem', fontStyle: 'italic' }}>Select interests from options below</span>
                         )}
                       </div>
 
                       {/* Options to add */}
-                      <div style={{ borderTop: '1px solid #E2E8F0', paddingTop: '0.75rem' }}>
-                        <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#64748B', marginBottom: '0.5rem' }}>Click to add focus areas:</div>
+                      <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '0.75rem' }}>
+                        <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-muted)', marginBottom: '0.5rem' }}>Click to add focus areas:</div>
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
                           {availableInterests.map((interest) => {
                             const isAdded = formData.interests.includes(interest);
@@ -775,13 +775,13 @@ const VolunteerProfile = () => {
                             </span>
                           ))
                         ) : (
-                          <span style={{ fontStyle: 'italic', color: '#64748B', fontSize: '0.85rem' }}>No social interests specified</span>
+                          <span style={{ fontStyle: 'italic', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>No social interests specified</span>
                         )}
                       </div>
 
                       {/* Earned Badges Box */}
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', borderTop: '1.5px solid #E2E8F0', paddingTop: '1.25rem', marginTop: '0.75rem' }}>
-                        <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#475569', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Earned Badges & Achievements</label>
+                        <label style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '0.04em' }}>Earned Badges & Achievements</label>
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', padding: '0.5rem 0' }}>
                           {badgeData.badges && badgeData.badges.length > 0 ? (
                             badgeData.badges.map((badge, idx) => {
@@ -803,7 +803,7 @@ const VolunteerProfile = () => {
                                   onClick={() => setSelectedBadgeModal(badge)}
                                   style={{
                                     display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                                    background: '#F8FAFC',
+                                    background: 'var(--color-surface)', backdropFilter: 'blur(20px)',
                                     border: `1.5px solid ${colorMap[badge.level]}44`, color: colorMap[badge.level],
                                     padding: '0.35rem 0.75rem', borderRadius: 'var(--radius-sm)',
                                     fontSize: '0.8rem', fontWeight: 700, boxShadow: '0 2px 4px rgba(0,0,0,0.02)',
@@ -816,7 +816,7 @@ const VolunteerProfile = () => {
                               );
                             })
                           ) : (
-                            <span style={{ fontStyle: 'italic', color: '#64748B', fontSize: '0.85rem' }}>No badges earned yet. Keep volunteering to earn awards!</span>
+                            <span style={{ fontStyle: 'italic', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>No badges earned yet. Keep volunteering to earn awards!</span>
                           )}
                         </div>
                       </div>
@@ -828,7 +828,7 @@ const VolunteerProfile = () => {
 
               {/* Form Action Buttons (Save/Cancel) */}
               {isEditing && (
-                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', borderTop: '1px solid #E2E8F0', paddingTop: '1.25rem' }}>
+                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', borderTop: '1px solid var(--color-border)', paddingTop: '1.25rem' }}>
                   <button
                     type="button"
                     onClick={() => setIsEditing(false)}
@@ -867,8 +867,8 @@ const VolunteerProfile = () => {
             width: '90%', maxWidth: 400, padding: '2rem',
             textAlign: 'center', border: '1px solid rgba(255, 255, 255, 0.25)',
             boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2)',
-            background: '#FFFFFF', borderRadius: '1.25rem',
-            color: '#1E293B'
+            background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: '1.25rem',
+            color: 'var(--color-text-primary)'
           }}>
             <div style={{
               width: 56, height: 56, borderRadius: '50%', background: '#FEF2F2',
@@ -877,10 +877,10 @@ const VolunteerProfile = () => {
             }}>
               <LogOut size={24} />
             </div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#1E293B', marginBottom: '0.5rem' }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--color-text-primary)', marginBottom: '0.5rem' }}>
               Confirm Profile Logout
             </h3>
-            <p style={{ fontSize: '0.9rem', color: '#64748B', marginBottom: '1.75rem', lineHeight: 1.5 }}>
+            <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', marginBottom: '1.75rem', lineHeight: 1.5 }}>
               Do you want to logout? Any unsaved changes in your session will be cleared.
             </p>
             <div style={{ display: 'flex', gap: '0.75rem' }}>
@@ -888,7 +888,7 @@ const VolunteerProfile = () => {
                 onClick={() => setShowLogoutConfirm(false)}
                 className="btn"
                 style={{
-                  flex: 1, padding: '0.75rem', background: '#F1F5F9', color: '#475569',
+                  flex: 1, padding: '0.75rem', background: 'var(--color-surface-hover)', backdropFilter: 'blur(12px)', color: 'var(--color-text-secondary)',
                   border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontWeight: 600, cursor: 'pointer'
                 }}
               >
@@ -953,11 +953,11 @@ const VolunteerProfile = () => {
                 style={{
                   width: '100%', maxWidth: 460,
                   padding: '2.5rem 2rem 2rem', textAlign: 'center',
-                  background: '#FFFFFF',
+                  background: 'var(--color-surface)', backdropFilter: 'blur(20px)',
                   borderRadius: '24px', border: `2.5px solid ${tierColor[badge.level]}`,
                   boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.35)',
                   position: 'relative', overflow: 'hidden',
-                  color: '#1E293B'
+                  color: 'var(--color-text-primary)'
                 }}
               >
                 {/* Top Xmark button */}
@@ -966,7 +966,7 @@ const VolunteerProfile = () => {
                   style={{
                     position: 'absolute', top: 16, right: 16,
                     background: 'rgba(15, 23, 42, 0.05)', border: 'none',
-                    color: '#475569', width: 32, height: 32,
+                    color: 'var(--color-text-secondary)', width: 32, height: 32,
                     borderRadius: '50%', cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     transition: 'all 0.2s'
@@ -1015,7 +1015,7 @@ const VolunteerProfile = () => {
                 </h2>
 
                 <p style={{
-                  fontSize: '0.95rem', color: '#334155',
+                  fontSize: '0.95rem', color: 'var(--color-text-primary)',
                   lineHeight: 1.5, margin: '0 0 1.5rem',
                   padding: '0 0.5rem'
                 }}>

@@ -414,7 +414,7 @@ const GlobalLayout = () => {
             onClick={handleBack}
             style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem',
-              background: 'var(--color-nav-btn)', color: 'var(--color-text-secondary)', border: '1px solid #E2E8F0',
+              background: 'var(--color-nav-btn)', color: 'var(--color-text-secondary)', border: '1px solid var(--color-border)',
               borderRadius: 'var(--radius-md)', padding: '0.65rem 1.1rem', fontWeight: 600, fontSize: '0.95rem',
               cursor: 'pointer', transition: 'all 0.2s ease', outline: 'none'
             }}
@@ -430,7 +430,7 @@ const GlobalLayout = () => {
             onClick={handleHome}
             style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem',
-              background: 'var(--color-nav-btn)', color: 'var(--color-text-primary)', border: '1px solid #E2E8F0',
+              background: 'var(--color-nav-btn)', color: 'var(--color-text-primary)', border: '1px solid var(--color-border)',
               borderRadius: 'var(--radius-md)', padding: '0.65rem 1.1rem', fontWeight: 600, fontSize: '0.95rem',
               cursor: 'pointer', transition: 'all 0.2s ease', outline: 'none'
             }}
@@ -463,7 +463,7 @@ const GlobalLayout = () => {
 
           <button className="btn-ghost hidden-mobile" style={{
             display: 'flex', alignItems: 'center', gap: '0.4rem',
-            border: '1px solid #E2E8F0',
+            border: '1px solid var(--color-border)',
             borderRadius: 'var(--radius-md)',
             padding: '0.65rem 1.2rem',
             background: 'var(--color-nav-btn)',
@@ -479,7 +479,7 @@ const GlobalLayout = () => {
             style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
               width: '42px', height: '42px',
-              borderRadius: '50%', border: '1px solid #E2E8F0', cursor: 'pointer',
+              borderRadius: '50%', border: '1px solid var(--color-border)', cursor: 'pointer',
               background: 'var(--color-nav-btn)',
               color: 'var(--color-text-secondary)',
               transition: 'all var(--transition-fast)'
@@ -498,7 +498,7 @@ const GlobalLayout = () => {
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
                 padding: '0.65rem 1.2rem', fontSize: '0.95rem', fontWeight: 600,
-                borderRadius: 'var(--radius-md)', border: '1px solid #E2E8F0', cursor: 'pointer',
+                borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', cursor: 'pointer',
                 fontFamily: 'inherit',
                 background: 'var(--color-nav-btn)',
                 color: 'var(--color-text-primary)',
@@ -517,7 +517,7 @@ const GlobalLayout = () => {
                 <div onClick={() => setShowLangDropdown(false)} style={{ position: 'fixed', inset: 0, zIndex: 998 }} />
                 <div style={{
                   position: 'absolute', top: 'calc(100% + 0.5rem)', right: 0, zIndex: 999,
-                  background: 'var(--color-surface)', border: '1px solid #E2E8F0', borderRadius: '0.5rem',
+                  background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: '0.5rem',
                   boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', overflow: 'hidden', minWidth: '120px'
                 }}>
                   {languages.map((lang) => (
@@ -706,7 +706,7 @@ const GlobalLayout = () => {
             {/* GladiConnect ID Box */}
             <div style={{
               background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid #E2E8F0',
+              border: '1px solid var(--color-border)',
               borderRadius: '0.5rem',
               padding: '0.25rem 0.5rem',
               display: 'flex',
@@ -825,7 +825,7 @@ const GlobalLayout = () => {
                   </div>
                 </div>
 
-                <hr style={{ border: 'none', borderTop: '1px solid #E2E8F0', margin: '0.75rem 0' }} />
+                <hr style={{ border: 'none', borderTop: '1px solid var(--color-border)', margin: '0.75rem 0' }} />
 
                 {/* User Details */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '1.25rem' }}>
@@ -1023,7 +1023,7 @@ const GlobalLayout = () => {
                     <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>Primary Interests</label>
                     <div style={{
                       display: 'flex', flexWrap: 'wrap', gap: '0.4rem',
-                      border: '1px solid #E2E8F0', padding: '0.5rem',
+                      border: '1px solid var(--color-border)', padding: '0.5rem',
                       borderRadius: '0.375rem', minHeight: '45px', background: 'rgba(255, 255, 255, 0.03)',
                       alignItems: 'center'
                     }}>
@@ -1138,7 +1138,7 @@ const GlobalLayout = () => {
                     />
                   </div>
 
-                  <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '1rem', borderRadius: '0.5rem', border: '1px solid #E2E8F0', marginTop: '0.5rem' }}>
+                  <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '1rem', borderRadius: '0.5rem', border: '1px solid var(--color-border)', marginTop: '0.5rem' }}>
                     <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>Primary Point of Contact Details</h4>
                     <div style={{ display: 'flex', gap: '1rem', marginBottom: '0.75rem' }}>
                       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -1250,7 +1250,7 @@ const GlobalLayout = () => {
                     <label style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--color-text-secondary)' }}>Preferred CSR Focus Areas</label>
                     <div style={{
                       display: 'flex', flexWrap: 'wrap', gap: '0.4rem',
-                      border: '1px solid #E2E8F0', padding: '0.5rem',
+                      border: '1px solid var(--color-border)', padding: '0.5rem',
                       borderRadius: '0.375rem', minHeight: '45px', background: 'rgba(255, 255, 255, 0.03)',
                       alignItems: 'center'
                     }}>
@@ -1318,7 +1318,7 @@ const GlobalLayout = () => {
                     </div>
                   </div>
 
-                  <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '1rem', borderRadius: '0.5rem', border: '1px solid #E2E8F0', marginTop: '0.5rem' }}>
+                  <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '1rem', borderRadius: '0.5rem', border: '1px solid var(--color-border)', marginTop: '0.5rem' }}>
                     <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>Primary Point of Contact Details</h4>
                     <div style={{ display: 'flex', gap: '1rem', marginBottom: '0.75rem' }}>
                       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>

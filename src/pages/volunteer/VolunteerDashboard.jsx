@@ -142,16 +142,16 @@ const DirectorySearch = () => {
             value={domainFilter}
             onChange={e => setDomainFilter(e.target.value)}
           >
-            <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="All">All Domains</option>
+            <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="All">All Domains</option>
             {((Array.isArray(user?.interests) && user.interests.length > 0) || (typeof user?.interests === 'string' && user?.interests)) && (
-              <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="My Interests">My Interests</option>
+              <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="My Interests">My Interests</option>
             )}
-            <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="Environment">Environment</option>
-            <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="Education">Education</option>
-            <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="Health">Health</option>
-            <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="Disaster Relief">Disaster Relief</option>
-            <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="Animal Welfare">Animal Welfare</option>
-            <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="Rural Development">Rural Development</option>
+            <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="Environment">Environment</option>
+            <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="Education">Education</option>
+            <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="Health">Health</option>
+            <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="Disaster Relief">Disaster Relief</option>
+            <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="Animal Welfare">Animal Welfare</option>
+            <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="Rural Development">Rural Development</option>
           </select>
         </div>
       </div>
@@ -210,27 +210,27 @@ const DirectorySearch = () => {
           <div className="glass-card" style={{ padding: '2rem', width: '100%', maxWidth: 600, maxHeight: '90vh', overflowY: 'auto', position: 'relative' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
                <h3 className="section-title" style={{ margin: 0, fontSize: '1.5rem', color: 'var(--color-primary)', paddingRight: '2rem' }}>{selectedProgram.title}</h3>
-               <button type="button" onClick={() => setShowApplyModal(false)} style={{ background: '#F1F5F9', border: 'none', color: '#334155', borderRadius: '50%', width: 32, height: 32, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'absolute', top: '1.5rem', right: '1.5rem' }}>
+               <button type="button" onClick={() => setShowApplyModal(false)} style={{ background: 'var(--color-surface-hover)', backdropFilter: 'blur(12px)', border: 'none', color: 'var(--color-text-primary)', borderRadius: '50%', width: 32, height: 32, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'absolute', top: '1.5rem', right: '1.5rem' }}>
                  <X size={16} />
                </button>
             </div>
             
-            <div style={{ background: '#F8FAFC', padding: '1.25rem', borderRadius: '12px', marginBottom: '1.5rem', border: '1px solid #E2E8F0' }}>
-               <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.5rem', color: '#334155' }}>Program Description</h4>
-               <p style={{ fontSize: '0.95rem', color: '#475569', margin: '0 0 1.25rem 0', lineHeight: 1.6 }}>
+            <div style={{ background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '1.25rem', borderRadius: '12px', marginBottom: '1.5rem', border: '1px solid var(--color-border)' }}>
+               <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.5rem', color: 'var(--color-text-primary)' }}>Program Description</h4>
+               <p style={{ fontSize: '0.95rem', color: 'var(--color-text-secondary)', margin: '0 0 1.25rem 0', lineHeight: 1.6 }}>
                  {selectedProgram.description}
                </p>
-               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.85rem', color: '#64748B', borderTop: '1px solid #E2E8F0', paddingTop: '1rem' }}>
+               <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--color-text-muted)', borderTop: '1px solid var(--color-border)', paddingTop: '1rem' }}>
                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <Award size={16} style={{ color: 'var(--color-secondary)' }} />
-                    <span style={{ fontWeight: 600, color: '#334155' }}>Hosted by:</span> {selectedProgram.ngoId?.name}
+                    <span style={{ fontWeight: 600, color: 'var(--color-text-primary)' }}>Hosted by:</span> {selectedProgram.ngoId?.name}
                  </div>
                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <MapPin size={16} style={{ color: 'var(--color-secondary)' }} />
-                    <span style={{ fontWeight: 600, color: '#334155' }}>Location:</span> {selectedProgram.location || selectedProgram.ngoId?.location || selectedProgram.ngoId?.headquarters || 'TBD'}
+                    <span style={{ fontWeight: 600, color: 'var(--color-text-primary)' }}>Location:</span> {selectedProgram.location || selectedProgram.ngoId?.location || selectedProgram.ngoId?.headquarters || 'TBD'}
                  </div>
                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
-                    <span style={{ fontWeight: 600, color: '#334155' }}>Roles Needed:</span> 
+                    <span style={{ fontWeight: 600, color: 'var(--color-text-primary)' }}>Roles Needed:</span> 
                     {selectedProgram.rolesNeeded.map((role, i) => (
                       <span key={i} className="badge badge-primary" style={{ padding: '0.15rem 0.4rem', fontSize: '0.75rem' }}>{role}</span>
                     ))}
@@ -238,38 +238,38 @@ const DirectorySearch = () => {
                </div>
             </div>
 
-            <div style={{ marginBottom: '1.5rem', paddingBottom: '1.5rem', borderBottom: '1px solid #E2E8F0' }}>
-               <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.75rem', color: '#334155' }}>About the NGO</h4>
-               <p style={{ fontSize: '0.85rem', color: '#64748B', margin: '0 0 1rem 0', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+            <div style={{ marginBottom: '1.5rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--color-border)' }}>
+               <h4 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.75rem', color: 'var(--color-text-primary)' }}>About the NGO</h4>
+               <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', margin: '0 0 1rem 0', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
                  {selectedProgram.ngoId?.about || 'No description provided by the NGO.'}
                </p>
                <div style={{ display: 'flex', gap: '0.75rem', fontSize: '0.85rem', color: 'var(--color-primary)' }}>
                  <span style={{ display: 'flex', alignItems: 'center' }}>
                    <Target size={14} style={{ marginRight: '6px' }} />
-                   <span style={{ fontWeight: 600, color: '#334155', marginRight: '4px' }}>Domain:</span> 
+                   <span style={{ fontWeight: 600, color: 'var(--color-text-primary)', marginRight: '4px' }}>Domain:</span> 
                    {selectedProgram.ngoId?.domain}
                  </span>
                </div>
                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', borderTop: '1px dashed #E2E8F0', paddingTop: '1rem', flexWrap: 'wrap' }}>
-                  <div style={{ flex: '1 1 100px', textAlign: 'center', background: '#F8FAFC', padding: '0.75rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                  <div style={{ flex: '1 1 100px', textAlign: 'center', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
                     <Users size={16} style={{ color: 'var(--color-secondary)', margin: '0 auto 0.25rem auto' }} />
-                    <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#334155' }}>{ngoStats.volunteers}</div>
-                    <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase' }}>Volunteers</div>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{ngoStats.volunteers}</div>
+                    <div style={{ fontSize: '0.7rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Volunteers</div>
                   </div>
-                  <div style={{ flex: '1 1 100px', textAlign: 'center', background: '#F8FAFC', padding: '0.75rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                  <div style={{ flex: '1 1 100px', textAlign: 'center', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
                     <Clock size={16} style={{ color: 'var(--color-secondary)', margin: '0 auto 0.25rem auto' }} />
-                    <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#334155' }}>{ngoStats.hours}</div>
-                    <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase' }}>Hours Logged</div>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{ngoStats.hours}</div>
+                    <div style={{ fontSize: '0.7rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Hours Logged</div>
                   </div>
-                  <div style={{ flex: '1 1 100px', textAlign: 'center', background: '#F8FAFC', padding: '0.75rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                  <div style={{ flex: '1 1 100px', textAlign: 'center', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
                     <Activity size={16} style={{ color: '#3B82F6', margin: '0 auto 0.25rem auto' }} />
-                    <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#334155' }}>{ngoStats.activeCampaigns}</div>
-                    <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase' }}>Active</div>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{ngoStats.activeCampaigns}</div>
+                    <div style={{ fontSize: '0.7rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Active</div>
                   </div>
-                  <div style={{ flex: '1 1 100px', textAlign: 'center', background: '#F8FAFC', padding: '0.75rem', borderRadius: '8px', border: '1px solid #E2E8F0' }}>
+                  <div style={{ flex: '1 1 100px', textAlign: 'center', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
                     <Activity size={16} style={{ color: '#94A3B8', margin: '0 auto 0.25rem auto' }} />
-                    <div style={{ fontSize: '1.1rem', fontWeight: 700, color: '#334155' }}>{ngoStats.endedCampaigns}</div>
-                    <div style={{ fontSize: '0.7rem', fontWeight: 600, color: '#64748B', textTransform: 'uppercase' }}>Ended</div>
+                    <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>{ngoStats.endedCampaigns}</div>
+                    <div style={{ fontSize: '0.7rem', fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase' }}>Ended</div>
                   </div>
                </div>
             </div>
@@ -747,16 +747,16 @@ const NgoDirectoryView = ({ onSelectNgo }) => {
             value={domainFilter}
             onChange={e => setDomainFilter(e.target.value)}
           >
-            <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="All">All Domains</option>
+            <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="All">All Domains</option>
             {((Array.isArray(user?.interests) && user.interests.length > 0) || (typeof user?.interests === 'string' && user?.interests)) && (
-              <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="My Interests">My Interests</option>
+              <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="My Interests">My Interests</option>
             )}
-            <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="Environment">Environment</option>
-            <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="Education">Education</option>
-            <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="Health">Health</option>
-            <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="Disaster Relief">Disaster Relief</option>
-            <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="Animal Welfare">Animal Welfare</option>
-            <option style={{ color: '#1E293B', background: '#FFFFFF' }} value="Rural Development">Rural Development</option>
+            <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="Environment">Environment</option>
+            <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="Education">Education</option>
+            <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="Health">Health</option>
+            <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="Disaster Relief">Disaster Relief</option>
+            <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="Animal Welfare">Animal Welfare</option>
+            <option style={{ color: 'var(--color-text-primary)', background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }} value="Rural Development">Rural Development</option>
           </select>
         </div>
       </div>
@@ -884,11 +884,11 @@ const VolunteerNgoProfileView = ({ ngo, onBack }) => {
       {/* Gallery Slideshow Modal (Read-Only) */}
       {isGalleryModalOpen && selectedGalleryItem && (
         <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem', background: 'rgba(0, 0, 0, 0.75)' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', borderRadius: '16px', background: '#ffffff', width: '100%', maxWidth: '1000px', maxHeight: '90vh' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', position: 'relative', overflow: 'hidden', borderRadius: '16px', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', width: '100%', maxWidth: '1000px', maxHeight: '90vh' }}>
             {selectedGalleryItem.images && selectedGalleryItem.images.length > 0 ? (
               <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', background: '#0f172a', padding: '1rem' }}>
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginBottom: '1rem' }}>
-                  <button onClick={() => setIsGalleryModalOpen(false)} style={{ background: '#FFFFFF', border: 'none', color: '#334155', cursor: 'pointer', width: 40, height: 40, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', flexShrink: 0 }}>
+                  <button onClick={() => setIsGalleryModalOpen(false)} style={{ background: 'var(--color-surface)', backdropFilter: 'blur(20px)', border: 'none', color: 'var(--color-text-primary)', cursor: 'pointer', width: 40, height: 40, borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)', flexShrink: 0 }}>
                     <X size={20} />
                   </button>
                 </div>
@@ -919,9 +919,9 @@ const VolunteerNgoProfileView = ({ ngo, onBack }) => {
               </div>
             )}
 
-            <div style={{ padding: '1.5rem', background: '#ffffff', color: '#334155', borderTop: '1px solid #e2e8f0', flexShrink: 0 }}>
+            <div style={{ padding: '1.5rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', color: 'var(--color-text-primary)', borderTop: '1px solid var(--color-border)', flexShrink: 0 }}>
               <h3 style={{ fontSize: '1.5rem', fontWeight: 700, margin: '0 0 0.5rem', color: '#0f172a' }}>{selectedGalleryItem.title}</h3>
-              <p style={{ fontSize: '1rem', lineHeight: 1.6, opacity: 0.9, margin: 0, color: '#334155' }}>{selectedGalleryItem.description}</p>
+              <p style={{ fontSize: '1rem', lineHeight: 1.6, opacity: 0.9, margin: 0, color: 'var(--color-text-primary)' }}>{selectedGalleryItem.description}</p>
               
               {selectedGalleryItem.images && selectedGalleryItem.images.length > 1 && (
                 <div style={{ display: 'flex', gap: '0.6rem', marginTop: '1rem', justifyContent: 'center' }}>

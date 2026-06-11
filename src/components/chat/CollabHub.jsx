@@ -144,11 +144,11 @@ const CollabHub = () => {
       display: 'flex', 
       height: 'calc(100vh - 200px)', 
       minHeight: '600px',
-      background: '#FFFFFF',
+      background: 'var(--color-surface)', backdropFilter: 'blur(20px)',
       borderRadius: '1rem',
       overflow: 'hidden',
       boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
-      border: '1px solid #E2E8F0'
+      border: '1px solid var(--color-border)'
     }}>
       
       {/* Sidebar: Contacts List */}
@@ -157,12 +157,12 @@ const CollabHub = () => {
         borderRight: '1px solid #E2E8F0',
         display: 'flex',
         flexDirection: 'column',
-        background: '#F8FAFC'
+        background: 'var(--color-surface)', backdropFilter: 'blur(20px)'
       }}>
-        <div style={{ padding: '1.25rem', background: '#FFFFFF', borderBottom: '1px solid #E2E8F0' }}>
-          <h2 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#1E293B', margin: '0 0 1rem 0' }}>NGO Collab Hub</h2>
+        <div style={{ padding: '1.25rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderBottom: '1px solid var(--color-border)' }}>
+          <h2 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--color-text-primary)', margin: '0 0 1rem 0' }}>NGO Collab Hub</h2>
           <div style={{ position: 'relative' }}>
-            <Search size={16} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: '#64748B' }} />
+            <Search size={16} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }} />
             <input 
               type="text" 
               placeholder="Search NGOs..." 
@@ -183,7 +183,7 @@ const CollabHub = () => {
               <Loader2 className="animate-spin" style={{ color: '#4A6741' }} />
             </div>
           ) : filteredContacts.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '2rem', color: '#64748B', fontSize: '0.85rem' }}>
+            <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>
               No NGOs found.
             </div>
           ) : (
@@ -207,14 +207,14 @@ const CollabHub = () => {
                   {contact.profilePhoto ? (
                     <img src={contact.profilePhoto} alt={contact.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   ) : (
-                    <Building2 size={20} style={{ color: '#64748B' }} />
+                    <Building2 size={20} style={{ color: 'var(--color-text-muted)' }} />
                   )}
                 </div>
                 <div style={{ overflow: 'hidden', flex: 1 }}>
-                  <h4 style={{ margin: 0, fontSize: '0.9rem', fontWeight: 700, color: '#1E293B', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <h4 style={{ margin: 0, fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-text-primary)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {contact.name}
                   </h4>
-                  <p style={{ margin: '0.2rem 0 0 0', fontSize: '0.75rem', color: '#64748B', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  <p style={{ margin: '0.2rem 0 0 0', fontSize: '0.75rem', color: 'var(--color-text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                     {contact.domain} Focus
                   </p>
                 </div>
@@ -247,7 +247,7 @@ const CollabHub = () => {
           <>
             {/* Chat Header */}
             <div style={{
-              padding: '1rem 1.5rem', background: '#FFFFFF', borderBottom: '1px solid #E2E8F0',
+              padding: '1rem 1.5rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderBottom: '1px solid var(--color-border)',
               display: 'flex', alignItems: 'center', gap: '1rem', zIndex: 10
             }}>
               <div style={{
@@ -257,12 +257,12 @@ const CollabHub = () => {
                 {selectedContact.profilePhoto ? (
                   <img src={selectedContact.profilePhoto} alt={selectedContact.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 ) : (
-                  <Building2 size={20} style={{ color: '#64748B' }} />
+                  <Building2 size={20} style={{ color: 'var(--color-text-muted)' }} />
                 )}
               </div>
               <div>
-                <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 800, color: '#1E293B' }}>{selectedContact.name}</h3>
-                <p style={{ margin: '0.15rem 0 0 0', fontSize: '0.8rem', color: '#64748B' }}>
+                <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>{selectedContact.name}</h3>
+                <p style={{ margin: '0.15rem 0 0 0', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
                   {selectedContact.headquarters} • {selectedContact.domain}
                 </p>
               </div>
@@ -275,7 +275,7 @@ const CollabHub = () => {
                   <Loader2 className="animate-spin" style={{ color: '#4A6741' }} />
                 </div>
               ) : messages.length === 0 ? (
-                <div style={{ textAlign: 'center', margin: 'auto', background: 'rgba(255,255,255,0.8)', padding: '0.75rem 1.25rem', borderRadius: '1rem', fontSize: '0.85rem', color: '#475569' }}>
+                <div style={{ textAlign: 'center', margin: 'auto', background: 'rgba(255,255,255,0.8)', padding: '0.75rem 1.25rem', borderRadius: '1rem', fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>
                   No messages yet. Start the conversation!
                 </div>
               ) : (
@@ -293,10 +293,10 @@ const CollabHub = () => {
                       boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
                       position: 'relative'
                     }}>
-                      <div style={{ fontSize: '0.95rem', color: '#1E293B', wordBreak: 'break-word', lineHeight: 1.4 }}>
+                      <div style={{ fontSize: '0.95rem', color: 'var(--color-text-primary)', wordBreak: 'break-word', lineHeight: 1.4 }}>
                         {msg.content}
                       </div>
-                      <div style={{ fontSize: '0.65rem', color: '#64748B', textAlign: 'right', marginTop: '0.25rem' }}>
+                      <div style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textAlign: 'right', marginTop: '0.25rem' }}>
                         {time}
                       </div>
                     </div>
@@ -334,11 +334,11 @@ const CollabHub = () => {
             </div>
           </>
         ) : (
-          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#64748B', zIndex: 10 }}>
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-muted)', zIndex: 10 }}>
             <div style={{ width: 80, height: 80, borderRadius: '50%', background: '#E2E8F0', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
               <Building2 size={36} style={{ color: '#94A3B8' }} />
             </div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#475569', margin: '0 0 0.5rem 0' }}>GladiConnect Web</h3>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: 700, color: 'var(--color-text-secondary)', margin: '0 0 0.5rem 0' }}>GladiConnect Web</h3>
             <p style={{ fontSize: '0.9rem', maxWidth: 300, textAlign: 'center', lineHeight: 1.5 }}>
               Select an NGO from the left sidebar to start collaborating and sharing resources.
             </p>
