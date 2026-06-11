@@ -398,7 +398,7 @@ const GlobalLayout = () => {
             letterSpacing: '0.03em',
             background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))',
             WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
+            WebkitTextFillColor: 'inherit',
             display: 'inline-block',
             opacity: fadeState === 'fade-in' ? 1 : 0,
             transform: fadeState === 'fade-in' ? 'translateY(0)' : 'translateY(-6px)',
@@ -414,7 +414,7 @@ const GlobalLayout = () => {
             onClick={handleBack}
             style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem',
-              background: 'transparent', color: 'var(--color-text-secondary)', border: '1px solid #E2E8F0',
+              background: 'rgba(255,255,255,0.05)', color: 'var(--color-text-secondary)', border: '1px solid #E2E8F0',
               borderRadius: 'var(--radius-md)', padding: '0.5rem 0.9rem', fontWeight: 600, fontSize: '0.8rem',
               cursor: 'pointer', transition: 'all 0.2s ease', outline: 'none'
             }}
@@ -447,7 +447,7 @@ const GlobalLayout = () => {
               onClick={() => setShowLogoutConfirm(true)}
               style={{
                 display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
-                background: '#EF4444', color: 'transparent', border: 'none',
+                background: '#EF4444', color: '#FFFFFF', border: 'none',
                 borderRadius: '9999px', padding: '0.5rem 1.25rem', fontWeight: 700, fontSize: '0.85rem',
                 cursor: 'pointer', boxShadow: '0 4px 6px -1px rgba(239, 68, 68, 0.2)',
                 transition: 'all 0.2s ease', outline: 'none'
@@ -517,7 +517,7 @@ const GlobalLayout = () => {
                 <div onClick={() => setShowLangDropdown(false)} style={{ position: 'fixed', inset: 0, zIndex: 998 }} />
                 <div style={{
                   position: 'absolute', top: 'calc(100% + 0.5rem)', right: 0, zIndex: 999,
-                  background: 'transparent', border: '1px solid #E2E8F0', borderRadius: '0.5rem',
+                  background: 'rgba(255,255,255,0.05)', border: '1px solid #E2E8F0', borderRadius: '0.5rem',
                   boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', overflow: 'hidden', minWidth: '120px'
                 }}>
                   {languages.map((lang) => (
@@ -586,7 +586,7 @@ const GlobalLayout = () => {
                 background: user.role === 'volunteer' ? 'linear-gradient(135deg, var(--color-primary-light), var(--color-primary))' :
                             user.role === 'ngo' ? 'linear-gradient(135deg, var(--color-primary-light), var(--color-primary))' :
                             'linear-gradient(135deg, var(--color-accent-light), var(--color-accent))',
-                border: '2px solid #FFFFFF', color: 'transparent',
+                border: '2px solid #FFFFFF', color: '#FFFFFF',
                 fontSize: '1.5rem', fontWeight: 800, cursor: 'pointer',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 boxShadow: 'var(--shadow-md)',
@@ -610,7 +610,7 @@ const GlobalLayout = () => {
               background: '#10B981', border: '2px solid #FFFFFF',
               borderRadius: '50%', width: 20, height: 20,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: 'transparent', boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+              color: '#FFFFFF', boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
             }}>
               <Check size={12} strokeWidth={3} />
             </div>
@@ -743,12 +743,12 @@ const GlobalLayout = () => {
               {/* Click away layer */}
               <div 
                 onClick={() => setShowProfileDropdown(false)} 
-                style={{ position: 'fixed', inset: 0, zIndex: 899, background: 'transparent' }} 
+                style={{ position: 'fixed', inset: 0, zIndex: 899, background: 'rgba(255,255,255,0.05)' }} 
               />
               <div className="glass-card animate-fade-in" style={{
                 position: 'absolute', left: 0, top: '3.75rem', zIndex: 900,
                 width: 320, padding: '1.5rem',
-                background: 'transparent',
+                background: 'rgba(255,255,255,0.05)',
                 border: '1px solid rgba(226, 232, 240, 0.8)',
                 boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08)',
                 borderRadius: '1.25rem'
@@ -758,7 +758,7 @@ const GlobalLayout = () => {
                   <div style={{
                     width: 60, height: 60, borderRadius: '50%',
                     background: 'linear-gradient(135deg, var(--color-primary-light), var(--color-primary))',
-                    color: 'transparent', fontSize: '1.5rem', fontWeight: 800,
+                    color: '#FFFFFF', fontSize: '1.5rem', fontWeight: 800,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     marginBottom: '0.75rem', border: '3px solid #E2E8F0'
                   }}>
@@ -892,7 +892,7 @@ const GlobalLayout = () => {
                       setShowLogoutConfirm(true);
                     }}
                     style={{
-                      width: '100%', padding: '0.6rem 1.25rem', background: '#EF4444', color: 'transparent',
+                      width: '100%', padding: '0.6rem 1.25rem', background: '#EF4444', color: '#FFFFFF',
                       border: 'none', borderRadius: '9999px', fontWeight: 700,
                       fontSize: '0.85rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
                       transition: 'all 0.2s ease', outline: 'none', boxShadow: '0 4px 6px -1px rgba(239, 68, 68, 0.2)'
@@ -917,11 +917,11 @@ const GlobalLayout = () => {
       <footer style={{
         textAlign: 'center',
         padding: '1rem',
-        color: 'transparent',
+        color: '#FFFFFF',
         fontSize: '0.9rem',
         fontWeight: 600,
         letterSpacing: '0.02em',
-        background: 'transparent'
+        background: 'rgba(255,255,255,0.05)'
       }}>
         Made for the world by Gladiators
       </footer>
@@ -939,7 +939,7 @@ const GlobalLayout = () => {
             width: '90%', maxWidth: 500, padding: '2rem',
             border: '1px solid rgba(255, 255, 255, 0.25)',
             boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2)',
-            background: 'transparent', borderRadius: '1.25rem',
+            background: 'rgba(255,255,255,0.05)', borderRadius: '1.25rem',
             color: 'var(--color-text-primary)', maxHeight: '90vh', overflowY: 'auto'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
@@ -1084,7 +1084,7 @@ const GlobalLayout = () => {
                             setInterestInput('');
                           }
                         }}
-                        style={{ padding: '0.5rem 1rem', background: 'var(--color-primary-dark)', color: 'transparent', border: 'none', borderRadius: '0.375rem', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
+                        style={{ padding: '0.5rem 1rem', background: 'var(--color-primary-dark)', color: '#FFFFFF', border: 'none', borderRadius: '0.375rem', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
                       >
                         Add
                       </button>
@@ -1311,7 +1311,7 @@ const GlobalLayout = () => {
                             setCsrFocusInput('');
                           }
                         }}
-                        style={{ padding: '0.5rem 1rem', background: 'var(--color-primary-dark)', color: 'transparent', border: 'none', borderRadius: '0.375rem', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
+                        style={{ padding: '0.5rem 1rem', background: 'var(--color-primary-dark)', color: '#FFFFFF', border: 'none', borderRadius: '0.375rem', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer' }}
                       >
                         Add
                       </button>
@@ -1383,7 +1383,7 @@ const GlobalLayout = () => {
                 <button
                   type="submit"
                   style={{
-                    flex: 1, padding: '0.75rem', background: 'var(--color-primary-dark)', color: 'transparent',
+                    flex: 1, padding: '0.75rem', background: 'var(--color-primary-dark)', color: '#FFFFFF',
                     border: 'none', borderRadius: '0.5rem', fontWeight: 700, cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem'
                   }}
@@ -1409,7 +1409,7 @@ const GlobalLayout = () => {
             width: '90%', maxWidth: 400, padding: '2rem',
             textAlign: 'center', border: '1px solid rgba(255, 255, 255, 0.25)',
             boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2)',
-            background: 'transparent', borderRadius: '1.25rem',
+            background: 'rgba(255,255,255,0.05)', borderRadius: '1.25rem',
             color: 'var(--color-text-primary)'
           }}>
             <div style={{
@@ -1444,7 +1444,7 @@ const GlobalLayout = () => {
                 }}
                 className="btn"
                 style={{
-                  flex: 1, padding: '0.75rem 1.5rem', background: '#EF4444', color: 'transparent',
+                  flex: 1, padding: '0.75rem 1.5rem', background: '#EF4444', color: '#FFFFFF',
                   border: 'none', borderRadius: '9999px', fontWeight: 700, cursor: 'pointer',
                   display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
                   transition: 'all 0.2s ease', outline: 'none', boxShadow: '0 4px 6px -1px rgba(239, 68, 68, 0.2)'
@@ -1495,7 +1495,7 @@ const GlobalLayout = () => {
                 style={{
                   width: '100%', maxWidth: 460,
                   padding: '2.5rem 2rem 2rem', textAlign: 'center',
-                  background: 'transparent',
+                  background: 'rgba(255,255,255,0.05)',
                   borderRadius: '24px', border: `2.5px solid ${tierColor[badge.level]}`,
                   boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.35)',
                   position: 'relative', overflow: 'hidden',
