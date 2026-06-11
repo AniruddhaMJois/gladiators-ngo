@@ -119,18 +119,14 @@ const LoginPage = () => {
         <div className="role-selector-container" style={{ marginBottom: '2.5rem' }}>
           {['volunteer', 'ngo', 'company'].map(role => {
             const isActive = selectedRole === role;
-            let activeColor = 'var(--color-primary)';
-            let activeBg = 'var(--color-primary)';
-            let shadowColor = 'rgba(139, 92, 246, 0.4)';
+            let btnColor = 'var(--color-primary)';
+            let btnBg = 'var(--color-primary)';
+            let btnShadow = 'rgba(139, 92, 246, 0.4)';
             if (role === 'ngo') {
-              activeColor = '#0EA5E9'; // Sky Blue
-              activeBg = '#0EA5E9';
-              shadowColor = 'rgba(14, 165, 233, 0.4)';
+              btnColor = '#0EA5E9'; btnBg = '#0EA5E9'; btnShadow = 'rgba(14, 165, 233, 0.4)';
             }
             if (role === 'company') {
-              activeColor = '#F59E0B'; // Amber
-              activeBg = '#F59E0B';
-              shadowColor = 'rgba(245, 158, 11, 0.4)';
+              btnColor = '#F59E0B'; btnBg = '#F59E0B'; btnShadow = 'rgba(245, 158, 11, 0.4)';
             }
             return (
               <button
@@ -140,13 +136,21 @@ const LoginPage = () => {
                   setErrorMessage('');
                 }}
                 className={`role-btn ${isActive ? 'role-btn-active prismatic-edge' : 'role-btn-inactive'}`}
-                style={isActive ? {
-                  borderColor: activeColor,
-                  color: '#FFFFFF',
-                  background: activeBg,
-                  boxShadow: `0 4px 12px ${shadowColor}`,
-                  fontWeight: 800
-                } : {}}
+                style={{
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  ...(isActive ? {
+                    borderColor: btnColor,
+                    color: '#FFFFFF',
+                    background: btnBg,
+                    boxShadow: `0 4px 12px ${btnShadow}`,
+                    fontWeight: 800
+                  } : {
+                    borderColor: 'transparent',
+                    background: 'transparent',
+                    boxShadow: 'none',
+                    fontWeight: 700
+                  })
+                }}
               >
                 {role}
               </button>
@@ -168,15 +172,18 @@ const LoginPage = () => {
 
         <form onSubmit={handleLoginSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           <div className="form-group" style={{ display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
-            <label className="form-label" style={{ color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.8rem' }}>
+            <label className="form-label" style={{ color: 'var(--color-text-secondary)', fontWeight: 700, fontSize: '0.8rem', transition: 'all 0.4s ease' }}>
               {'GC-ID *'.replace('GC-ID', `GC-${selectedRole.toUpperCase()} ID`)}
             </label>
             <div style={{ position: 'relative' }}>
               <div style={{ 
                 position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', 
-                color: 'var(--color-primary)', display: 'flex', alignItems: 'center',
-                background: 'var(--color-surface-hover)', padding: '0.6rem', borderRadius: '0.5rem',
-                boxShadow: '0 2px 5px rgba(0,0,0,0.05)'
+                color: selectedRole === 'ngo' ? '#0EA5E9' : selectedRole === 'company' ? '#F59E0B' : 'var(--color-primary)',
+                display: 'flex', alignItems: 'center',
+                background: selectedRole === 'ngo' ? 'rgba(14, 165, 233, 0.1)' : selectedRole === 'company' ? 'rgba(245, 158, 11, 0.1)' : 'rgba(139, 92, 246, 0.1)', 
+                padding: '0.6rem', borderRadius: '0.5rem',
+                boxShadow: '0 2px 5px rgba(0,0,0,0.05)',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
               }}>
                 {selectedRole === 'volunteer' && <Users size={16} />}
                 {selectedRole === 'ngo' && <Building2 size={16} />}
@@ -219,9 +226,12 @@ const LoginPage = () => {
             <div style={{ position: 'relative' }}>
               <div style={{ 
                 position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', 
-                color: 'var(--color-primary)', display: 'flex', alignItems: 'center',
-                background: 'var(--color-surface-hover)', padding: '0.6rem', borderRadius: '0.5rem',
-                boxShadow: '0 2px 5px rgba(0,0,0,0.05)'
+                color: selectedRole === 'ngo' ? '#0EA5E9' : selectedRole === 'company' ? '#F59E0B' : 'var(--color-primary)', 
+                display: 'flex', alignItems: 'center',
+                background: selectedRole === 'ngo' ? 'rgba(14, 165, 233, 0.1)' : selectedRole === 'company' ? 'rgba(245, 158, 11, 0.1)' : 'rgba(139, 92, 246, 0.1)', 
+                padding: '0.6rem', borderRadius: '0.5rem',
+                boxShadow: '0 2px 5px rgba(0,0,0,0.05)',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
               }}>
                 <KeyRound size={16} />
               </div>
@@ -257,12 +267,15 @@ const LoginPage = () => {
 
           <button 
             type="submit" 
-            className="btn btn-primary prismatic-edge" 
+            className="btn prismatic-edge" 
             style={{ 
               width: '100%', marginTop: '1rem', padding: '1rem', 
               fontSize: '1.1rem', fontWeight: 800, letterSpacing: '0.02em',
               display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.5rem',
-              boxShadow: '0 8px 20px -6px rgba(109, 40, 217, 0.5)'
+              color: '#FFFFFF',
+              background: selectedRole === 'ngo' ? '#0EA5E9' : selectedRole === 'company' ? '#F59E0B' : 'var(--color-primary)',
+              boxShadow: `0 8px 20px -6px ${selectedRole === 'ngo' ? 'rgba(14, 165, 233, 0.6)' : selectedRole === 'company' ? 'rgba(245, 158, 11, 0.6)' : 'rgba(109, 40, 217, 0.5)'}`,
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
             }}
           >
             Access {selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1)} Portal <ArrowRight size={18} />
