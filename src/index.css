@@ -13,7 +13,7 @@
   --color-gradient-border: linear-gradient(90deg, rgba(139,92,246,0.5), rgba(6,182,212,0.5), rgba(139,92,246,0.5));
   
   /* Dark Space Theme */
-  --color-background: #05050A; /* Deep Space */
+  --color-background: linear-gradient(135deg, #05050A 0%, #0f172a 50%, #1e1b4b 100%); /* Deep Space Gradient */
   --color-surface: rgba(20, 20, 30, 0.45);
   --color-surface-hover: rgba(30, 30, 45, 0.65);
   
@@ -69,7 +69,7 @@
   --color-accent: #0891B2;
   --color-accent-light: #06B6D4;
   
-  --color-background: #F8FAFC;
+  --color-background: linear-gradient(135deg, #eef2ff 0%, #f0fdfa 50%, #fdf4ff 100%);
   --color-surface: rgba(255, 255, 255, 0.35);
   --color-surface-hover: rgba(255, 255, 255, 0.6);
   
@@ -100,7 +100,7 @@ html {
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: var(--color-background);
+  background: var(--color-background);
   color: var(--color-text-primary);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;

@@ -119,6 +119,16 @@ const LoginPage = () => {
         <div className="role-selector-container" style={{ marginBottom: '2.5rem' }}>
           {['volunteer', 'ngo', 'company'].map(role => {
             const isActive = selectedRole === role;
+            let activeColor = 'var(--color-primary)';
+            let activeBg = 'rgba(139, 92, 246, 0.1)';
+            if (role === 'ngo') {
+              activeColor = '#0EA5E9'; // Sky Blue
+              activeBg = 'rgba(14, 165, 233, 0.1)';
+            }
+            if (role === 'company') {
+              activeColor = '#F59E0B'; // Amber
+              activeBg = 'rgba(245, 158, 11, 0.1)';
+            }
             return (
               <button
                 key={role}
@@ -127,6 +137,13 @@ const LoginPage = () => {
                   setErrorMessage('');
                 }}
                 className={`role-btn ${isActive ? 'role-btn-active prismatic-edge' : 'role-btn-inactive'}`}
+                style={isActive ? {
+                  borderColor: activeColor,
+                  color: activeColor,
+                  background: activeBg,
+                  boxShadow: `0 0 16px ${activeBg}`,
+                  fontWeight: 800
+                } : {}}
               >
                 {role}
               </button>
@@ -251,7 +268,7 @@ const LoginPage = () => {
 
         <div style={{ textAlign: 'center', marginTop: '2rem' }}>
           <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', margin: 0 }}>
-            Don\
+            Don't have an account?
           </p>
           <button
             onClick={() => {
