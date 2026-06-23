@@ -1290,7 +1290,7 @@ const FinanceSuite = () => {
       {/* Expense Modal (Using the complex report format) */}
       {showExpenseModal && (
         <div className="modal-overlay" onClick={() => setShowExpenseModal(false)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '600px', maxHeight: '90vh', overflowY: 'auto' }}>
+          <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '900px', maxHeight: '90vh', overflowY: 'auto', padding: '2rem' }}>
             <div className="modal-header">
               <h2>{expenseForm._id ? 'Edit Expense Log' : 'Add Expense Log'}</h2>
               <button className="icon-btn" onClick={() => {
@@ -1327,7 +1327,7 @@ const FinanceSuite = () => {
                 
                 <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1rem' }}>
                   <thead>
-                    <tr style={{ background: 'var(--color-surface)', backdropFilter: 'blur(20px)' }}>
+                    <tr style={{ background: 'var(--color-surface-hover)', backdropFilter: 'blur(20px)' }}>
                       <th style={{ padding: '0.5rem', border: '1px solid var(--color-border)', textAlign: 'left', width: '60%' }}>Particulars</th>
                       <th style={{ padding: '0.5rem', border: '1px solid var(--color-border)', textAlign: 'left', width: '30%' }}>Expense (₹)</th>
                       <th style={{ padding: '0.5rem', border: '1px solid var(--color-border)', textAlign: 'center', width: '10%' }}>Action</th>

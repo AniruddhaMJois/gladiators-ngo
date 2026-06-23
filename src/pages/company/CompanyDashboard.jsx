@@ -80,7 +80,7 @@ const ImpactTracker = () => {
                 {(donationExpenses[d._id] || []).length > 0 ? (
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                     {donationExpenses[d._id].map(exp => (
-                      <div key={exp._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', background: 'white', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
+                      <div key={exp._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', background: 'var(--color-surface)', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
                         <div>
                           <p style={{ margin: 0, fontWeight: 500 }}>{exp.title} <span className="badge badge-secondary">{exp.category}</span></p>
                           <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>{new Date(exp.date).toLocaleDateString()}</p>
