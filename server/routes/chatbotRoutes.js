@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
 
     // Set up Gemini
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
     // System prompt enforcement
     const systemPrompt = `
@@ -70,8 +70,20 @@ router.post('/', async (req, res) => {
     // Create a fresh chat session and pass everything in the first message
     const chat = model.startChat();
 
-    const result = await chat.sendMessage(finalQuery);
-    const replyText = result.response.text();
+    let replyText = '';
+    let retries = 3;
+    while (retries > 0) {
+      try {
+        const result = await chat.sendMessage(finalQuery);
+        replyText = result.response.text();
+        break;
+      } catch (err) {
+        retries--;
+        if (retries === 0 || !err.message.includes('503')) throw err;
+        // Wait 1.5s before retrying
+        await new Promise(resolve => setTimeout(resolve, 1500));
+      }
+    }
 
     res.json({ reply: replyText });
 
