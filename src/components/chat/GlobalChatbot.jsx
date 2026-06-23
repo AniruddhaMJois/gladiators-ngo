@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
-import { MessageSquare, X, Send, Bot, User, HelpCircle } from 'lucide-react';
+import { MessageSquare, X, Send, Bot, User, HelpCircle, Maximize2, Minimize2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 
 const BAD_WORDS = ['fuck', 'shit', 'ass', 'bitch', 'crap', 'damn', 'hell'];
@@ -14,6 +14,7 @@ const faqs = [
 
 const GlobalChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [messages, setMessages] = useState([
     { role: 'assistant', content: "Hi! I'm GladiAssist. How can I help you today?" }
   ]);
@@ -140,11 +141,11 @@ const GlobalChatbot = () => {
       <div
         style={{
           position: 'fixed',
-          bottom: '2rem',
-          right: '2rem',
+          bottom: isExpanded ? '5vh' : '2rem',
+          right: isExpanded ? '5vw' : '2rem',
           zIndex: 10000,
-          width: '350px',
-          height: '500px',
+          width: isExpanded ? '90vw' : '350px',
+          height: isExpanded ? '90vh' : '500px',
           background: 'var(--color-surface)',
           borderRadius: '1rem',
           boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
@@ -177,19 +178,36 @@ const GlobalChatbot = () => {
               <div style={{ fontSize: '0.75rem', opacity: 0.9 }}>AI Support</div>
             </div>
           </div>
-          <button
-            onClick={() => setIsOpen(false)}
-            style={{
-              background: 'transparent',
-              border: 'none',
-              color: 'white',
-              cursor: 'pointer',
-              display: 'flex',
-              padding: '0.2rem'
-            }}
-          >
-            <X size={20} />
-          </button>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'white',
+                cursor: 'pointer',
+                display: 'flex',
+                padding: '0.2rem',
+                opacity: 0.8
+              }}
+              title={isExpanded ? "Minimize" : "Maximize"}
+            >
+              {isExpanded ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
+            </button>
+            <button
+              onClick={() => setIsOpen(false)}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'white',
+                cursor: 'pointer',
+                display: 'flex',
+                padding: '0.2rem'
+              }}
+            >
+              <X size={20} />
+            </button>
+          </div>
         </div>
 
         {/* Messages */}
