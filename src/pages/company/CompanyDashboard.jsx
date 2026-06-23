@@ -33,15 +33,15 @@ const ImpactTracker = () => {
     // Fetch expenses for this NGO to show transparency
     if (!donationExpenses[donation._id]) {
       try {
-        const res = await fetch(`http://localhost:5000/api/finance/expenses/${donation.ngoId}`);
+        const res = await fetch(`http://localhost:5000/api/finance/reports/${donation.ngoId}`);
         if (res.ok) {
           const data = await res.json();
           setDonationExpenses(prev => ({...prev, [donation._id]: data}));
         } else {
           // Mock data if NGO doesn't exist
           setDonationExpenses(prev => ({...prev, [donation._id]: [
-            { _id: 'e1', title: 'Saplings Purchase', amountSpent: 120000, date: new Date().toISOString(), category: 'Materials' },
-            { _id: 'e2', title: 'Labor for Planting', amountSpent: 80000, date: new Date().toISOString(), category: 'Labor' }
+            { _id: 'e1', title: 'Saplings Purchase', totalAmount: 120000, date: new Date().toISOString(), campaignId: { title: 'Materials' } },
+            { _id: 'e2', title: 'Labor for Planting', totalAmount: 80000, date: new Date().toISOString(), campaignId: { title: 'Labor' } }
           ]}));
         }
       } catch (err) {
@@ -82,11 +82,11 @@ const ImpactTracker = () => {
                     {donationExpenses[d._id].map(exp => (
                       <div key={exp._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', background: 'var(--color-surface)', borderRadius: '8px', border: '1px solid var(--color-border)' }}>
                         <div>
-                          <p style={{ margin: 0, fontWeight: 500 }}>{exp.title} <span className="badge badge-secondary">{exp.category}</span></p>
+                          <p style={{ margin: 0, fontWeight: 500 }}>{exp.title} <span className="badge badge-secondary">{exp.campaignId?.title || 'General'}</span></p>
                           <p style={{ margin: '0.25rem 0 0 0', fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>{new Date(exp.date).toLocaleDateString()}</p>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                          <span style={{ fontWeight: 'bold', color: '#EF4444' }}>- ₹{exp.amountSpent.toLocaleString()}</span>
+                          <span style={{ fontWeight: 'bold', color: '#EF4444' }}>- ₹{(exp.totalAmount || 0).toLocaleString()}</span>
                           <button className="icon-btn" style={{ background: 'var(--color-surface-hover)', backdropFilter: 'blur(12px)' }} title="View Receipt"><FileText size={16} /></button>
                         </div>
                       </div>

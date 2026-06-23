@@ -1306,15 +1306,15 @@ const FinanceSuite = () => {
               
               <div className="form-group">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
-                  <label style={{ margin: 0 }}>Related Campaign (Required)</label>
+                  <label style={{ margin: 0 }}>Related Campaign (Optional)</label>
                   {expenseForm.campaignId && (
                     <button type="button" onClick={handleImportCampaignDetails} className="btn btn-outline" style={{ padding: '0.2rem 0.5rem', fontSize: '0.75rem' }}>
                       Import Details
                     </button>
                   )}
                 </div>
-                <select required className="form-input" value={expenseForm.campaignId} onChange={e => setExpenseForm({...expenseForm, campaignId: e.target.value})}>
-                  <option value="" disabled>Select a Campaign</option>
+                <select className="form-input" value={expenseForm.campaignId} onChange={e => setExpenseForm({...expenseForm, campaignId: e.target.value})}>
+                  <option value="">General / No Campaign</option>
                   {campaigns.map(c => <option key={c._id} value={c._id}>{c.title} {c.status === 'Completed' ? '(Ended)' : '(Active)'}</option>)}
                 </select>
               </div>
