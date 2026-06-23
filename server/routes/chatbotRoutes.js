@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
 
     // Set up Gemini
     const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
 
     // System prompt enforcement
     const systemPrompt = `
@@ -52,23 +52,23 @@ router.post('/', async (req, res) => {
       5. Keep responses concise and directly address the user's query.
     `;
 
-    // Convert messages for Gemini
-    const geminiHistory = messages.map(msg => ({
-      role: msg.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: msg.content }]
-    }));
+    // Convert history into a transcript to avoid strict Gemini role alternation validation
+    const transcript = messages.slice(0, -1).map(msg => 
+      `${msg.role === 'assistant' ? 'GladiAssist' : 'User'}: ${msg.content}`
+    ).join('\n');
 
-    // Inject system rules into the latest query to ensure strict adherence
+    // Inject system rules and history into the latest query
     const finalQuery = `
       SYSTEM INSTRUCTIONS: ${systemPrompt}
       
+      PREVIOUS CONVERSATION HISTORY:
+      ${transcript || 'No previous history.'}
+
       USER MESSAGE: ${lastMessage.content}
     `;
 
-    // Create a chat session
-    const chat = model.startChat({
-      history: geminiHistory.slice(0, -1) // All except the last message
-    });
+    // Create a fresh chat session and pass everything in the first message
+    const chat = model.startChat();
 
     const result = await chat.sendMessage(finalQuery);
     const replyText = result.response.text();
