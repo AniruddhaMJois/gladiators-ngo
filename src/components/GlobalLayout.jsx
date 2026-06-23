@@ -442,25 +442,6 @@ const GlobalLayout = () => {
             <span className="hidden-mobile">Home</span>
           </button>
 
-          {isAuthenticated && (
-            <button
-              onClick={() => setShowLogoutConfirm(true)}
-              style={{
-                display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
-                background: '#EF4444', color: '#FFFFFF', border: 'none',
-                borderRadius: '9999px', padding: '0.65rem 1.4rem', fontWeight: 700, fontSize: '1rem',
-                cursor: 'pointer', boxShadow: '0 4px 6px -1px rgba(239, 68, 68, 0.2)',
-                transition: 'all 0.2s ease', outline: 'none'
-              }}
-              onMouseEnter={e => e.currentTarget.style.background = '#DC2626'}
-              onMouseLeave={e => e.currentTarget.style.background = '#EF4444'}
-              title="Logout"
-            >
-              <LogOut size={18} />
-              <span>Logout</span>
-            </button>
-          )}
-
           <button className="btn-ghost hidden-mobile" style={{
             display: 'flex', alignItems: 'center', gap: '0.4rem',
             border: '1px solid var(--color-border)',
@@ -542,6 +523,24 @@ const GlobalLayout = () => {
               </>
             )}
           </div>
+          {isAuthenticated && (
+            <button
+              onClick={() => setShowLogoutConfirm(true)}
+              style={{
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                background: '#EF4444', color: '#FFFFFF', border: 'none',
+                borderRadius: '9999px', padding: '0.65rem 1.4rem', fontWeight: 700, fontSize: '1rem',
+                cursor: 'pointer', boxShadow: '0 4px 6px -1px rgba(239, 68, 68, 0.2)',
+                transition: 'all 0.2s ease', outline: 'none'
+              }}
+              onMouseEnter={e => e.currentTarget.style.background = '#DC2626'}
+              onMouseLeave={e => e.currentTarget.style.background = '#EF4444'}
+              title="Logout"
+            >
+              <LogOut size={18} />
+              <span>Logout</span>
+            </button>
+          )}
 
           <div id="google_translate_element" style={{ opacity: 0, position: 'absolute', pointerEvents: 'none', zIndex: -1 }}></div>
         </div>
