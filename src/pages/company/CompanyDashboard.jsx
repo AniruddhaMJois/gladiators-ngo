@@ -123,7 +123,7 @@ const CompanyDashboard = () => {
       </div>
 
       {/* Quick Actions */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 350px))', gap: '1.5rem', marginBottom: '2.5rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '2.5rem' }}>
         <button className="btn btn-primary" onClick={() => navigate('/company/search')} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '1rem' }}>
           <Search size={20} /> Charity Search Engine
         </button>
