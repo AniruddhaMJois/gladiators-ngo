@@ -50,8 +50,8 @@ const LandingPage = () => {
         marginBottom: '2rem'
       }}>
         <div style={{
-          width: 'clamp(200px, 30vw, 320px)',
-          height: 'clamp(200px, 30vw, 320px)',
+          width: 'clamp(180px, 25vw, 250px)',
+          height: 'clamp(180px, 25vw, 250px)',
           borderRadius: '50%',
           overflow: 'hidden',
           position: 'relative',
@@ -68,7 +68,7 @@ const LandingPage = () => {
       {/* Hero Text */}
       <div style={{ textAlign: 'center', maxWidth: 900, marginBottom: '4rem' }} className="animate-fade-in">
         <h1 style={{
-          fontSize: 'clamp(2.5rem, 6vw, 5rem)',
+          fontSize: 'clamp(2rem, 5vw, 3.8rem)',
           fontWeight: 800,
           lineHeight: 1.05,
           marginBottom: '1.5rem',

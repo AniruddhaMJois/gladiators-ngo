@@ -89,7 +89,7 @@
 }
 
 html {
-  font-size: 18px; /* Globally increases all rem-based sizes by ~12.5% */
+  font-size: 16px; /* Restored to standard size */
 }
 
 *, *::before, *::after {
@@ -574,10 +574,10 @@ a:hover { filter: brightness(1.2); }
 
 /* ─── Layout Utilities & Bento ─── */
 .container { max-width: 1200px; width: 100%; margin: 0 auto; padding: 0 1.5rem; }
-.section-title { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 1.5rem; color: var(--color-text-primary); letter-spacing: -0.03em; }
-.page-header { margin-bottom: 3.5rem; }
-.page-header h1 { font-size: 3.5rem; margin-bottom: 1rem; }
-.page-header p { font-size: 1.25rem; color: var(--color-text-secondary); max-width: 600px; }
+.section-title { font-family: 'Syne', sans-serif; font-size: 1.75rem; font-weight: 800; margin-bottom: 1.5rem; color: var(--color-text-primary); letter-spacing: -0.03em; }
+.page-header { margin-bottom: 2.5rem; }
+.page-header h1 { font-size: 2.75rem; margin-bottom: 0.75rem; }
+.page-header p { font-size: 1.15rem; color: var(--color-text-secondary); max-width: 600px; }
 
 /* ─── Global Dashboard Adjustments ─── */
 .dashboard-content-shifted { padding-left: 18rem !important; transition: padding 0.3s ease; }
