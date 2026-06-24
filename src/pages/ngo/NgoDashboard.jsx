@@ -1290,7 +1290,7 @@ const FinanceSuite = () => {
       {/* Expense Modal (Using the complex report format) */}
       {showExpenseModal && (
         <div className="modal-overlay" onClick={() => setShowExpenseModal(false)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '900px', maxHeight: '90vh', overflowY: 'auto', padding: '2rem' }}>
+          <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: '1200px', maxHeight: '90vh', overflowY: 'auto', padding: '2.5rem' }}>
             <div className="modal-header">
               <h2>{expenseForm._id ? 'Edit Expense Log' : 'Add Expense Log'}</h2>
               <button className="icon-btn" onClick={() => {
