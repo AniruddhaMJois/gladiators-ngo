@@ -372,9 +372,9 @@ const GlobalLayout = () => {
           style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
           onClick={handleLogoClick}
         >
-          <img src="/images/logo.png" alt="GladiConnect Logo" style={{ width: 38, height: 38, objectFit: 'contain', borderRadius: '50%' }} />
+          <img src="/images/logo.png" alt="GladiConnect Logo" style={{ width: 30, height: 30, objectFit: 'contain', borderRadius: '50%' }} />
           <span style={{
-            fontWeight: 800, fontSize: '1.4rem',
+            fontWeight: 800, fontSize: '1.25rem',
             color: 'var(--color-text-primary)',
             letterSpacing: '-0.01em'
           }}>
@@ -415,7 +415,7 @@ const GlobalLayout = () => {
             style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem',
               background: 'var(--color-nav-btn)', color: 'var(--color-text-secondary)', border: '1px solid var(--color-border)',
-              borderRadius: 'var(--radius-md)', padding: '0.65rem 1.1rem', fontWeight: 600, fontSize: '0.95rem',
+              borderRadius: 'var(--radius-md)', padding: '0.45rem 0.9rem', fontWeight: 600, fontSize: '0.9rem',
               cursor: 'pointer', transition: 'all 0.2s ease', outline: 'none'
             }}
             onMouseEnter={e => { e.currentTarget.style.background = 'var(--color-nav-btn-hover)'; e.currentTarget.style.color = 'var(--color-text-primary)'; }}
@@ -431,14 +431,14 @@ const GlobalLayout = () => {
             style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem',
               background: 'var(--color-nav-btn)', color: 'var(--color-text-primary)', border: '1px solid var(--color-border)',
-              borderRadius: 'var(--radius-md)', padding: '0.65rem 1.1rem', fontWeight: 600, fontSize: '0.95rem',
+              borderRadius: 'var(--radius-md)', padding: '0.35rem 0.8rem', fontWeight: 600, fontSize: '0.85rem',
               cursor: 'pointer', transition: 'all 0.2s ease', outline: 'none'
             }}
             onMouseEnter={e => e.currentTarget.style.background = 'var(--color-nav-btn-hover)'}
             onMouseLeave={e => e.currentTarget.style.background = 'var(--color-nav-btn)'}
             title="Home"
           >
-            <Home size={18} />
+            <Home size={16} />
             <span className="hidden-mobile">Home</span>
           </button>
 
@@ -446,11 +446,11 @@ const GlobalLayout = () => {
             display: 'flex', alignItems: 'center', gap: '0.4rem',
             border: '1px solid var(--color-border)',
             borderRadius: 'var(--radius-md)',
-            padding: '0.65rem 1.2rem',
+            padding: '0.35rem 0.8rem',
             background: 'var(--color-nav-btn)',
-            cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600, fontSize: '0.95rem'
+            cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600, fontSize: '0.85rem'
           }}>
-            <Phone size={18} style={{ color: 'var(--color-primary)' }} className="pulse-animation" />
+            <Phone size={16} style={{ color: 'var(--color-primary)' }} className="pulse-animation" />
             <span style={{ color: 'var(--color-text-secondary)' }}>24/7 Helpline</span>
           </button>
 
@@ -459,7 +459,7 @@ const GlobalLayout = () => {
             onClick={toggleTheme}
             style={{
               display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              width: '42px', height: '42px',
+              width: '36px', height: '36px',
               borderRadius: '50%', border: '1px solid var(--color-border)', cursor: 'pointer',
               background: 'var(--color-nav-btn)',
               color: 'var(--color-text-secondary)',
@@ -469,7 +469,7 @@ const GlobalLayout = () => {
             onMouseLeave={e => { e.currentTarget.style.background = 'var(--color-nav-btn)'; e.currentTarget.style.color = 'var(--color-text-secondary)'; }}
             title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
           >
-            {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
           </button>
 
           {/* Custom Language Dropdown that controls hidden Google Translate */}
@@ -478,7 +478,7 @@ const GlobalLayout = () => {
               onClick={() => setShowLangDropdown(!showLangDropdown)}
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                padding: '0.65rem 1.2rem', fontSize: '0.95rem', fontWeight: 600,
+                padding: '0.35rem 0.8rem', fontSize: '0.85rem', fontWeight: 600,
                 borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', cursor: 'pointer',
                 fontFamily: 'inherit',
                 background: 'var(--color-nav-btn)',
@@ -488,9 +488,9 @@ const GlobalLayout = () => {
               onMouseEnter={e => { e.currentTarget.style.background = 'var(--color-nav-btn-hover)'; }}
               onMouseLeave={e => { e.currentTarget.style.background = 'var(--color-nav-btn)'; }}
             >
-              <Globe size={18} style={{ color: 'var(--color-text-secondary)' }} />
+              <Globe size={16} style={{ color: 'var(--color-text-secondary)' }} />
               {activeLang}
-              <ChevronDown size={18} style={{ color: 'var(--color-text-secondary)', transform: showLangDropdown ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+              <ChevronDown size={16} style={{ color: 'var(--color-text-secondary)', transform: showLangDropdown ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
             </button>
             
             {showLangDropdown && (
@@ -506,7 +506,7 @@ const GlobalLayout = () => {
                       key={lang.code}
                       onClick={() => handleLanguageSelect(lang)}
                       style={{
-                        padding: '0.75rem 1.2rem', fontSize: '1rem', fontWeight: 500,
+                        padding: '0.6rem 1rem', fontSize: '0.9rem', fontWeight: 500,
                         cursor: 'pointer', color: activeLang === lang.label ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
                         background: activeLang === lang.label ? 'var(--color-nav-btn-hover)' : 'transparent',
                         borderBottom: '1px solid #F1F5F9',
@@ -516,7 +516,7 @@ const GlobalLayout = () => {
                       onMouseLeave={e => e.currentTarget.style.background = activeLang === lang.label ? 'var(--color-nav-btn-hover)' : 'transparent'}
                     >
                       {lang.label}
-                      {activeLang === lang.label && <Check size={18} color="#4A6741" />}
+                      {activeLang === lang.label && <Check size={16} color="#4A6741" />}
                     </div>
                   ))}
                 </div>
@@ -527,9 +527,9 @@ const GlobalLayout = () => {
             <button
               onClick={() => setShowLogoutConfirm(true)}
               style={{
-                display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem',
                 background: '#EF4444', color: '#FFFFFF', border: 'none',
-                borderRadius: '9999px', padding: '0.65rem 1.4rem', fontWeight: 700, fontSize: '1rem',
+                borderRadius: 'var(--radius-md)', padding: '0.35rem 0.8rem', fontWeight: 600, fontSize: '0.85rem',
                 cursor: 'pointer', boxShadow: '0 4px 6px -1px rgba(239, 68, 68, 0.2)',
                 transition: 'all 0.2s ease', outline: 'none'
               }}
@@ -537,7 +537,7 @@ const GlobalLayout = () => {
               onMouseLeave={e => e.currentTarget.style.background = '#EF4444'}
               title="Logout"
             >
-              <LogOut size={18} />
+              <LogOut size={16} />
               <span>Logout</span>
             </button>
           )}
