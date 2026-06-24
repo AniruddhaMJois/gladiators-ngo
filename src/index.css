@@ -603,7 +603,7 @@ a:hover { filter: brightness(1.2); }
 @media (min-width: 768px) and (max-width: 1023px) { .dashboard-content-shifted { padding-left: 16rem !important; } }
 
 .grid-md-3-custom { display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: start; width: 100%; }
-@media (min-width: 1024px) { .grid-md-3-custom { grid-template-columns: 350px minmax(0, 1fr); gap: 3.5rem; } }
+@media (min-width: 1024px) { .grid-md-3-custom { grid-template-columns: 450px minmax(0, 1fr); gap: 4rem; justify-content: center; } }
 .profile-sidebar { position: relative; width: 100%; height: auto; }
 
 /* ─── Modals ─── */

@@ -142,6 +142,7 @@ const CollabHub = () => {
   return (
     <div style={{
       display: 'flex', 
+      width: '100%',
       height: 'calc(100vh - 200px)', 
       minHeight: '600px',
       background: 'var(--color-surface)', backdropFilter: 'blur(20px)',
