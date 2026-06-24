@@ -573,7 +573,7 @@ a:hover { filter: brightness(1.2); }
 ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
 
 /* ─── Layout Utilities & Bento ─── */
-.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+.container { max-width: 1400px; margin: 0 auto; padding: 0 1.5rem; }
 .section-title { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin-bottom: 1.5rem; color: var(--color-text-primary); letter-spacing: -0.03em; }
 .page-header { margin-bottom: 3.5rem; }
 .page-header h1 { font-size: 3.5rem; margin-bottom: 1rem; }
@@ -603,7 +603,7 @@ a:hover { filter: brightness(1.2); }
 @media (min-width: 768px) and (max-width: 1023px) { .dashboard-content-shifted { padding-left: 16rem !important; } }
 
 .grid-md-3-custom { display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: start; width: 100%; }
-@media (min-width: 1024px) { .grid-md-3-custom { grid-template-columns: 350px minmax(0, 1fr); gap: 2.5rem; } }
+@media (min-width: 1024px) { .grid-md-3-custom { grid-template-columns: 350px minmax(0, 1fr); gap: 3.5rem; } }
 .profile-sidebar { position: relative; width: 100%; height: auto; }
 
 /* ─── Modals ─── */
