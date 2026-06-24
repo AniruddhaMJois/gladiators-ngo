@@ -317,23 +317,7 @@ const LoginPage = () => {
           </button>
         </div>
 
-        {/* In-memory notice */}
-        <div style={{
-          marginTop: '2rem',
-          background: 'rgba(255, 255, 255, 0.03)',
-          border: '1px solid var(--color-border)',
-          borderRadius: '0.75rem',
-          padding: '0.75rem',
-          fontSize: '0.75rem',
-          color: 'var(--color-text-secondary)',
-          textAlign: 'center',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: '0.35rem'
-        }}>
-          <Lock size={12} /> Live Session: Refreshing will wipe all registered details.
-        </div>
+
       </div>
     </div>
   );
