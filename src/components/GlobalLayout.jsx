@@ -358,7 +358,7 @@ const GlobalLayout = () => {
 
   const handleHome = () => {
     if (isAuthenticated && user?.role) {
-      navigate(`/${user.role}/dashboard`);
+      window.location.href = `/${user.role}/dashboard`;
     } else {
       navigate('/');
     }
@@ -1406,9 +1406,9 @@ const GlobalLayout = () => {
         }}>
           <div className="glass-card animate-fade-in" style={{
             width: '90%', maxWidth: 400, padding: '2rem',
-            textAlign: 'center', border: '1px solid rgba(255, 255, 255, 0.25)',
-            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2)',
-            background: 'rgba(255,255,255,0.05)', borderRadius: '1.25rem',
+            textAlign: 'center', border: '1px solid var(--color-border)',
+            boxShadow: 'var(--shadow-lg)',
+            background: 'var(--color-surface)', borderRadius: '1.25rem',
             color: 'var(--color-text-primary)'
           }}>
             <div style={{
