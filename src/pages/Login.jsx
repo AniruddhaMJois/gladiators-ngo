@@ -82,8 +82,8 @@ const LoginPage = () => {
 
       <div className="glass-card animate-fade-in prismatic-edge" style={{ 
         width: '100%', 
-        maxWidth: 520, 
-        padding: '3rem 2.5rem', 
+        maxWidth: 420, 
+        padding: '2.5rem 2rem', 
         borderRadius: 'var(--radius-xl)'
       }}>
         {/* Floating circular glowing logo area */}
