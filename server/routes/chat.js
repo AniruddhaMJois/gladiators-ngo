@@ -1,6 +1,5 @@
 const express = require('express');
-const User = require('../models/User');
-const Message = require('../models/Message');
+const { db } = require('../server');
 const router = express.Router();
 
 // @route   GET /api/chat/contacts/:userId
@@ -10,26 +9,50 @@ router.get('/contacts/:userId', async (req, res) => {
     const userId = req.params.userId;
     
     // Find all messages involving this user
-    const messages = await Message.find({
-      $or: [{ senderId: userId }, { receiverId: userId }]
-    });
-
+    // Firestore workaround for OR query
+    const sentSnap = await db.collection('messages').where('senderId', '==', userId).get();
+    const receivedSnap = await db.collection('messages').where('receiverId', '==', userId).get();
+    
     const contactIds = new Set();
-    messages.forEach(m => {
-      if (m.senderId && m.senderId.toString() !== userId) contactIds.add(m.senderId.toString());
-      if (m.receiverId && m.receiverId.toString() !== userId) contactIds.add(m.receiverId.toString());
+    sentSnap.forEach(doc => {
+      const data = doc.data();
+      if (data.receiverId) contactIds.add(data.receiverId);
+    });
+    
+    receivedSnap.forEach(doc => {
+      const data = doc.data();
+      if (data.senderId) contactIds.add(data.senderId);
     });
 
     // Also include all NGOs so they are discoverable
-    const allNgos = await User.find({ role: 'ngo' }).select('_id');
-    allNgos.forEach(ngo => contactIds.add(ngo._id.toString()));
+    const allNgos = await db.collection('users').where('role', '==', 'ngo').get();
+    allNgos.forEach(ngo => contactIds.add(ngo.id));
 
     // Ensure we don't return the user themselves
     contactIds.delete(userId);
 
-    const contacts = await User.find({ _id: { $in: Array.from(contactIds) } })
-      .select('_id name profilePhoto domain headquarters email role')
-      .sort({ name: 1 });
+    const contacts = [];
+    const contactIdsArray = Array.from(contactIds);
+    
+    // Firestore 'in' queries are limited to 10, so we fetch individually or chunk
+    for (const id of contactIdsArray) {
+      const doc = await db.collection('users').doc(id).get();
+      if (doc.exists) {
+        const data = doc.data();
+        contacts.push({
+          _id: doc.id,
+          gcId: doc.id,
+          name: data.name,
+          profilePhoto: data.profilePhoto,
+          domain: data.domain,
+          headquarters: data.headquarters,
+          email: data.email,
+          role: data.role
+        });
+      }
+    }
+    
+    contacts.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
       
     res.status(200).json(contacts);
   } catch (error) {
@@ -49,12 +72,22 @@ router.get('/messages', async (req, res) => {
       return res.status(400).json({ message: 'Both senderId and receiverId are required.' });
     }
 
-    const messages = await Message.find({
-      $or: [
-        { senderId, receiverId },
-        { senderId: receiverId, receiverId: senderId }
-      ]
-    }).sort({ createdAt: 1 }); // Oldest first
+    const snap1 = await db.collection('messages')
+      .where('senderId', '==', senderId)
+      .where('receiverId', '==', receiverId)
+      .get();
+      
+    const snap2 = await db.collection('messages')
+      .where('senderId', '==', receiverId)
+      .where('receiverId', '==', senderId)
+      .get();
+
+    const messages = [];
+    snap1.forEach(doc => messages.push({ ...doc.data(), _id: doc.id }));
+    snap2.forEach(doc => messages.push({ ...doc.data(), _id: doc.id }));
+    
+    // Sort by createdAt ascending (Oldest first)
+    messages.sort((a, b) => new Date(a.createdAt || 0) - new Date(b.createdAt || 0));
 
     res.status(200).json(messages);
   } catch (error) {
@@ -67,9 +100,22 @@ router.get('/messages', async (req, res) => {
 // @desc    Get all messages for a specific user
 router.get('/inbox/:userId', async (req, res) => {
   try {
-    const messages = await Message.find({ receiverId: req.params.userId })
-      .populate('senderId', 'name profilePhoto')
-      .sort({ createdAt: -1 });
+    const snapshot = await db.collection('messages').where('receiverId', '==', req.params.userId).get();
+    
+    const messages = [];
+    for (const doc of snapshot.docs) {
+      const data = doc.data();
+      let senderInfo = null;
+      if (data.senderId) {
+        const senderDoc = await db.collection('users').doc(data.senderId).get();
+        if (senderDoc.exists) {
+          senderInfo = { _id: senderDoc.id, name: senderDoc.data().name, profilePhoto: senderDoc.data().profilePhoto };
+        }
+      }
+      messages.push({ ...data, _id: doc.id, senderId: senderInfo || data.senderId });
+    }
+    
+    messages.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
     res.status(200).json(messages);
   } catch (error) {
     console.error('Error fetching inbox messages:', error);
@@ -81,10 +127,17 @@ router.get('/inbox/:userId', async (req, res) => {
 // @desc    Mark all messages for a user as read
 router.put('/inbox/read/:userId', async (req, res) => {
   try {
-    await Message.updateMany(
-      { receiverId: req.params.userId, read: false },
-      { $set: { read: true } }
-    );
+    const snapshot = await db.collection('messages')
+      .where('receiverId', '==', req.params.userId)
+      .where('read', '==', false)
+      .get();
+      
+    const batch = db.batch();
+    snapshot.forEach(doc => {
+      batch.update(doc.ref, { read: true });
+    });
+    
+    await batch.commit();
     res.status(200).json({ message: 'Inbox messages marked as read.' });
   } catch (error) {
     console.error('Error marking inbox read:', error);
@@ -102,15 +155,17 @@ router.post('/messages', async (req, res) => {
       return res.status(400).json({ message: 'senderId, receiverId, and content are required.' });
     }
 
-    const newMessage = new Message({
+    const newMessage = {
       senderId,
       receiverId,
-      content
-    });
+      content,
+      read: false,
+      createdAt: new Date().toISOString()
+    };
 
-    await newMessage.save();
+    const docRef = await db.collection('messages').add(newMessage);
 
-    res.status(201).json(newMessage);
+    res.status(201).json({ ...newMessage, _id: docRef.id });
   } catch (error) {
     console.error('Error saving message:', error);
     res.status(500).json({ message: 'Server error saving message.' });
@@ -125,16 +180,18 @@ router.get('/unread-counts', async (req, res) => {
     const { receiverId } = req.query;
     if (!receiverId) return res.status(400).json({ message: 'receiverId is required.' });
 
-    const unreadMessages = await Message.aggregate([
-      { $match: { receiverId, read: false } },
-      { $group: { _id: '$senderId', count: { $sum: 1 } } }
-    ]);
-
-    // Convert array of { _id: senderId, count } to a nice object map
-    const countsMap = unreadMessages.reduce((acc, curr) => {
-      acc[curr._id] = curr.count;
-      return acc;
-    }, {});
+    const snapshot = await db.collection('messages')
+      .where('receiverId', '==', receiverId)
+      .where('read', '==', false)
+      .get();
+      
+    const countsMap = {};
+    snapshot.forEach(doc => {
+      const senderId = doc.data().senderId;
+      if (senderId) {
+        countsMap[senderId] = (countsMap[senderId] || 0) + 1;
+      }
+    });
 
     res.status(200).json(countsMap);
   } catch (error) {
@@ -152,11 +209,18 @@ router.put('/mark-read', async (req, res) => {
       return res.status(400).json({ message: 'senderId and receiverId are required.' });
     }
 
-    await Message.updateMany(
-      { senderId, receiverId, read: false },
-      { $set: { read: true } }
-    );
+    const snapshot = await db.collection('messages')
+      .where('senderId', '==', senderId)
+      .where('receiverId', '==', receiverId)
+      .where('read', '==', false)
+      .get();
 
+    const batch = db.batch();
+    snapshot.forEach(doc => {
+      batch.update(doc.ref, { read: true });
+    });
+    
+    await batch.commit();
     res.status(200).json({ message: 'Messages marked as read.' });
   } catch (error) {
     console.error('Error marking messages read:', error);
