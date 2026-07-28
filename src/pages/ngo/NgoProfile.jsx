@@ -34,6 +34,7 @@ const NgoProfile = () => {
   // Email Change OTP States
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
+  const [localOtp, setLocalOtp] = useState("");
   const [countdown, setCountdown] = useState(0);
   const [otp, setOtp] = useState('');
 
@@ -86,28 +87,41 @@ const NgoProfile = () => {
 
   const handleSendOtp = async () => {
     if (!formData.email || !formData.email.includes('@')) {
-      setNotification({ type: 'error', message: 'Please enter a valid NGO email address.' });
+      showAlert('Please enter a valid email address', 'error');
       return;
     }
     
+    // Generate a 6-digit OTP locally
+    const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+    setLocalOtp(generatedOtp);
+    
     try {
-      const response = await fetch('https://gladiators-ngo.onrender.com/api/auth/send-otp', {
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: formData.email })
+        body: JSON.stringify({
+          service_id: 'service_kfkq6bm',
+          template_id: 'template_psqbnic',
+          user_id: 'vpDAX82eAyKf8yWHU',
+          template_params: {
+            email: formData.email,
+            passcode: generatedOtp,
+            time: new Date(Date.now() + 15 * 60000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+          }
+        })
       });
-      const data = await response.json();
       
       if (response.ok) {
         setOtpSent(true);
         setCountdown(60);
-        setNotification({ type: 'success', message: 'Email sent to the entered email successfully.' });
+        showAlert('Email sent successfully!', 'success');
       } else {
-        setNotification({ type: 'error', message: data.message || 'Failed to send OTP.' });
+        const errText = await response.text();
+        showAlert('Failed to send OTP.', 'error');
       }
     } catch (err) {
       console.error(err);
-      setNotification({ type: 'error', message: 'Server error while sending OTP.' });
+      showAlert('Error while sending OTP.', 'error');
     }
   };
 

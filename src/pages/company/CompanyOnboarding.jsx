@@ -46,6 +46,7 @@ const CompanyOnboarding = () => {
 
   const [otpSent, setOtpSent] = useState(false);
   const [otpVerified, setOtpVerified] = useState(false);
+  const [localOtp, setLocalOtp] = useState("");
   const [csrInput, setCsrInput] = useState('');
   const [countdown, setCountdown] = useState(0);
 
