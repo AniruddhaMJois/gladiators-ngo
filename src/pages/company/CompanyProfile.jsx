@@ -347,31 +347,9 @@ const CompanyProfile = () => {
                 {isEditing ? 'Modify Corporate Records' : 'Corporate Identity Registry'}
               </h3>
               {!isEditing && (
-                <button
-                  onClick={() => {
-                    setFormData({
-                      name: user.name || '',
-                      email: user.email || '',
-                      website: user.website || '',
-                      headquarters: user.headquarters || '',
-                      industrySector: user.industrySector || 'Technology',
-                      csrFocus: user.csrFocus || [],
-                      pocName: user.pocName || '',
-                      pocPhone: user.pocPhone || '',
-                      pocDesignation: user.pocDesignation || '',
-                      pocEmail: user.pocEmail || ''
-                    });
-                    setOtpSent(false);
-                    setOtpVerified(false);
-                    setCountdown(0);
-                    setOtp('');
-                    setIsEditing(true);
-                  }}
-                  className="btn btn-outline"
-                  style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
-                >
-                  <Edit3 size={14} /> Edit Details
-                </button>
+                <div style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem', opacity: 0 }}>
+                  <Edit3 size={14} /> Spacer
+                </div>
               )}
             </div>
 
@@ -719,25 +697,56 @@ const CompanyProfile = () => {
               </div>
 
               {/* Action buttons */}
-              {isEditing && (
-                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', borderTop: '1px solid var(--color-border)', paddingTop: '1.25rem' }}>
+              {/* Action buttons */}
+              <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', borderTop: '1px solid var(--color-border)', paddingTop: '1.25rem' }}>
+                {isEditing ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => setIsEditing(false)}
+                      className="btn btn-outline"
+                      style={{ flex: 1 }}
+                    >
+                      Discard Changes
+                    </button>
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', background: 'linear-gradient(135deg, #B8860B, #FBC02D)' }}
+                    >
+                      <Save size={16} /> Save Settings
+                    </button>
+                  </>
+                ) : (
                   <button
                     type="button"
-                    onClick={() => setIsEditing(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setFormData({
+                        name: user.name || '',
+                        email: user.email || '',
+                        website: user.website || '',
+                        headquarters: user.headquarters || '',
+                        industrySector: user.industrySector || 'Technology',
+                        csrFocus: user.csrFocus || [],
+                        pocName: user.pocName || '',
+                        pocPhone: user.pocPhone || '',
+                        pocDesignation: user.pocDesignation || '',
+                        pocEmail: user.pocEmail || ''
+                      });
+                      setOtpSent(false);
+                      setOtpVerified(false);
+                      setCountdown(0);
+                      setOtp('');
+                      setIsEditing(true);
+                    }}
                     className="btn btn-outline"
-                    style={{ flex: 1 }}
+                    style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
                   >
-                    Discard Changes
+                    <Edit3 size={16} /> Edit Details
                   </button>
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', background: 'linear-gradient(135deg, #B8860B, #FBC02D)' }}
-                  >
-                    <Save size={16} /> Save Settings
-                  </button>
-                </div>
-              )}
+                )}
+              </div>
 
             </form>
 

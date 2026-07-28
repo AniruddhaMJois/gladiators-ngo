@@ -355,33 +355,9 @@ const NgoProfile = () => {
                 {isEditing ? 'Modify NGO Records' : 'NGO Verification Registry'}
               </h3>
               {!isEditing && (
-                <button
-                  onClick={() => {
-                    setFormData({
-                      name: user.name || '',
-                      email: user.email || '',
-                      website: user.website || '',
-                      headquarters: user.headquarters || '',
-                      domain: standardDomains.includes(user.domain) ? user.domain : 'Other',
-                      customDomain: standardDomains.includes(user.domain) ? '' : user.domain,
-                      pocName: user.pocName || '',
-                      pocPhone: user.pocPhone || '',
-                      pocDesignation: user.pocDesignation || '',
-                      pocEmail: user.pocEmail || '',
-                      about: user.about || ''
-                    });
-                    setIsCustomDomain(!standardDomains.includes(user.domain));
-                    setOtpSent(false);
-                    setOtpVerified(false);
-                    setCountdown(0);
-                    setOtp('');
-                    setIsEditing(true);
-                  }}
-                  className="btn btn-outline"
-                  style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
-                >
-                  <Edit3 size={14} /> Edit Details
-                </button>
+                <div style={{ padding: '0.4rem 0.8rem', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.4rem', opacity: 0 }}>
+                  <Edit3 size={14} /> Spacer
+                </div>
               )}
             </div>
 
@@ -697,25 +673,58 @@ const NgoProfile = () => {
               </div>
 
               {/* Action Save/Discard buttons */}
-              {isEditing && (
-                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', borderTop: '1px solid var(--color-border)', paddingTop: '1.25rem' }}>
+              {/* Action Save/Discard/Edit buttons */}
+              <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem', borderTop: '1px solid var(--color-border)', paddingTop: '1.25rem' }}>
+                {isEditing ? (
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => setIsEditing(false)}
+                      className="btn btn-outline"
+                      style={{ flex: 1 }}
+                    >
+                      Discard Changes
+                    </button>
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', background: 'linear-gradient(135deg, #00695C, #4DB6AC)' }}
+                    >
+                      <Save size={16} /> Save Settings
+                    </button>
+                  </>
+                ) : (
                   <button
                     type="button"
-                    onClick={() => setIsEditing(false)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setFormData({
+                        name: user.name || '',
+                        email: user.email || '',
+                        website: user.website || '',
+                        headquarters: user.headquarters || '',
+                        domain: standardDomains.includes(user.domain) ? user.domain : 'Other',
+                        customDomain: standardDomains.includes(user.domain) ? '' : user.domain,
+                        pocName: user.pocName || '',
+                        pocPhone: user.pocPhone || '',
+                        pocDesignation: user.pocDesignation || '',
+                        pocEmail: user.pocEmail || '',
+                        about: user.about || ''
+                      });
+                      setIsCustomDomain(!standardDomains.includes(user.domain));
+                      setOtpSent(false);
+                      setOtpVerified(false);
+                      setCountdown(0);
+                      setOtp('');
+                      setIsEditing(true);
+                    }}
                     className="btn btn-outline"
-                    style={{ flex: 1 }}
+                    style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
                   >
-                    Discard Changes
+                    <Edit3 size={16} /> Edit Details
                   </button>
-                  <button
-                    type="submit"
-                    className="btn btn-primary"
-                    style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', background: 'linear-gradient(135deg, #00695C, #4DB6AC)' }}
-                  >
-                    <Save size={16} /> Save Settings
-                  </button>
-                </div>
-              )}
+                )}
+              </div>
 
             </form>
 
