@@ -6,7 +6,7 @@
   
   [![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
   [![NodeJS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
-  [![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+  [![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
   [![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](https://vitejs.dev/)
 </div>
 
@@ -14,7 +14,7 @@
 
 > _"Bridge the Gap. Amplify Impact."_
 
-**GladiConnect** is a robust, full-stack (MERN) role-based platform built to connect **NGOs**, **Volunteers**, and **Corporate Funders**. Our mission is to facilitate transparent, efficient, and collaborative efforts that advance the **UN Sustainable Development Goals 16 (Peace, Justice & Strong Institutions)** and **17 (Partnerships for the Goals)**.
+**GladiConnect** is a robust, full-stack role-based platform built to connect **NGOs**, **Volunteers**, and **Corporate Funders (CSR)**. Our mission is to facilitate transparent, efficient, and collaborative efforts that advance the **UN Sustainable Development Goals 16 (Peace, Justice & Strong Institutions)** and **17 (Partnerships for the Goals)**.
 
 ---
 
@@ -32,30 +32,32 @@
 
 ### 🤝 Volunteer Portal
 - **Smart Directory:** Discover NGOs using intelligent domain and geographic filtering.
-- **Interest Matching:** Connect instantly with organizations driving causes you care about.
-- **Impact Tracking:** Maintain a living record of volunteered hours, participated campaigns, and earned digital badges.
+- **Impact Tracking:** Maintain a living record of volunteered hours and participated campaigns.
+- **Gamification (Badges):** The system automatically tracks volunteer hours and dynamically awards digital badges (e.g., *Green Horn*, *Earth Champion*) to encourage and reward social work.
 
 ### 💼 Corporate CSR Portal
-- **Due Diligence Tracker:** Verify NGO credentials, registration status, and compliance data before funding.
-- **Funding Allocation:** Monitor exactly where CSR funds are routed.
-- **Compliance Reporting:** Extract clean, accurate impact and financial logs generated directly from the NGO Finance Suite.
+- **Due Diligence Tracker:** Verify NGO credentials (like NGO Darpan IDs), registration status, and compliance data before funding.
+- **Compliance Reporting:** Extract clean, accurate impact and financial logs generated directly from the NGO Finance Suite to guarantee transparency.
+
+### 🤖 GladiAssist (AI Chatbot)
+- Powered by the **Google Gemini 2.5 Flash API**, GladiAssist is a context-aware virtual assistant.
+- It is strictly programmed to answer questions related only to the user's current page and role, maintaining a professional tone, blocking profanity, and securing sensitive database information.
 
 ---
 
 ## 🛠️ Architecture & Tech Stack
 
-GladiConnect utilizes a modern **MERN** (MongoDB, Express, React, Node.js) architecture.
+GladiConnect recently underwent a massive architectural upgrade for production deployment:
 
-### Frontend
+### Frontend (Live on Vercel)
 - **Framework:** React 19 + Vite for lightning-fast HMR and optimized builds.
 - **Styling:** Custom Vanilla CSS Design System featuring Glassmorphism, tailored color palettes, and micro-animations.
-- **Icons:** Lucide React for crisp, scalable UI iconography.
-- **State & Context:** React Context API + LocalStorage/IndexedDB for offline capabilities.
+- **Deployment:** Globally deployed and auto-scaling on **Vercel**.
 
-### Backend
+### Backend (Live on Render)
 - **Runtime:** Node.js with Express.js REST API.
-- **Database:** MongoDB (Mongoose ODMs) powering highly relational schemas (Users, NGOs, Campaigns, Finance Reports).
-- **File Storage:** Base64 processing for digital attachments (bills, receipts) tightly coupled with financial records.
+- **Database:** Migrated to **Google Firebase Firestore** (a cloud-hosted, highly scalable NoSQL database) for real-time capabilities and enhanced security.
+- **Deployment:** Continuously deployed on **Render** via GitHub webhooks.
 
 ---
 
@@ -71,46 +73,7 @@ Our UI/UX is built to inspire trust, maintain absolute clarity, and provide a pr
 | **Typography**| `Outfit` (Google Fonts) | Modern, highly legible sans-serif for all UI text |
 
 - **Glassmorphism:** Elegant, translucent cards providing depth.
-- **Micro-interactions:** Smooth hover states, transition effects, and intuitive modal overlays (e.g., Delete Confirmations, Image Previews).
-
----
-
-## ⚡ Quick Start Guide
-
-Ready to run GladiConnect locally? Follow these steps:
-
-### 1. Database Setup
-Ensure you have [MongoDB](https://www.mongodb.com/try/download/community) installed and running locally on the default port (`mongodb://localhost:27017/gladiators`).
-
-### 2. Start the Backend Server
-```bash
-# Navigate to the server directory
-cd server
-
-# Install backend dependencies
-npm install
-
-# (Optional) Seed the database with mock data
-node seed.js
-
-# Start the Express API server (runs on Port 5000)
-npm run dev
-```
-
-### 3. Start the Frontend Application
-Open a new terminal window:
-```bash
-# Return to the project root
-cd ..
-
-# Install frontend dependencies
-npm install
-
-# Start the Vite development server
-npm run dev
-```
-
-Navigate to `http://localhost:5173` in your browser to experience GladiConnect!
+- **Micro-interactions:** Smooth hover states, transition effects, and intuitive modal overlays.
 
 ---
 
@@ -119,12 +82,12 @@ Navigate to `http://localhost:5173` in your browser to experience GladiConnect!
 ```text
 gladiators-ngo/
 ├── server/                    # Node.js + Express Backend
-│   ├── models/                # Mongoose Schemas (Campaign, FinanceReport, etc.)
-│   ├── routes/                # REST API Endpoints (/api/finance, etc.)
+│   ├── routes/                # REST API Endpoints (/api/finance, /api/auth, etc.)
+│   ├── firebase.js            # Firebase Admin SDK Initialization
 │   └── server.js              # Server entry point & configuration
 │
 ├── src/                       # React 19 Frontend
-│   ├── components/            # Reusable UI components (Modals, Alerts, Nav)
+│   ├── components/            # Reusable UI components & Chatbot
 │   ├── context/               # Global State (Auth, Theme, Confirm Dialogs)
 │   ├── pages/                 # Role-based Dashboards & Onboarding Flows
 │   │   ├── ngo/               # NGO-specific tools (Finance Suite, Campaigns)
