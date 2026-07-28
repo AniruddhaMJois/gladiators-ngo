@@ -1,13 +1,17 @@
 const express = require('express');
+const { db } = require('../server');
 const router = express.Router();
-const Log = require('../models/Log');
 
 // Get all logs for an NGO
 router.get('/ngo/:id', async (req, res) => {
   try {
-    const logs = await Log.find({ ngoId: req.params.id }).sort({ date: -1 });
+    const snapshot = await db.collection('logs').where('ngoId', '==', req.params.id).get();
+    const logs = [];
+    snapshot.forEach(doc => logs.push({ ...doc.data(), _id: doc.id }));
+    logs.sort((a, b) => new Date(b.date || 0) - new Date(a.date || 0));
     res.json(logs);
   } catch (err) {
+    console.error('Error fetching logs:', err);
     res.status(500).json({ error: err.message });
   }
 });
@@ -15,10 +19,14 @@ router.get('/ngo/:id', async (req, res) => {
 // Create a new log
 router.post('/', async (req, res) => {
   try {
-    const newLog = new Log(req.body);
-    const savedLog = await newLog.save();
-    res.status(201).json(savedLog);
+    const newLog = {
+      ...req.body,
+      date: req.body.date || new Date().toISOString()
+    };
+    const docRef = await db.collection('logs').add(newLog);
+    res.status(201).json({ ...newLog, _id: docRef.id });
   } catch (err) {
+    console.error('Error creating log:', err);
     res.status(500).json({ error: err.message });
   }
 });
@@ -26,9 +34,12 @@ router.post('/', async (req, res) => {
 // Update an existing log
 router.put('/:id', async (req, res) => {
   try {
-    const updatedLog = await Log.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(updatedLog);
+    const logRef = db.collection('logs').doc(req.params.id);
+    await logRef.update(req.body);
+    const updatedDoc = await logRef.get();
+    res.json({ ...updatedDoc.data(), _id: updatedDoc.id });
   } catch (err) {
+    console.error('Error updating log:', err);
     res.status(500).json({ error: err.message });
   }
 });
@@ -36,9 +47,10 @@ router.put('/:id', async (req, res) => {
 // Delete a log
 router.delete('/:id', async (req, res) => {
   try {
-    await Log.findByIdAndDelete(req.params.id);
+    await db.collection('logs').doc(req.params.id).delete();
     res.json({ message: 'Log deleted successfully' });
   } catch (err) {
+    console.error('Error deleting log:', err);
     res.status(500).json({ error: err.message });
   }
 });
