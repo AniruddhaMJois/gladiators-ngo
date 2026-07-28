@@ -113,7 +113,7 @@ const LoginPage = () => {
             letterSpacing: '-0.02em',
             transition: 'color 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
           }}>
-            Welcome Back
+            Sign In / Sign Up
           </h1>
           <p style={{ fontSize: '0.95rem', color: 'var(--color-text-secondary)', margin: 0, fontWeight: 500 }}>
             Enter your credentials to access your <span style={{
