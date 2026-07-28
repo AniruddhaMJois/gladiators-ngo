@@ -74,20 +74,33 @@ const CompanyOnboarding = () => {
       return;
     }
     
+    // Generate a 6-digit OTP locally
+    const generatedOtp = Math.floor(100000 + Math.random() * 900000).toString();
+    setLocalOtp(generatedOtp);
+    
     try {
-      const response = await fetch('https://gladiators-ngo.onrender.com/api/auth/send-otp', {
+      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: formData.pocEmail })
+        body: JSON.stringify({
+          service_id: 'service_kfkq6bm',
+          template_id: 'template_psqbnic',
+          user_id: 'vpDAX82eAyKf8yWHU',
+          template_params: {
+            email: formData.pocEmail,
+            passcode: generatedOtp,
+            time: new Date(Date.now() + 15 * 60000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})
+          }
+        })
       });
-      const data = await response.json();
       
       if (response.ok) {
         setOtpSent(true);
         setCountdown(60);
         showAlert('Email sent to the entered email successfully.', 'success');
       } else {
-        showAlert(data.message || 'Failed to send OTP.', 'error');
+        const errText = await response.text();
+        showAlert('Failed to send OTP.', 'error');
       }
     } catch (err) {
       console.error(err);
@@ -101,23 +114,11 @@ const CompanyOnboarding = () => {
       return;
     }
 
-    try {
-      const response = await fetch('https://gladiators-ngo.onrender.com/api/auth/verify-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: formData.pocEmail, otp: formData.otp })
-      });
-      const data = await response.json();
-      
-      if (response.ok) {
-        setOtpVerified(true);
-        showAlert('POC email verified successfully!', 'success');
-      } else {
-        showAlert(data.message || 'Invalid OTP.', 'error');
-      }
-    } catch (err) {
-      console.error(err);
-      showAlert('Server error while verifying OTP.', 'error');
+    if (formData.otp === localOtp) {
+      setOtpVerified(true);
+      showAlert('POC email verified successfully!', 'success');
+    } else {
+      showAlert('Invalid OTP.', 'error');
     }
   };
 
