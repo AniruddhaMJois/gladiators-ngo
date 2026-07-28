@@ -313,7 +313,7 @@ const LoginPage = () => {
               textDecoration: 'underline'
             }}
           >
-            {'Register a new profile here'.replace('profile', `${selectedRole} profile`)}
+            Register Now
           </button>
         </div>
 
