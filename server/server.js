@@ -32,7 +32,13 @@ app.use('/api/users', userRoutes);
 const admin = require('firebase-admin');
 
 // Firebase Initialization
-const serviceAccount = require('./firebase-key.json');
+let serviceAccount;
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+} else {
+  serviceAccount = require('./firebase-key.json');
+}
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
