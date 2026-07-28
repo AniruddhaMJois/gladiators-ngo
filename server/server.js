@@ -1,6 +1,10 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const dns = require('dns');
+
+// Force IPv4 for external connections (fixes Render Nodemailer IPv6 ENETUNREACH issue)
+dns.setDefaultResultOrder('ipv4first');
 
 const authRoutes = require('./routes/auth');
 
