@@ -16,7 +16,7 @@ const CharitySearch = () => {
 
   const fetchInitialData = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/users/ngos/search?`);
+      const res = await fetch(`https://gladiators-ngo.onrender.com/api/users/ngos/search?`);
       const data = await res.json();
       setNgosList(data);
       
@@ -32,7 +32,7 @@ const CharitySearch = () => {
   const fetchNgos = async () => {
     try {
       const query = new URLSearchParams(searchParams).toString();
-      const res = await fetch(`http://localhost:5000/api/users/ngos/search?${query}`);
+      const res = await fetch(`https://gladiators-ngo.onrender.com/api/users/ngos/search?${query}`);
       const data = await res.json();
       setNgosList(data);
     } catch (err) {

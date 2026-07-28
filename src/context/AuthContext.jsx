@@ -23,7 +23,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     // credentials should include { gcId, pin, role }
     try {
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch('https://gladiators-ngo.onrender.com/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials)
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
 
   const registerUser = async (newUserData) => {
     try {
-      const response = await fetch('http://localhost:5000/api/auth/register', {
+      const response = await fetch('https://gladiators-ngo.onrender.com/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newUserData)
@@ -77,7 +77,7 @@ export const AuthProvider = ({ children }) => {
     if (!user || !user._id) return { success: false, message: 'Not logged in' };
     
     try {
-      const response = await fetch('http://localhost:5000/api/auth/profile', {
+      const response = await fetch('https://gladiators-ngo.onrender.com/api/auth/profile', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ gcId: user._id, updatedData })

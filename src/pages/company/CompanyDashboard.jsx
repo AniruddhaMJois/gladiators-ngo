@@ -13,7 +13,7 @@ const ImpactTracker = () => {
   useEffect(() => {
     // In a real scenario, fetch donations where donorId = user.gcId
     // For demo purposes, we fetch all donations and filter locally, or mock if none exist.
-    fetch(`http://localhost:5000/api/finance/donations/demo-will-fail-if-no-ngo`)
+    fetch(`https://gladiators-ngo.onrender.com/api/finance/donations/demo-will-fail-if-no-ngo`)
       .catch(() => {});
       
     // Mocking donations for the tracker since donor query isn't fully implemented in backend API yet
@@ -33,7 +33,7 @@ const ImpactTracker = () => {
     // Fetch expenses for this NGO to show transparency
     if (!donationExpenses[donation._id]) {
       try {
-        const res = await fetch(`http://localhost:5000/api/finance/reports/${donation.ngoId}`);
+        const res = await fetch(`https://gladiators-ngo.onrender.com/api/finance/reports/${donation.ngoId}`);
         if (res.ok) {
           const data = await res.json();
           setDonationExpenses(prev => ({...prev, [donation._id]: data}));

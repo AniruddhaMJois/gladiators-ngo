@@ -90,7 +90,7 @@ const GlobalLayout = () => {
     if (!user || user.role !== 'volunteer') return;
     const id = user._id || user.gcId;
     try {
-      const res = await fetch(`http://localhost:5000/api/auth/volunteer/${id}/badges`);
+      const res = await fetch(`https://gladiators-ngo.onrender.com/api/auth/volunteer/${id}/badges`);
       if (res.ok) {
         const data = await res.json();
         setBadgeData(data);
@@ -141,7 +141,7 @@ const GlobalLayout = () => {
     const currentBadge = newBadges[0];
     const id = user._id || user.gcId;
     try {
-      const res = await fetch(`http://localhost:5000/api/auth/volunteer/${id}/badges/mark-notified`, {
+      const res = await fetch(`https://gladiators-ngo.onrender.com/api/auth/volunteer/${id}/badges/mark-notified`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ level: currentBadge.level })

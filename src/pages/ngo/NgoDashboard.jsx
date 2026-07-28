@@ -24,12 +24,12 @@ const ImpactProfile = () => {
 
   useEffect(() => {
     if (user?.gcId) {
-      fetch(`http://localhost:5000/api/programs/ngo/${user.gcId}`)
+      fetch(`https://gladiators-ngo.onrender.com/api/programs/ngo/${user.gcId}`)
         .then(res => res.json())
         .then(data => setPrograms(data))
         .catch(console.error);
         
-      fetch(`http://localhost:5000/api/users/ngos/${user.gcId}/stats`)
+      fetch(`https://gladiators-ngo.onrender.com/api/users/ngos/${user.gcId}/stats`)
         .then(res => res.json())
         .then(data => setNgoStats(data))
         .catch(console.error);
@@ -391,7 +391,7 @@ const ManagementSuite = () => {
 
   const fetchPrograms = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/programs/ngo/${id}`);
+      const res = await fetch(`https://gladiators-ngo.onrender.com/api/programs/ngo/${id}`);
       const data = await res.json();
       setPrograms(data);
     } catch (e) { console.error(e); }
@@ -399,7 +399,7 @@ const ManagementSuite = () => {
 
   const fetchApplications = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/applications/ngo/${id}`);
+      const res = await fetch(`https://gladiators-ngo.onrender.com/api/applications/ngo/${id}`);
       const data = await res.json();
       setApplications(data);
     } catch (e) { console.error(e); }
@@ -410,7 +410,7 @@ const ManagementSuite = () => {
     try {
       const rolesArray = formData.rolesNeeded.split(',').map(r => r.trim()).filter(Boolean);
       const id = user?._id || user?.gcId;
-      await fetch('http://localhost:5000/api/programs', {
+      await fetch('https://gladiators-ngo.onrender.com/api/programs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -430,7 +430,7 @@ const ManagementSuite = () => {
 
   const handleApprove = async (appId) => {
     try {
-      await fetch(`http://localhost:5000/api/applications/${appId}/status`, {
+      await fetch(`https://gladiators-ngo.onrender.com/api/applications/${appId}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: 'Approved' })
@@ -444,7 +444,7 @@ const ManagementSuite = () => {
 
   const handleReject = async (appId) => {
     try {
-      await fetch(`http://localhost:5000/api/applications/${appId}/status`, {
+      await fetch(`https://gladiators-ngo.onrender.com/api/applications/${appId}/status`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status: 'Rejected' })
@@ -464,7 +464,7 @@ const ManagementSuite = () => {
   const confirmDeleteProgram = async () => {
     if (!programToDelete) return;
     try {
-      await fetch(`http://localhost:5000/api/programs/${programToDelete._id}`, {
+      await fetch(`https://gladiators-ngo.onrender.com/api/programs/${programToDelete._id}`, {
         method: 'DELETE'
       });
       const id = user?._id || user?.gcId;
@@ -485,7 +485,7 @@ const ManagementSuite = () => {
         status: attendanceState[appId].status
       }));
 
-      await fetch(`http://localhost:5000/api/programs/${selectedCampaignForEnd._id}/end`, {
+      await fetch(`https://gladiators-ngo.onrender.com/api/programs/${selectedCampaignForEnd._id}/end`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ hours: Number(campaignHours), attendanceData })
@@ -502,7 +502,7 @@ const ManagementSuite = () => {
 
   const fetchVolunteerApps = async (volId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/applications/volunteer/${volId}`);
+      const res = await fetch(`https://gladiators-ngo.onrender.com/api/applications/volunteer/${volId}`);
       const data = await res.json();
       setVolunteerApps(data);
     } catch (e) { console.error(e); }
@@ -855,7 +855,7 @@ const OfflineEventLogger = () => {
   const fetchLogs = async () => {
     if (!user?.gcId) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/logs/ngo/${user.gcId}`);
+      const res = await fetch(`https://gladiators-ngo.onrender.com/api/logs/ngo/${user.gcId}`);
       if (!res.ok) throw new Error('Network response was not ok');
       const data = await res.json();
       setEvents(data);
@@ -887,7 +887,7 @@ const OfflineEventLogger = () => {
     if (formData._id && !formData._id.toString().startsWith('temp-')) {
       if (isOnline) {
         try {
-          await fetch(`http://localhost:5000/api/logs/${formData._id}`, {
+          await fetch(`https://gladiators-ngo.onrender.com/api/logs/${formData._id}`, {
             method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(logData)
           });
           fetchLogs();
@@ -900,7 +900,7 @@ const OfflineEventLogger = () => {
     } else {
       if (isOnline) {
         try {
-          await fetch('http://localhost:5000/api/logs', {
+          await fetch('https://gladiators-ngo.onrender.com/api/logs', {
             method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(logData)
           });
           fetchLogs();
@@ -944,7 +944,7 @@ const OfflineEventLogger = () => {
 
     if (isOnline) {
       try {
-        await fetch(`http://localhost:5000/api/logs/${id}`, { method: 'DELETE' });
+        await fetch(`https://gladiators-ngo.onrender.com/api/logs/${id}`, { method: 'DELETE' });
         fetchLogs();
       } catch (err) {
         queueAction({ type: 'DELETE', id });
@@ -965,15 +965,15 @@ const OfflineEventLogger = () => {
     for (const action of pendingActions) {
       try {
         if (action.type === 'CREATE') {
-          await fetch('http://localhost:5000/api/logs', {
+          await fetch('https://gladiators-ngo.onrender.com/api/logs', {
             method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(action.data)
           });
         } else if (action.type === 'UPDATE') {
-          await fetch(`http://localhost:5000/api/logs/${action.id}`, {
+          await fetch(`https://gladiators-ngo.onrender.com/api/logs/${action.id}`, {
             method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(action.data)
           });
         } else if (action.type === 'DELETE') {
-          await fetch(`http://localhost:5000/api/logs/${action.id}`, { method: 'DELETE' });
+          await fetch(`https://gladiators-ngo.onrender.com/api/logs/${action.id}`, { method: 'DELETE' });
         }
         successCount++;
       } catch (e) {
@@ -1091,9 +1091,9 @@ const FinanceSuite = () => {
   const fetchFinanceData = async () => {
     try {
       const [campRes, expRes, donRes] = await Promise.all([
-        fetch(`http://localhost:5000/api/finance/campaigns/${user.gcId}`),
-        fetch(`http://localhost:5000/api/finance/reports/${user.gcId}`), // We use the reports endpoint for our new expense format
-        fetch(`http://localhost:5000/api/finance/donations/${user.gcId}`)
+        fetch(`https://gladiators-ngo.onrender.com/api/finance/campaigns/${user.gcId}`),
+        fetch(`https://gladiators-ngo.onrender.com/api/finance/reports/${user.gcId}`), // We use the reports endpoint for our new expense format
+        fetch(`https://gladiators-ngo.onrender.com/api/finance/donations/${user.gcId}`)
       ]);
       setCampaigns(await campRes.json());
       setExpenses(await expRes.json());
@@ -1107,7 +1107,7 @@ const FinanceSuite = () => {
     e.preventDefault();
     try {
       const isEditing = !!expenseForm._id;
-      const url = isEditing ? `http://localhost:5000/api/finance/reports/${expenseForm._id}` : 'http://localhost:5000/api/finance/reports';
+      const url = isEditing ? `https://gladiators-ngo.onrender.com/api/finance/reports/${expenseForm._id}` : 'https://gladiators-ngo.onrender.com/api/finance/reports';
       const method = isEditing ? 'PUT' : 'POST';
       
       const totalAmount = expenseForm.rows.reduce((acc, row) => acc + Number(row.expense || 0), 0);
@@ -1140,7 +1140,7 @@ const FinanceSuite = () => {
   const handleDeleteExpense = async (id) => {
     if (!(await askConfirm('Are you sure you want to delete this expense report?'))) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/finance/reports/${id}`, {
+      const res = await fetch(`https://gladiators-ngo.onrender.com/api/finance/reports/${id}`, {
         method: 'DELETE'
       });
       if (res.ok) {
@@ -1419,7 +1419,7 @@ const NgoDashboard = () => {
     
     const fetchTotalUnread = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/chat/unread-counts?receiverId=${user.gcId}`);
+        const response = await fetch(`https://gladiators-ngo.onrender.com/api/chat/unread-counts?receiverId=${user.gcId}`);
         const data = await response.json();
         const total = Object.values(data).reduce((acc, count) => acc + (typeof count === 'number' ? count : 0), 0);
         setTotalUnread(total);
@@ -1428,7 +1428,7 @@ const NgoDashboard = () => {
 
     const fetchPendingReports = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/finance/campaigns/${user.gcId}/pending-reports`);
+        const res = await fetch(`https://gladiators-ngo.onrender.com/api/finance/campaigns/${user.gcId}/pending-reports`);
         if (res.ok) {
           const data = await res.json();
           setPendingReports(data);
@@ -1444,7 +1444,7 @@ const NgoDashboard = () => {
 
   const handleGeneratePendingReport = async (campaignId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/finance/campaigns/${campaignId}/report`, {
+      const res = await fetch(`https://gladiators-ngo.onrender.com/api/finance/campaigns/${campaignId}/report`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ reportUrl: 'finance_report_' + Date.now() + '.pdf' })

@@ -22,7 +22,7 @@ const CompanyNgoProfile = () => {
       try {
         // Fetch NGO details (using search with ID or assuming we have a direct endpoint, 
         // we'll filter from search for demo since we didn't add a specific GET /users/:id earlier)
-        const userRes = await fetch(`http://localhost:5000/api/users/ngos/search`);
+        const userRes = await fetch(`https://gladiators-ngo.onrender.com/api/users/ngos/search`);
         const allNgos = await userRes.json();
         const foundNgo = allNgos.find(n => n._id === ngoId);
         
@@ -30,10 +30,10 @@ const CompanyNgoProfile = () => {
 
         // Fetch Finance, Program Data & Stats
         const [campRes, expRes, progRes, statsRes] = await Promise.all([
-          fetch(`http://localhost:5000/api/finance/campaigns/${ngoId}`),
-          fetch(`http://localhost:5000/api/finance/reports/${ngoId}`),
-          fetch(`http://localhost:5000/api/programs/ngo/${ngoId}`),
-          fetch(`http://localhost:5000/api/users/ngos/${ngoId}/stats`)
+          fetch(`https://gladiators-ngo.onrender.com/api/finance/campaigns/${ngoId}`),
+          fetch(`https://gladiators-ngo.onrender.com/api/finance/reports/${ngoId}`),
+          fetch(`https://gladiators-ngo.onrender.com/api/programs/ngo/${ngoId}`),
+          fetch(`https://gladiators-ngo.onrender.com/api/users/ngos/${ngoId}/stats`)
         ]);
         
         setCampaigns(await campRes.json());

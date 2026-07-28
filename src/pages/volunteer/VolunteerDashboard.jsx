@@ -18,7 +18,7 @@ const DirectorySearch = () => {
     if (selectedProgram) {
       const ngoId = selectedProgram.ngoId?._id || selectedProgram.ngoId;
       if (ngoId) {
-        fetch(`http://localhost:5000/api/users/ngos/${ngoId}/stats`)
+        fetch(`https://gladiators-ngo.onrender.com/api/users/ngos/${ngoId}/stats`)
           .then(res => res.json())
           .then(data => setNgoStats(data))
           .catch(console.error);
@@ -48,7 +48,7 @@ const DirectorySearch = () => {
 
   const fetchPrograms = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/programs');
+      const res = await fetch('https://gladiators-ngo.onrender.com/api/programs');
       const data = await res.json();
       setPrograms(data);
     } catch (e) { console.error(e); }
@@ -57,7 +57,7 @@ const DirectorySearch = () => {
   const fetchUserApplications = async () => {
     try {
       const id = user?._id || user?.gcId;
-      const res = await fetch(`http://localhost:5000/api/applications/volunteer/${id}`);
+      const res = await fetch(`https://gladiators-ngo.onrender.com/api/applications/volunteer/${id}`);
       const data = await res.json();
       setUserApplications(data);
     } catch (e) { console.error(e); }
@@ -92,7 +92,7 @@ const DirectorySearch = () => {
   const handleApply = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5000/api/applications', {
+      const res = await fetch('https://gladiators-ngo.onrender.com/api/applications', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -580,7 +580,7 @@ const ImpactDashboard = ({ badgeData, fetchBadgesAndStats }) => {
     if (!id) return;
     const fetchApps = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/applications/volunteer/${id}`);
+        const res = await fetch(`https://gladiators-ngo.onrender.com/api/applications/volunteer/${id}`);
         const data = await res.json();
         setApplications(data);
       } catch (e) { console.error(e); }
@@ -706,7 +706,7 @@ const NgoDirectoryView = ({ onSelectNgo }) => {
 
   const fetchNgos = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/auth/ngos');
+      const res = await fetch('https://gladiators-ngo.onrender.com/api/auth/ngos');
       const data = await res.json();
       setNgos(data);
     } catch (e) { console.error(e); }
@@ -945,12 +945,12 @@ const VolunteerInbox = () => {
   useEffect(() => {
     const id = user?._id || user?.gcId;
     if (id) {
-      fetch(`http://localhost:5000/api/chat/inbox/${id}`)
+      fetch(`https://gladiators-ngo.onrender.com/api/chat/inbox/${id}`)
         .then(res => res.json())
         .then(data => {
           setMessages(data);
           // Mark all as read
-          fetch(`http://localhost:5000/api/chat/inbox/read/${id}`, { method: 'PUT' }).catch(console.error);
+          fetch(`https://gladiators-ngo.onrender.com/api/chat/inbox/read/${id}`, { method: 'PUT' }).catch(console.error);
         })
         .catch(console.error);
     }
@@ -995,7 +995,7 @@ const VolunteerDashboard = () => {
     const id = user?._id || user?.gcId;
     if (!id) return;
     try {
-      const res = await fetch(`http://localhost:5000/api/auth/volunteer/${id}/badges`);
+      const res = await fetch(`https://gladiators-ngo.onrender.com/api/auth/volunteer/${id}/badges`);
       if (res.ok) {
         const data = await res.json();
         setBadgeData(data);

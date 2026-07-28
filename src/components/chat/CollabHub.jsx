@@ -21,7 +21,7 @@ const CollabHub = () => {
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/chat/contacts/${user.gcId}`);
+        const response = await fetch(`https://gladiators-ngo.onrender.com/api/chat/contacts/${user.gcId}`);
         const data = await response.json();
         setContacts(data);
         setLoadingContacts(false);
@@ -61,7 +61,7 @@ const CollabHub = () => {
     if (showLoader) setLoadingMessages(true);
     
     try {
-      const response = await fetch(`http://localhost:5000/api/chat/messages?senderId=${user.gcId}&receiverId=${contactId}`);
+      const response = await fetch(`https://gladiators-ngo.onrender.com/api/chat/messages?senderId=${user.gcId}&receiverId=${contactId}`);
       const data = await response.json();
       setMessages(data);
       if (showLoader) setLoadingMessages(false);
@@ -73,7 +73,7 @@ const CollabHub = () => {
 
   const fetchUnreadCounts = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/chat/unread-counts?receiverId=${user.gcId}`);
+      const response = await fetch(`https://gladiators-ngo.onrender.com/api/chat/unread-counts?receiverId=${user.gcId}`);
       const data = await response.json();
       setUnreadCounts(data);
     } catch (error) {}
@@ -83,7 +83,7 @@ const CollabHub = () => {
     if (selectedContact) {
       fetchMessages(selectedContact._id, true);
       // Mark messages as read
-      fetch('http://localhost:5000/api/chat/mark-read', {
+      fetch('https://gladiators-ngo.onrender.com/api/chat/mark-read', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ senderId: selectedContact._id, receiverId: user.gcId })
@@ -116,7 +116,7 @@ const CollabHub = () => {
     setNewMessage(''); // optimistic clear
 
     try {
-      const response = await fetch('http://localhost:5000/api/chat/messages', {
+      const response = await fetch('https://gladiators-ngo.onrender.com/api/chat/messages', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
