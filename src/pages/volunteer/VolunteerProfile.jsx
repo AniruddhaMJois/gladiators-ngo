@@ -464,7 +464,7 @@ const VolunteerProfile = () => {
             </div>
 
             {/* Group 2: Stats Block */}
-            <div className="profile-summary-stats">
+            <div className="profile-summary-stats" style={{ display: 'flex', gap: '0.75rem', width: '100%', marginBottom: '1rem' }}>
               <div style={{ flex: 1, minWidth: '70px', padding: '0.75rem 0.5rem', background: '#E8F5E9', borderRadius: 'var(--radius-sm)', border: '1px solid #C8E6C9', textAlign: 'center' }}>
                 <span style={{ display: 'block', fontSize: '1.25rem', fontWeight: 800, color: '#2E7D32' }}>{badgeData.totalHours}</span>
                 <span style={{ fontSize: '0.7rem', color: '#2E7D32', fontWeight: 600 }}>Hours</span>
@@ -565,7 +565,7 @@ const VolunteerProfile = () => {
                 </div>
 
                 {/* Grid for Email & Phone */}
-                <div className="grid grid-md-2" style={{ gap: "1rem" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                   
                   {/* Email */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
@@ -652,7 +652,7 @@ const VolunteerProfile = () => {
                 </div>
 
                 {/* Age & Sensitive Data Redaction Row */}
-                <div className="grid grid-md-2" style={{ gap: "1rem" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                   
                   {/* Age */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>

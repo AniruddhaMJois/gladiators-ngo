@@ -411,7 +411,7 @@ const NgoProfile = () => {
                 </div>
 
                 {/* Grid for Email & Website */}
-                <div className="grid grid-md-2" style={{ gap: "1rem" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                   
                   {/* Official Email */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
@@ -545,7 +545,7 @@ const NgoProfile = () => {
                 </div>
 
                 {/* Focus Domain & REDACT PIN / sensitive row */}
-                <div className="grid grid-md-2" style={{ gap: "1rem" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                   
                   {/* Focus Domain Select */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
@@ -601,7 +601,7 @@ const NgoProfile = () => {
                     <User size={16} style={{ color: '#00695C' }} /> Point of Contact (POC) Details
                   </h4>
 
-                  <div className="grid grid-md-2" style={{ gap: "1rem" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                     
                     {/* POC Name */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
@@ -645,7 +645,7 @@ const NgoProfile = () => {
 
                   </div>
 
-                  <div className="grid grid-md-2" style={{ gap: "1rem", marginTop: "1rem" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem" }}>
                     
                     {/* POC Phone */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>

@@ -401,7 +401,7 @@ const CompanyProfile = () => {
                 </div>
 
                 {/* Grid for Email & Website */}
-                <div className="grid grid-md-2" style={{ gap: "1rem" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                   
                   {/* CSR Email */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
@@ -515,7 +515,7 @@ const CompanyProfile = () => {
                 </div>
 
                 {/* Industry Sector & REDACT PIN / sensitive row */}
-                <div className="grid grid-md-2" style={{ gap: "1rem" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                   
                   {/* Industry Sector Select */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
@@ -623,7 +623,7 @@ const CompanyProfile = () => {
                     <User size={16} style={{ color: '#F57F17' }} /> CSR Point of Contact Details
                   </h4>
 
-                  <div className="grid grid-md-2" style={{ gap: "1rem" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                     
                     {/* POC Name */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
@@ -667,7 +667,7 @@ const CompanyProfile = () => {
 
                   </div>
 
-                  <div className="grid grid-md-2" style={{ gap: "1rem", marginTop: "1rem" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginTop: "1rem" }}>
                     
                     {/* POC Phone */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
