@@ -1,6 +1,5 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
 
 const authRoutes = require('./routes/auth');
@@ -30,12 +29,16 @@ app.use('/api/logs', logRoutes);
 app.use('/api/finance', financeRoutes);
 app.use('/api/users', userRoutes);
 
-// MongoDB Connection
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/gladiators';
+const admin = require('firebase-admin');
 
-mongoose.connect(MONGO_URI)
-  .then(() => console.log('Connected to MongoDB successfully'))
-  .catch((err) => console.error('MongoDB connection error:', err));
+// Firebase Initialization
+const serviceAccount = require('./firebase-key.json');
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
+const db = admin.firestore();
+// Export db for use in routes
+module.exports = { db, admin };
 
 const PORT = process.env.PORT || 5000;
 
