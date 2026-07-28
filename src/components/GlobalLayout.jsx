@@ -747,8 +747,8 @@ const GlobalLayout = () => {
               <div className="glass-card animate-fade-in" style={{
                 position: 'absolute', left: 0, top: '3.75rem', zIndex: 900,
                 width: 320, padding: '1.5rem',
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(226, 232, 240, 0.8)',
+                background: 'var(--color-surface)',
+                border: '1px solid var(--color-border)',
                 boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08)',
                 borderRadius: '1.25rem'
               }}>
@@ -920,7 +920,7 @@ const GlobalLayout = () => {
         fontSize: '0.9rem',
         fontWeight: 600,
         letterSpacing: '0.02em',
-        background: 'rgba(255,255,255,0.05)'
+        background: 'var(--color-surface)'
       }}>
         Made for the world by Gladiators
       </footer>
@@ -930,15 +930,15 @@ const GlobalLayout = () => {
         <div style={{
           position: 'fixed', inset: 0, zIndex: 9999,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: 'rgba(15, 23, 42, 0.6)',
-          backdropFilter: 'blur(8px)',
+          background: 'rgba(0, 0, 0, 0.4)',
+          backdropFilter: 'blur(4px)',
           animation: 'fadeIn 0.2s ease-out'
         }}>
-          <div className="glass-card animate-fade-in" style={{
+          <div className="glass-card animate-scale-up" style={{
             width: '90%', maxWidth: 500, padding: '2rem',
-            border: '1px solid rgba(255, 255, 255, 0.25)',
+            border: '1px solid var(--color-border)',
             boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2)',
-            background: 'rgba(255,255,255,0.05)', borderRadius: '1.25rem',
+            background: 'var(--color-surface)', borderRadius: '1.25rem',
             color: 'var(--color-text-primary)', maxHeight: '90vh', overflowY: 'auto'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
@@ -969,7 +969,7 @@ const GlobalLayout = () => {
                       required
                       value={editFormData.name || ''}
                       onChange={e => setEditFormData({ ...editFormData, name: e.target.value })}
-                      style={{ padding: '0.6rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.9rem' }}
+                      style={{ padding: '0.6rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.9rem' }}
                     />
                   </div>
                   <div style={{ display: 'flex', gap: '1rem' }}>
@@ -980,7 +980,7 @@ const GlobalLayout = () => {
                         required
                         value={editFormData.phone || ''}
                         onChange={e => setEditFormData({ ...editFormData, phone: e.target.value })}
-                        style={{ padding: '0.6rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.9rem' }}
+                        style={{ padding: '0.6rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.9rem' }}
                       />
                     </div>
                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -990,7 +990,7 @@ const GlobalLayout = () => {
                         required
                         value={editFormData.age || ''}
                         onChange={e => setEditFormData({ ...editFormData, age: e.target.value })}
-                        style={{ padding: '0.6rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.9rem' }}
+                        style={{ padding: '0.6rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.9rem' }}
                       />
                     </div>
                   </div>
@@ -1002,7 +1002,7 @@ const GlobalLayout = () => {
                         required
                         value={editFormData.email || ''}
                         onChange={e => setEditFormData({ ...editFormData, email: e.target.value })}
-                        style={{ padding: '0.6rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.9rem' }}
+                        style={{ padding: '0.6rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.9rem' }}
                       />
                     </div>
                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -1012,7 +1012,7 @@ const GlobalLayout = () => {
                         required
                         value={editFormData.location || ''}
                         onChange={e => setEditFormData({ ...editFormData, location: e.target.value })}
-                        style={{ padding: '0.6rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.9rem' }}
+                        style={{ padding: '0.6rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.9rem' }}
                       />
                     </div>
                   </div>
@@ -1023,7 +1023,7 @@ const GlobalLayout = () => {
                     <div style={{
                       display: 'flex', flexWrap: 'wrap', gap: '0.4rem',
                       border: '1px solid var(--color-border)', padding: '0.5rem',
-                      borderRadius: '0.375rem', minHeight: '45px', background: 'rgba(255, 255, 255, 0.03)',
+                      borderRadius: '0.375rem', minHeight: '45px', background: 'var(--color-surface)',
                       alignItems: 'center'
                     }}>
                       {editFormData.interests && editFormData.interests.length > 0 ? (
@@ -1070,7 +1070,7 @@ const GlobalLayout = () => {
                             }
                           }
                         }}
-                        style={{ flex: 1, padding: '0.5rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.85rem' }}
+                        style={{ flex: 1, padding: '0.5rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.85rem' }}
                       />
                       <button
                         type="button"
@@ -1101,7 +1101,7 @@ const GlobalLayout = () => {
                       required
                       value={editFormData.name || ''}
                       onChange={e => setEditFormData({ ...editFormData, name: e.target.value })}
-                      style={{ padding: '0.6rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.9rem' }}
+                      style={{ padding: '0.6rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.9rem' }}
                     />
                   </div>
                   <div style={{ display: 'flex', gap: '1rem' }}>
@@ -1112,7 +1112,7 @@ const GlobalLayout = () => {
                         required
                         value={editFormData.email || ''}
                         onChange={e => setEditFormData({ ...editFormData, email: e.target.value })}
-                        style={{ padding: '0.6rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.9rem' }}
+                        style={{ padding: '0.6rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.9rem' }}
                       />
                     </div>
                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -1122,7 +1122,7 @@ const GlobalLayout = () => {
                         required
                         value={editFormData.website || ''}
                         onChange={e => setEditFormData({ ...editFormData, website: e.target.value })}
-                        style={{ padding: '0.6rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.9rem' }}
+                        style={{ padding: '0.6rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.9rem' }}
                       />
                     </div>
                   </div>
@@ -1133,11 +1133,11 @@ const GlobalLayout = () => {
                       required
                       value={editFormData.headquarters || ''}
                       onChange={e => setEditFormData({ ...editFormData, headquarters: e.target.value })}
-                      style={{ padding: '0.6rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.9rem' }}
+                      style={{ padding: '0.6rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.9rem' }}
                     />
                   </div>
 
-                  <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '1rem', borderRadius: '0.5rem', border: '1px solid var(--color-border)', marginTop: '0.5rem' }}>
+                  <div style={{ background: 'var(--color-surface)', padding: '1rem', borderRadius: '0.5rem', border: '1px solid var(--color-border)', marginTop: '0.5rem' }}>
                     <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>Primary Point of Contact Details</h4>
                     <div style={{ display: 'flex', gap: '1rem', marginBottom: '0.75rem' }}>
                       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -1147,7 +1147,7 @@ const GlobalLayout = () => {
                           required
                           value={editFormData.pocName || ''}
                           onChange={e => setEditFormData({ ...editFormData, pocName: e.target.value })}
-                          style={{ padding: '0.5rem 0.6rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.85rem' }}
+                          style={{ padding: '0.5rem 0.6rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.85rem' }}
                         />
                       </div>
                       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -1157,7 +1157,7 @@ const GlobalLayout = () => {
                           required
                           value={editFormData.pocPhone || ''}
                           onChange={e => setEditFormData({ ...editFormData, pocPhone: e.target.value })}
-                          style={{ padding: '0.5rem 0.6rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.85rem' }}
+                          style={{ padding: '0.5rem 0.6rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.85rem' }}
                         />
                       </div>
                     </div>
@@ -1169,7 +1169,7 @@ const GlobalLayout = () => {
                           required
                           value={editFormData.pocDesignation || ''}
                           onChange={e => setEditFormData({ ...editFormData, pocDesignation: e.target.value })}
-                          style={{ padding: '0.5rem 0.6rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.85rem' }}
+                          style={{ padding: '0.5rem 0.6rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.85rem' }}
                         />
                       </div>
                       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -1179,7 +1179,7 @@ const GlobalLayout = () => {
                           required
                           value={editFormData.pocEmail || ''}
                           onChange={e => setEditFormData({ ...editFormData, pocEmail: e.target.value })}
-                          style={{ padding: '0.5rem 0.6rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.85rem' }}
+                          style={{ padding: '0.5rem 0.6rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.85rem' }}
                         />
                       </div>
                     </div>
@@ -1196,7 +1196,7 @@ const GlobalLayout = () => {
                       required
                       value={editFormData.name || ''}
                       onChange={e => setEditFormData({ ...editFormData, name: e.target.value })}
-                      style={{ padding: '0.6rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.9rem' }}
+                      style={{ padding: '0.6rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.9rem' }}
                     />
                   </div>
                   <div style={{ display: 'flex', gap: '1rem' }}>
@@ -1207,7 +1207,7 @@ const GlobalLayout = () => {
                         required
                         value={editFormData.email || ''}
                         onChange={e => setEditFormData({ ...editFormData, email: e.target.value })}
-                        style={{ padding: '0.6rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.9rem' }}
+                        style={{ padding: '0.6rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.9rem' }}
                       />
                     </div>
                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -1217,7 +1217,7 @@ const GlobalLayout = () => {
                         required
                         value={editFormData.website || ''}
                         onChange={e => setEditFormData({ ...editFormData, website: e.target.value })}
-                        style={{ padding: '0.6rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.9rem' }}
+                        style={{ padding: '0.6rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.9rem' }}
                       />
                     </div>
                   </div>
@@ -1229,7 +1229,7 @@ const GlobalLayout = () => {
                         required
                         value={editFormData.headquarters || ''}
                         onChange={e => setEditFormData({ ...editFormData, headquarters: e.target.value })}
-                        style={{ padding: '0.6rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.9rem' }}
+                        style={{ padding: '0.6rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.9rem' }}
                       />
                     </div>
                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -1239,7 +1239,7 @@ const GlobalLayout = () => {
                         required
                         value={editFormData.industrySector || ''}
                         onChange={e => setEditFormData({ ...editFormData, industrySector: e.target.value })}
-                        style={{ padding: '0.6rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.9rem' }}
+                        style={{ padding: '0.6rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.9rem' }}
                       />
                     </div>
                   </div>
@@ -1250,15 +1250,15 @@ const GlobalLayout = () => {
                     <div style={{
                       display: 'flex', flexWrap: 'wrap', gap: '0.4rem',
                       border: '1px solid var(--color-border)', padding: '0.5rem',
-                      borderRadius: '0.375rem', minHeight: '45px', background: 'rgba(255, 255, 255, 0.03)',
+                      borderRadius: '0.375rem', minHeight: '45px', background: 'var(--color-surface)',
                       alignItems: 'center'
                     }}>
                       {editFormData.csrFocus && editFormData.csrFocus.length > 0 ? (
                         editFormData.csrFocus.map((focus, idx) => (
                           <span key={idx} style={{
                             display: 'inline-flex', alignItems: 'center', gap: '0.25rem',
-                            background: '#FFF9C4', color: '#F57F17', padding: '0.2rem 0.5rem',
-                            borderRadius: '0.25rem', fontSize: '0.75rem', fontWeight: 600, border: '1px solid #FBC02D'
+                            background: 'var(--color-border)', color: 'var(--color-text-primary)', padding: '0.2rem 0.5rem',
+                            borderRadius: '0.25rem', fontSize: '0.75rem', fontWeight: 600, border: '1px solid var(--color-border)'
                           }}>
                             {focus}
                             <button
@@ -1297,7 +1297,7 @@ const GlobalLayout = () => {
                             }
                           }
                         }}
-                        style={{ flex: 1, padding: '0.5rem 0.75rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.85rem' }}
+                        style={{ flex: 1, padding: '0.5rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.85rem' }}
                       />
                       <button
                         type="button"
@@ -1317,7 +1317,7 @@ const GlobalLayout = () => {
                     </div>
                   </div>
 
-                  <div style={{ background: 'rgba(255, 255, 255, 0.03)', padding: '1rem', borderRadius: '0.5rem', border: '1px solid var(--color-border)', marginTop: '0.5rem' }}>
+                  <div style={{ background: 'var(--color-surface)', padding: '1rem', borderRadius: '0.5rem', border: '1px solid var(--color-border)', marginTop: '0.5rem' }}>
                     <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '0.9rem', fontWeight: 700, color: 'var(--color-text-primary)' }}>Primary Point of Contact Details</h4>
                     <div style={{ display: 'flex', gap: '1rem', marginBottom: '0.75rem' }}>
                       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -1327,7 +1327,7 @@ const GlobalLayout = () => {
                           required
                           value={editFormData.pocName || ''}
                           onChange={e => setEditFormData({ ...editFormData, pocName: e.target.value })}
-                          style={{ padding: '0.5rem 0.6rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.85rem' }}
+                          style={{ padding: '0.5rem 0.6rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.85rem' }}
                         />
                       </div>
                       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -1337,7 +1337,7 @@ const GlobalLayout = () => {
                           required
                           value={editFormData.pocPhone || ''}
                           onChange={e => setEditFormData({ ...editFormData, pocPhone: e.target.value })}
-                          style={{ padding: '0.5rem 0.6rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.85rem' }}
+                          style={{ padding: '0.5rem 0.6rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.85rem' }}
                         />
                       </div>
                     </div>
@@ -1349,7 +1349,7 @@ const GlobalLayout = () => {
                           required
                           value={editFormData.pocDesignation || ''}
                           onChange={e => setEditFormData({ ...editFormData, pocDesignation: e.target.value })}
-                          style={{ padding: '0.5rem 0.6rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.85rem' }}
+                          style={{ padding: '0.5rem 0.6rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.85rem' }}
                         />
                       </div>
                       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
@@ -1359,7 +1359,7 @@ const GlobalLayout = () => {
                           required
                           value={editFormData.pocEmail || ''}
                           onChange={e => setEditFormData({ ...editFormData, pocEmail: e.target.value })}
-                          style={{ padding: '0.5rem 0.6rem', border: '1px solid #CBD5E1', borderRadius: '0.375rem', fontSize: '0.85rem' }}
+                          style={{ padding: '0.5rem 0.6rem', border: '1px solid var(--color-border)', borderRadius: '0.375rem', fontSize: '0.85rem' }}
                         />
                       </div>
                     </div>
@@ -1373,8 +1373,8 @@ const GlobalLayout = () => {
                   type="button"
                   onClick={() => setShowEditProfileModal(false)}
                   style={{
-                    flex: 1, padding: '0.75rem', background: 'rgba(255, 255, 255, 0.06)', color: 'var(--color-text-secondary)',
-                    border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontWeight: 700, cursor: 'pointer'
+                    flex: 1, padding: '0.75rem', background: 'var(--color-border)', color: 'var(--color-text-secondary)',
+                    border: '1px solid var(--color-border)', borderRadius: '0.5rem', fontWeight: 700, cursor: 'pointer'
                   }}
                 >
                   Cancel
@@ -1400,19 +1400,19 @@ const GlobalLayout = () => {
         <div style={{
           position: 'fixed', inset: 0, zIndex: 9999,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: 'rgba(15, 23, 42, 0.6)',
-          backdropFilter: 'blur(8px)',
+          background: 'rgba(0, 0, 0, 0.4)',
+          backdropFilter: 'blur(4px)',
           animation: 'fadeIn 0.2s ease-out'
         }}>
           <div className="glass-card animate-fade-in" style={{
             width: '90%', maxWidth: 400, padding: '2rem',
             textAlign: 'center', border: '1px solid var(--color-border)',
-            boxShadow: 'var(--shadow-lg)',
+            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2)',
             background: 'var(--color-surface)', borderRadius: '1.25rem',
             color: 'var(--color-text-primary)'
           }}>
             <div style={{
-              width: 56, height: 56, borderRadius: '50%', background: '#FEF2F2',
+              width: 56, height: 56, borderRadius: '50%', background: 'var(--color-border)',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               margin: '0 auto 1.25rem', color: '#EF4444'
             }}>
@@ -1429,8 +1429,8 @@ const GlobalLayout = () => {
                 onClick={() => setShowLogoutConfirm(false)}
                 className="btn"
                 style={{
-                  flex: 1, padding: '0.75rem', background: 'rgba(255, 255, 255, 0.06)', color: 'var(--color-text-secondary)',
-                  border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontWeight: 600, cursor: 'pointer'
+                  flex: 1, padding: '0.75rem', background: 'var(--color-border)', color: 'var(--color-text-secondary)',
+                  border: '1px solid var(--color-border)', borderRadius: '0.5rem', fontWeight: 600, cursor: 'pointer'
                 }}
               >
                 Cancel
@@ -1462,8 +1462,8 @@ const GlobalLayout = () => {
       {newBadges.length > 0 && (
         <div style={{
           position: 'fixed', inset: 0, zIndex: 10000,
-          background: 'rgba(15, 23, 42, 0.75)',
-          backdropFilter: 'blur(12px)',
+          background: 'rgba(0, 0, 0, 0.6)',
+          backdropFilter: 'blur(8px)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           padding: '1rem'
         }}>
