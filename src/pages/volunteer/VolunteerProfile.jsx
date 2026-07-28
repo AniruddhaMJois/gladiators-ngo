@@ -565,7 +565,7 @@ const VolunteerProfile = () => {
                 </div>
 
                 {/* Grid for Email & Phone */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }} className="grid-sm-1">
+                <div className="grid grid-md-2" style={{ gap: "1rem" }}>
                   
                   {/* Email */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
@@ -620,7 +620,7 @@ const VolunteerProfile = () => {
                         )}
                       </div>
                     ) : (
-                      <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600, display: "flex", alignItems: "center", gap: "0.5rem", wordBreak: "break-all" }}>
                         <Mail size={15} style={{ color: 'var(--color-text-muted)' }} />
                         {user.email}
                       </div>
@@ -652,7 +652,7 @@ const VolunteerProfile = () => {
                 </div>
 
                 {/* Age & Sensitive Data Redaction Row */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }} className="grid-sm-1">
+                <div className="grid grid-md-2" style={{ gap: "1rem" }}>
                   
                   {/* Age */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>

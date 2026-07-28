@@ -401,7 +401,7 @@ const CompanyProfile = () => {
                 </div>
 
                 {/* Grid for Email & Website */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }} className="grid-sm-1">
+                <div className="grid grid-md-2" style={{ gap: "1rem" }}>
                   
                   {/* CSR Email */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
@@ -456,7 +456,7 @@ const CompanyProfile = () => {
                         )}
                       </div>
                     ) : (
-                      <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <div style={{ padding: '0.75rem 1rem', background: 'var(--color-surface)', backdropFilter: 'blur(20px)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', color: 'var(--color-text-primary)', fontWeight: 600, display: "flex", alignItems: "center", gap: "0.5rem", wordBreak: "break-all" }}>
                         <Mail size={15} style={{ color: 'var(--color-text-muted)' }} />
                         {user.email}
                       </div>
@@ -515,7 +515,7 @@ const CompanyProfile = () => {
                 </div>
 
                 {/* Industry Sector & REDACT PIN / sensitive row */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }} className="grid-sm-1">
+                <div className="grid grid-md-2" style={{ gap: "1rem" }}>
                   
                   {/* Industry Sector Select */}
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
@@ -623,7 +623,7 @@ const CompanyProfile = () => {
                     <User size={16} style={{ color: '#F57F17' }} /> CSR Point of Contact Details
                   </h4>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }} className="grid-sm-1">
+                  <div className="grid grid-md-2" style={{ gap: "1rem" }}>
                     
                     {/* POC Name */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
@@ -667,7 +667,7 @@ const CompanyProfile = () => {
 
                   </div>
 
-                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginTop: '1rem' }} className="grid-sm-1">
+                  <div className="grid grid-md-2" style={{ gap: "1rem", marginTop: "1rem" }}>
                     
                     {/* POC Phone */}
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
