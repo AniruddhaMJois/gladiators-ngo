@@ -1,6 +1,5 @@
 const express = require('express');
-const User = require('../models/User');
-const Application = require('../models/Application');
+const { db } = require('../server');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
@@ -28,8 +27,8 @@ const generateGcId = async (role) => {
   while (!isUnique) {
     const randomDigits = Math.floor(100000 + Math.random() * 900000);
     newId = `${prefix}${randomDigits}`;
-    const existingUser = await User.findById(newId);
-    if (!existingUser) {
+    const docRef = await db.collection('users').doc(newId).get();
+    if (!docRef.exists) {
       isUnique = true;
     }
   }
@@ -61,16 +60,15 @@ router.post('/register', async (req, res) => {
     // Generate unique primary key
     const gcId = await generateGcId(role);
     
-    const newUser = new User({
-      _id: gcId,
+    const newUser = {
       role,
-      ...userData
-    });
+      ...userData,
+      createdAt: new Date().toISOString()
+    };
 
-    await newUser.save();
+    await db.collection('users').doc(gcId).set(newUser);
 
-    const userObj = newUser.toObject();
-    userObj.gcId = userObj._id;
+    const userObj = { ...newUser, _id: gcId, gcId };
 
     res.status(201).json({ 
       message: 'User registered successfully', 
@@ -92,9 +90,15 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Please provide GC-ID, PIN, and role.' });
     }
 
-    const user = await User.findById(gcId.toUpperCase());
+    const doc = await db.collection('users').doc(gcId.toUpperCase()).get();
     
-    if (!user || user.role !== role) {
+    if (!doc.exists) {
+      return res.status(404).json({ message: 'User not found or role mismatch.' });
+    }
+
+    const user = doc.data();
+
+    if (user.role !== role) {
       return res.status(404).json({ message: 'User not found or role mismatch.' });
     }
 
@@ -102,8 +106,7 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ message: 'Invalid PIN.' });
     }
 
-    const userObj = user.toObject();
-    userObj.gcId = userObj._id;
+    const userObj = { ...user, _id: doc.id, gcId: doc.id };
 
     res.status(200).json({ 
       message: 'Login successful', 
@@ -125,14 +128,17 @@ router.put('/profile', async (req, res) => {
       return res.status(400).json({ message: 'GC-ID is required for profile update.' });
     }
 
-    const user = await User.findByIdAndUpdate(gcId, updatedData, { new: true });
+    const userRef = db.collection('users').doc(gcId.toUpperCase());
+    const doc = await userRef.get();
     
-    if (!user) {
+    if (!doc.exists) {
       return res.status(404).json({ message: 'User not found.' });
     }
 
-    const userObj = user.toObject();
-    userObj.gcId = userObj._id;
+    await userRef.update(updatedData);
+    const updatedDoc = await userRef.get();
+    
+    const userObj = { ...updatedDoc.data(), _id: updatedDoc.id, gcId: updatedDoc.id };
 
     res.status(200).json({ 
       message: 'Profile updated successfully', 
@@ -148,7 +154,13 @@ router.put('/profile', async (req, res) => {
 // @desc    Get all NGOs
 router.get('/ngos', async (req, res) => {
   try {
-    const ngos = await User.find({ role: 'ngo' }).select('-pin');
+    const snapshot = await db.collection('users').where('role', '==', 'ngo').get();
+    const ngos = [];
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      delete data.pin;
+      ngos.push({ ...data, _id: doc.id, gcId: doc.id });
+    });
     res.status(200).json(ngos);
   } catch (error) {
     console.error('Error fetching NGOs:', error);
@@ -217,18 +229,29 @@ router.post('/verify-otp', async (req, res) => {
 });
 
 // Helper: Check and award badges dynamically
-const checkAndAwardBadges = async (user) => {
+const checkAndAwardBadges = async (userId, user) => {
   if (user.role !== 'volunteer') return user;
 
   // Find all approved applications for this volunteer
-  const apps = await Application.find({ volunteerId: user._id, status: 'Approved' })
-    .populate('programId');
+  const appsSnapshot = await db.collection('applications')
+    .where('volunteerId', '==', userId)
+    .where('status', '==', 'Approved')
+    .get();
 
-  // Filter those where the program status is Completed and volunteer wasn't marked absent
-  const completedApps = apps.filter(app => app.programId && app.programId.status === 'Completed' && app.attendance !== 'Absent');
+  let totalHours = 0;
   
-  // Sum the hours
-  const totalHours = completedApps.reduce((acc, app) => acc + (app.programId?.hours || 0), 0);
+  for (const doc of appsSnapshot.docs) {
+    const app = doc.data();
+    if (app.attendance !== 'Absent' && app.programId) {
+      const progDoc = await db.collection('programs').doc(app.programId).get();
+      if (progDoc.exists) {
+        const prog = progDoc.data();
+        if (prog.status === 'Completed') {
+          totalHours += (prog.hours || 0);
+        }
+      }
+    }
+  }
 
   // Define our badge tiers
   const badgeTiers = [
@@ -250,7 +273,7 @@ const checkAndAwardBadges = async (user) => {
           name: tier.name,
           level: tier.level,
           description: tier.description,
-          earnedAt: new Date(),
+          earnedAt: new Date().toISOString(),
           notified: false
         });
         hasNewBadge = true;
@@ -260,7 +283,7 @@ const checkAndAwardBadges = async (user) => {
 
   if (hasNewBadge) {
     user.badges = currentBadges;
-    await user.save();
+    await db.collection('users').doc(userId).update({ badges: currentBadges });
   }
 
   return user;
@@ -271,18 +294,37 @@ const checkAndAwardBadges = async (user) => {
 router.get('/volunteer/:gcId/badges', async (req, res) => {
   try {
     const { gcId } = req.params;
-    let user = await User.findById(gcId.toUpperCase());
-    if (!user) return res.status(404).json({ message: 'User not found' });
+    const docRef = db.collection('users').doc(gcId.toUpperCase());
+    const doc = await docRef.get();
+    
+    if (!doc.exists) return res.status(404).json({ message: 'User not found' });
+    let user = doc.data();
 
     // Run badge check
-    user = await checkAndAwardBadges(user);
+    user = await checkAndAwardBadges(gcId.toUpperCase(), user);
 
     // Calculate stats for return
-    const apps = await Application.find({ volunteerId: user._id, status: 'Approved' })
-      .populate('programId');
-    const completedApps = apps.filter(app => app.programId && app.programId.status === 'Completed' && app.attendance !== 'Absent');
-    const totalHours = completedApps.reduce((acc, app) => acc + (app.programId?.hours || 0), 0);
-    const eventsCount = completedApps.length;
+    const appsSnapshot = await db.collection('applications')
+      .where('volunteerId', '==', gcId.toUpperCase())
+      .where('status', '==', 'Approved')
+      .get();
+      
+    let totalHours = 0;
+    let eventsCount = 0;
+    
+    for (const appDoc of appsSnapshot.docs) {
+      const app = appDoc.data();
+      if (app.attendance !== 'Absent' && app.programId) {
+        const progDoc = await db.collection('programs').doc(app.programId).get();
+        if (progDoc.exists) {
+          const prog = progDoc.data();
+          if (prog.status === 'Completed') {
+            totalHours += (prog.hours || 0);
+            eventsCount++;
+          }
+        }
+      }
+    }
 
     res.status(200).json({
       badges: user.badges || [],
@@ -301,8 +343,11 @@ router.put('/volunteer/:gcId/badges/mark-notified', async (req, res) => {
   try {
     const { gcId } = req.params;
     const { level } = req.body;
-    const user = await User.findById(gcId.toUpperCase());
-    if (!user) return res.status(404).json({ message: 'User not found' });
+    const docRef = db.collection('users').doc(gcId.toUpperCase());
+    const doc = await docRef.get();
+    
+    if (!doc.exists) return res.status(404).json({ message: 'User not found' });
+    const user = doc.data();
 
     if (user.badges && user.badges.length > 0) {
       let modified = false;
@@ -315,8 +360,7 @@ router.put('/volunteer/:gcId/badges/mark-notified', async (req, res) => {
         }
       });
       if (modified) {
-        user.markModified('badges');
-        await user.save();
+        await docRef.update({ badges: user.badges });
       }
     }
 
