@@ -29,24 +29,7 @@ app.use('/api/logs', logRoutes);
 app.use('/api/finance', financeRoutes);
 app.use('/api/users', userRoutes);
 
-const { initializeApp, cert } = require('firebase-admin/app');
-const { getFirestore } = require('firebase-admin/firestore');
 
-// Firebase Initialization
-let serviceAccount;
-if (process.env.FIREBASE_SERVICE_ACCOUNT) {
-  serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-} else {
-  serviceAccount = require('./firebase-key.json');
-}
-
-initializeApp({
-  credential: cert(serviceAccount)
-});
-const db = getFirestore();
-
-// Export db for use in routes
-module.exports = { db };
 
 const PORT = process.env.PORT || 5000;
 

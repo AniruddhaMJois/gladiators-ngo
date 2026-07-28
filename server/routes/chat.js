@@ -1,5 +1,5 @@
 const express = require('express');
-const { db } = require('../server');
+const { db } = require('../firebase');
 const router = express.Router();
 
 // @route   GET /api/chat/contacts/:userId

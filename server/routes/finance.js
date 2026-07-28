@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { db } = require('../server');
+const { db } = require('../firebase');
 
 // Helper function to populate campaign details
 const populateCampaign = async (docData) => {
