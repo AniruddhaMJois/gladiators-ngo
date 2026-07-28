@@ -1,9 +1,20 @@
 const express = require('express');
 const router = express.Router();
-const Program = require('../models/Program');
-const Donation = require('../models/Donation');
-const ExpenseLog = require('../models/ExpenseLog');
-const FinanceReport = require('../models/FinanceReport');
+const { db } = require('../server');
+
+// Helper function to populate campaign details
+const populateCampaign = async (docData) => {
+  if (!docData.campaignId) return docData;
+  try {
+    const campaignDoc = await db.collection('programs').doc(docData.campaignId).get();
+    if (campaignDoc.exists) {
+      return { ...docData, campaignId: { _id: campaignDoc.id, title: campaignDoc.data().title } };
+    }
+  } catch (err) {
+    console.error('Error populating campaign:', err);
+  }
+  return docData;
+};
 
 // 0. Finance Reports
 router.post('/reports', async (req, res) => {
@@ -13,32 +24,51 @@ router.post('/reports', async (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
     
-    // Calculate totalAmount
     const totalAmount = rows.reduce((acc, row) => acc + Number(row.expense || 0), 0);
     
-    const newReport = new FinanceReport({ ngoId, campaignId: campaignId || null, title, rows, totalAmount, bills });
-    await newReport.save();
-    res.status(201).json(newReport);
+    const newReport = { 
+      ngoId, 
+      campaignId: campaignId || null, 
+      title, 
+      rows, 
+      totalAmount, 
+      bills,
+      createdAt: new Date().toISOString()
+    };
+    
+    const docRef = await db.collection('finance_reports').add(newReport);
+    res.status(201).json({ ...newReport, _id: docRef.id });
   } catch (error) {
+    console.error('Error generating finance report:', error);
     res.status(500).json({ error: 'Error generating finance report' });
   }
 });
 
 router.get('/reports/:ngoId', async (req, res) => {
   try {
-    const reports = await FinanceReport.find({ ngoId: req.params.ngoId }).sort({ createdAt: -1 }).populate('campaignId', 'title');
+    const snapshot = await db.collection('finance_reports').where('ngoId', '==', req.params.ngoId).get();
+    const reports = [];
+    for (const doc of snapshot.docs) {
+      let data = doc.data();
+      data._id = doc.id;
+      data = await populateCampaign(data);
+      reports.push(data);
+    }
+    
+    reports.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     res.json(reports);
   } catch (error) {
+    console.error('Error fetching finance reports:', error);
     res.status(500).json({ error: 'Error fetching finance reports' });
   }
 });
 
 router.delete('/reports/:id', async (req, res) => {
   try {
-    const report = await FinanceReport.findByIdAndDelete(req.params.id);
-    if (!report) return res.status(404).json({ error: 'Report not found' });
+    await db.collection('finance_reports').doc(req.params.id).delete();
     res.json({ message: 'Report deleted successfully' });
   } catch (error) {
+    console.error('Error deleting report:', error);
     res.status(500).json({ error: 'Error deleting report' });
   }
 });
@@ -46,14 +76,14 @@ router.delete('/reports/:id', async (req, res) => {
 router.put('/reports/:id', async (req, res) => {
   try {
     const { title, campaignId, rows, totalAmount, bills } = req.body;
-    const report = await FinanceReport.findByIdAndUpdate(
-      req.params.id,
-      { title, campaignId, rows, totalAmount, bills },
-      { new: true }
-    );
-    if (!report) return res.status(404).json({ error: 'Report not found' });
-    res.json(report);
+    const reportRef = db.collection('finance_reports').doc(req.params.id);
+    
+    await reportRef.update({ title, campaignId, rows, totalAmount, bills });
+    const updatedDoc = await reportRef.get();
+    
+    res.json({ ...updatedDoc.data(), _id: updatedDoc.id });
   } catch (error) {
+    console.error('Error updating report:', error);
     res.status(500).json({ error: 'Error updating report' });
   }
 });
@@ -63,19 +93,35 @@ router.post('/campaigns', async (req, res) => {
   try {
     const { ngoId, title, description, targetAmount, endDate } = req.body;
     if (!ngoId) return res.status(400).json({ error: 'ngoId is required' });
-    const newCampaign = new Program({ ngoId, title, description, targetAmount, endDate });
-    await newCampaign.save();
-    res.status(201).json(newCampaign);
+    
+    const newCampaign = { 
+      ngoId, 
+      title, 
+      description, 
+      targetAmount, 
+      endDate,
+      status: 'Active',
+      raisedAmount: 0,
+      hasFinanceReport: false,
+      createdAt: new Date().toISOString()
+    };
+    const docRef = await db.collection('programs').add(newCampaign);
+    res.status(201).json({ ...newCampaign, _id: docRef.id });
   } catch (error) {
+    console.error('Error creating campaign:', error);
     res.status(500).json({ error: 'Error creating campaign' });
   }
 });
 
 router.get('/campaigns/:ngoId', async (req, res) => {
   try {
-    const campaigns = await Program.find({ ngoId: req.params.ngoId }).sort({ createdAt: -1 });
+    const snapshot = await db.collection('programs').where('ngoId', '==', req.params.ngoId).get();
+    const campaigns = [];
+    snapshot.forEach(doc => campaigns.push({ ...doc.data(), _id: doc.id }));
+    campaigns.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     res.json(campaigns);
   } catch (error) {
+    console.error('Error fetching campaigns:', error);
     res.status(500).json({ error: 'Error fetching campaigns' });
   }
 });
@@ -83,9 +129,12 @@ router.get('/campaigns/:ngoId', async (req, res) => {
 // Complete a campaign
 router.put('/campaigns/:id/complete', async (req, res) => {
   try {
-    const campaign = await Program.findByIdAndUpdate(req.params.id, { status: 'Completed' }, { new: true });
-    res.json(campaign);
+    const campaignRef = db.collection('programs').doc(req.params.id);
+    await campaignRef.update({ status: 'Completed' });
+    const updatedDoc = await campaignRef.get();
+    res.json({ ...updatedDoc.data(), _id: updatedDoc.id });
   } catch (error) {
+    console.error('Error completing campaign:', error);
     res.status(500).json({ error: 'Error completing campaign' });
   }
 });
@@ -94,12 +143,15 @@ router.put('/campaigns/:id/complete', async (req, res) => {
 router.post('/campaigns/:id/report', async (req, res) => {
   try {
     const { reportUrl } = req.body;
-    const campaign = await Program.findByIdAndUpdate(req.params.id, { 
+    const campaignRef = db.collection('programs').doc(req.params.id);
+    await campaignRef.update({ 
       hasFinanceReport: true, 
       financeReportUrl: reportUrl || 'generated_report.pdf' 
-    }, { new: true });
-    res.json(campaign);
+    });
+    const updatedDoc = await campaignRef.get();
+    res.json({ ...updatedDoc.data(), _id: updatedDoc.id });
   } catch (error) {
+    console.error('Error generating finance report:', error);
     res.status(500).json({ error: 'Error generating finance report' });
   }
 });
@@ -107,13 +159,17 @@ router.post('/campaigns/:id/report', async (req, res) => {
 // Get campaigns pending finance report
 router.get('/campaigns/:ngoId/pending-reports', async (req, res) => {
   try {
-    const campaigns = await Program.find({ 
-      ngoId: req.params.ngoId, 
-      status: 'Completed', 
-      hasFinanceReport: false 
-    });
+    const snapshot = await db.collection('programs')
+      .where('ngoId', '==', req.params.ngoId)
+      .where('status', '==', 'Completed')
+      .where('hasFinanceReport', '==', false)
+      .get();
+      
+    const campaigns = [];
+    snapshot.forEach(doc => campaigns.push({ ...doc.data(), _id: doc.id }));
     res.json(campaigns);
   } catch (error) {
+    console.error('Error fetching pending reports:', error);
     res.status(500).json({ error: 'Error fetching pending reports' });
   }
 });
@@ -124,24 +180,41 @@ router.post('/donations', async (req, res) => {
     const { ngoId, donorId, campaignId, amount, donorName } = req.body;
     if (!ngoId || !donorId || !amount) return res.status(400).json({ error: 'Missing required fields' });
     
-    const newDonation = new Donation({ ngoId, donorId, campaignId, amount, donorName });
-    await newDonation.save();
+    const newDonation = { 
+      ngoId, 
+      donorId, 
+      campaignId, 
+      amount, 
+      donorName,
+      createdAt: new Date().toISOString()
+    };
+    
+    const docRef = await db.collection('donations').add(newDonation);
     
     if (campaignId) {
-      await Program.findByIdAndUpdate(campaignId, { $inc: { raisedAmount: amount } });
+      const campaignRef = db.collection('programs').doc(campaignId);
+      const campaignDoc = await campaignRef.get();
+      if (campaignDoc.exists) {
+        await campaignRef.update({ raisedAmount: (campaignDoc.data().raisedAmount || 0) + Number(amount) });
+      }
     }
     
-    res.status(201).json(newDonation);
+    res.status(201).json({ ...newDonation, _id: docRef.id });
   } catch (error) {
+    console.error('Error logging donation:', error);
     res.status(500).json({ error: 'Error logging donation' });
   }
 });
 
 router.get('/donations/:ngoId', async (req, res) => {
   try {
-    const donations = await Donation.find({ ngoId: req.params.ngoId }).sort({ createdAt: -1 });
+    const snapshot = await db.collection('donations').where('ngoId', '==', req.params.ngoId).get();
+    const donations = [];
+    snapshot.forEach(doc => donations.push({ ...doc.data(), _id: doc.id }));
+    donations.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     res.json(donations);
   } catch (error) {
+    console.error('Error fetching donations:', error);
     res.status(500).json({ error: 'Error fetching donations' });
   }
 });
@@ -154,19 +227,38 @@ router.post('/expenses', async (req, res) => {
       return res.status(400).json({ error: 'Missing required fields' });
     }
     
-    const newExpense = new ExpenseLog({ ngoId, campaignId, title, amountSpent, category, description, proofUrl });
-    await newExpense.save();
-    res.status(201).json(newExpense);
+    const newExpense = { 
+      ngoId, 
+      campaignId, 
+      title, 
+      amountSpent, 
+      category, 
+      description, 
+      proofUrl,
+      createdAt: new Date().toISOString()
+    };
+    const docRef = await db.collection('expense_logs').add(newExpense);
+    res.status(201).json({ ...newExpense, _id: docRef.id });
   } catch (error) {
+    console.error('Error logging expense:', error);
     res.status(500).json({ error: 'Error logging expense' });
   }
 });
 
 router.get('/expenses/:ngoId', async (req, res) => {
   try {
-    const expenses = await ExpenseLog.find({ ngoId: req.params.ngoId }).sort({ createdAt: -1 }).populate('campaignId', 'title');
+    const snapshot = await db.collection('expense_logs').where('ngoId', '==', req.params.ngoId).get();
+    const expenses = [];
+    for (const doc of snapshot.docs) {
+      let data = doc.data();
+      data._id = doc.id;
+      data = await populateCampaign(data);
+      expenses.push(data);
+    }
+    expenses.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     res.json(expenses);
   } catch (error) {
+    console.error('Error fetching expenses:', error);
     res.status(500).json({ error: 'Error fetching expenses' });
   }
 });
