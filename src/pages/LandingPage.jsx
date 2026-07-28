@@ -37,11 +37,7 @@ const LandingPage = () => {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', padding: '8rem 1.5rem 4rem 1.5rem', position: 'relative', zIndex: 1 }}>
       
-      {/* SDG Badge */}
-      <div className="badge badge-primary prismatic-edge animate-fade-in" style={{ marginBottom: '2.5rem', padding: '0.6rem 1.5rem', gap: '0.5rem' }}>
-        <span>✨</span>
-        <span>SDG 16 &amp; 17 · GLADICONNECT</span>
-      </div>
+
 
       {/* Hero Logo Area */}
       <div className="animate-fade-in" style={{
