@@ -12,6 +12,10 @@
 
 <br />
 
+## 🌐 Live Demo
+- **Frontend (Web App):** [https://gladiconnect.vercel.app/](https://gladiconnect.vercel.app/)
+- **Backend API:** [https://gladiators-ngo.onrender.com/](https://gladiators-ngo.onrender.com/)
+
 > _"Bridge the Gap. Amplify Impact."_
 
 **GladiConnect** is a robust, full-stack role-based platform built to connect **NGOs**, **Volunteers**, and **Corporate Funders (CSR)**. Our mission is to facilitate transparent, efficient, and collaborative efforts that advance the **UN Sustainable Development Goals 16 (Peace, Justice & Strong Institutions)** and **17 (Partnerships for the Goals)**.
@@ -34,6 +38,11 @@
 - **Smart Directory:** Discover NGOs using intelligent domain and geographic filtering.
 - **Impact Tracking:** Maintain a living record of volunteered hours and participated campaigns.
 - **Gamification (Badges):** The system automatically tracks volunteer hours and dynamically awards digital badges (e.g., *Green Horn*, *Earth Champion*) to encourage and reward social work.
+- **Premium PDF Certificates:** Volunteers can generate and download dynamically rendered, high-quality PDF certificates to officially validate their social impact.
+
+### 🌍 Accessibility & UI Enhancements
+- **Multi-Language Support:** Seamlessly switch the platform interface between English, Hindi, and Kannada to ensure regional inclusivity.
+- **Dark/Light Mode:** A fully responsive theme engine that adapts to user preference for optimal viewing in any lighting condition.
 
 ### 💼 Corporate CSR Portal
 - **Due Diligence Tracker:** Verify NGO credentials (like NGO Darpan IDs), registration status, and compliance data before funding.
