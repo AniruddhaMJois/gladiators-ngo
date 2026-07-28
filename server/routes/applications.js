@@ -1,7 +1,51 @@
 const express = require('express');
-const Application = require('../models/Application');
-const User = require('../models/User');
+const { db } = require('../server');
 const router = express.Router();
+
+// Helper to populate volunteer
+const populateVolunteer = async (docData) => {
+  if (!docData.volunteerId) return docData;
+  try {
+    const volDoc = await db.collection('users').doc(docData.volunteerId).get();
+    if (volDoc.exists) {
+      const { name, profilePhoto, location, interests, age, badges } = volDoc.data();
+      return { ...docData, volunteerId: { _id: volDoc.id, name, profilePhoto, location, interests, age, badges } };
+    }
+  } catch (err) {
+    console.error('Error populating volunteer:', err);
+  }
+  return docData;
+};
+
+// Helper to populate program
+const populateProgram = async (docData) => {
+  if (!docData.programId) return docData;
+  try {
+    const progDoc = await db.collection('programs').doc(docData.programId).get();
+    if (progDoc.exists) {
+      const { title, status, hours } = progDoc.data();
+      return { ...docData, programId: { _id: progDoc.id, title, status, hours } };
+    }
+  } catch (err) {
+    console.error('Error populating program:', err);
+  }
+  return docData;
+};
+
+// Helper to populate NGO
+const populateNgo = async (docData) => {
+  if (!docData.ngoId) return docData;
+  try {
+    const ngoDoc = await db.collection('users').doc(docData.ngoId).get();
+    if (ngoDoc.exists) {
+      const { name, domain, profilePhoto } = ngoDoc.data();
+      return { ...docData, ngoId: { _id: ngoDoc.id, name, domain, profilePhoto } };
+    }
+  } catch (err) {
+    console.error('Error populating NGO:', err);
+  }
+  return docData;
+};
 
 // @route   POST /api/applications
 // @desc    Volunteer applies to a program
@@ -14,20 +58,26 @@ router.post('/', async (req, res) => {
     }
 
     // Check if already applied
-    const existing = await Application.findOne({ programId, volunteerId });
-    if (existing) {
+    const existingSnap = await db.collection('applications')
+      .where('programId', '==', programId)
+      .where('volunteerId', '==', volunteerId)
+      .get();
+      
+    if (!existingSnap.empty) {
       return res.status(400).json({ message: 'You have already applied for this program' });
     }
 
-    const newApp = new Application({
+    const newApp = {
       programId,
       ngoId,
       volunteerId,
-      roleApplied
-    });
+      roleApplied,
+      status: 'Pending',
+      createdAt: new Date().toISOString()
+    };
 
-    await newApp.save();
-    res.status(201).json(newApp);
+    const docRef = await db.collection('applications').add(newApp);
+    res.status(201).json({ ...newApp, _id: docRef.id });
   } catch (error) {
     console.error('Error submitting application:', error);
     res.status(500).json({ message: 'Server error' });
@@ -40,11 +90,18 @@ router.get('/ngo/:ngoId', async (req, res) => {
   try {
     const { ngoId } = req.params;
     
-    const applications = await Application.find({ ngoId })
-      .populate('volunteerId', 'name profilePhoto location interests age badges')
-      .populate('programId', 'title')
-      .sort({ createdAt: -1 });
-      
+    const snapshot = await db.collection('applications').where('ngoId', '==', ngoId).get();
+    const applications = [];
+    
+    for (const doc of snapshot.docs) {
+      let app = doc.data();
+      app._id = doc.id;
+      app = await populateVolunteer(app);
+      app = await populateProgram(app);
+      applications.push(app);
+    }
+    
+    applications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     res.status(200).json(applications);
   } catch (error) {
     console.error('Error fetching applications:', error);
@@ -63,15 +120,14 @@ router.put('/:id/status', async (req, res) => {
       return res.status(400).json({ message: 'Invalid status' });
     }
 
-    const application = await Application.findByIdAndUpdate(
-      id,
-      { status },
-      { new: true }
-    );
-
-    if (!application) return res.status(404).json({ message: 'Application not found' });
+    const appRef = db.collection('applications').doc(id);
+    const doc = await appRef.get();
+    if (!doc.exists) return res.status(404).json({ message: 'Application not found' });
     
-    res.status(200).json(application);
+    await appRef.update({ status });
+    const updatedDoc = await appRef.get();
+    
+    res.status(200).json({ ...updatedDoc.data(), _id: updatedDoc.id });
   } catch (error) {
     console.error('Error updating application:', error);
     res.status(500).json({ message: 'Server error' });
@@ -83,10 +139,19 @@ router.put('/:id/status', async (req, res) => {
 router.get('/volunteer/public/:gcId', async (req, res) => {
   try {
     const { gcId } = req.params;
-    const volunteer = await User.findById(gcId)
-      .select('name profilePhoto location interests age');
+    const doc = await db.collection('users').doc(gcId).get();
       
-    if (!volunteer) return res.status(404).json({ message: 'Volunteer not found' });
+    if (!doc.exists) return res.status(404).json({ message: 'Volunteer not found' });
+    
+    const data = doc.data();
+    const volunteer = {
+      _id: doc.id,
+      name: data.name,
+      profilePhoto: data.profilePhoto,
+      location: data.location,
+      interests: data.interests,
+      age: data.age
+    };
     
     res.status(200).json(volunteer);
   } catch (error) {
@@ -100,11 +165,18 @@ router.get('/volunteer/public/:gcId', async (req, res) => {
 router.get('/volunteer/:volunteerId', async (req, res) => {
   try {
     const { volunteerId } = req.params;
-    const applications = await Application.find({ volunteerId })
-      .populate('programId', 'title status hours')
-      .populate('ngoId', 'name domain profilePhoto')
-      .sort({ createdAt: -1 });
-      
+    const snapshot = await db.collection('applications').where('volunteerId', '==', volunteerId).get();
+    
+    const applications = [];
+    for (const doc of snapshot.docs) {
+      let app = doc.data();
+      app._id = doc.id;
+      app = await populateProgram(app);
+      app = await populateNgo(app);
+      applications.push(app);
+    }
+    
+    applications.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
     res.status(200).json(applications);
   } catch (error) {
     console.error('Error fetching volunteer applications:', error);
