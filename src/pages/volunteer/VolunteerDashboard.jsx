@@ -409,7 +409,7 @@ const generateCertificate = (badge, userName) => {
   doc.text(badge.description || '', width / 2, 120, { align: 'center' });
 
   // Date
-  const dateStr = new Date(badge.earnedAt).toLocaleDateString('en-US', {
+  const dateStr = (badge.earnedAt ? new Date(badge.earnedAt) : new Date()).toLocaleDateString('en-US', {
     year: 'numeric', month: 'long', day: 'numeric'
   });
   doc.setTextColor(71, 85, 105);
@@ -532,7 +532,7 @@ const generateProgramCertificate = (act, userName) => {
   doc.text(`Hosted by: ${act.ngoId?.name || 'Partner NGO'}`, width / 2, 115, { align: 'center' });
 
   // Date & Hours
-  const dateStr = new Date(act.updatedAt).toLocaleDateString('en-US', {
+  const dateStr = (act.updatedAt ? new Date(act.updatedAt) : new Date()).toLocaleDateString('en-US', {
     year: 'numeric', month: 'long', day: 'numeric'
   });
   doc.setTextColor(71, 85, 105);
@@ -656,6 +656,29 @@ const ImpactDashboard = ({ badgeData, fetchBadgesAndStats }) => {
             })}
           </div>
         )}
+        
+        {/* Badge Guidelines */}
+        <div style={{ marginTop: '1.5rem', padding: '1rem', background: 'rgba(241, 245, 249, 0.5)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>
+          <h4 style={{ margin: '0 0 0.75rem 0', fontSize: '0.9rem', color: 'var(--color-text-primary)' }}>How to Earn Badges</h4>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ width: 12, height: 12, borderRadius: '50%', background: '#8B4513' }}></span>
+              <span style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}><strong style={{ color: '#8B4513' }}>Bronze:</strong> 20+ Hours</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ width: 12, height: 12, borderRadius: '50%', background: '#708090' }}></span>
+              <span style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}><strong style={{ color: '#708090' }}>Silver:</strong> 50+ Hours</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ width: 12, height: 12, borderRadius: '50%', background: '#F57F17' }}></span>
+              <span style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}><strong style={{ color: '#F57F17' }}>Gold:</strong> 100+ Hours</span>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span style={{ width: 12, height: 12, borderRadius: '50%', background: '#4A148C' }}></span>
+              <span style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}><strong style={{ color: '#4A148C' }}>Platinum:</strong> 200+ Hours</span>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div className="glass-card" style={{ padding: '1.5rem' }}>

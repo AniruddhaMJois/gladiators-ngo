@@ -262,7 +262,7 @@ const GlobalLayout = () => {
     doc.text(badge.description || '', width / 2, 120, { align: 'center' });
 
     // Date
-    const dateStr = new Date(badge.earnedAt).toLocaleDateString('en-US', {
+    const dateStr = (badge.earnedAt ? new Date(badge.earnedAt) : new Date()).toLocaleDateString('en-US', {
       year: 'numeric', month: 'long', day: 'numeric'
     });
     doc.setTextColor(71, 85, 105);
