@@ -141,6 +141,8 @@ npm run build
 npm start
 ```
 
+
+new implementation : using next.js
 ---
 
 ## 👥 Team Gladiators
