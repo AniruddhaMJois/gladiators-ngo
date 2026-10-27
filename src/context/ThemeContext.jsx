@@ -1,16 +1,23 @@
+'use client';
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
-    const savedTheme = localStorage.getItem('app-theme');
-    return savedTheme || 'dark'; // default to dark
+    if (typeof window !== 'undefined') {
+      const savedTheme = localStorage.getItem('app-theme');
+      return savedTheme || 'dark';
+    }
+    return 'dark';
   });
 
   useEffect(() => {
-    localStorage.setItem('app-theme', theme);
-    document.documentElement.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('app-theme', theme);
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
   }, [theme]);
 
   const toggleTheme = () => {

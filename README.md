@@ -2,19 +2,18 @@
   <img src="public/images/logo.png" alt="Gladiators NGO Logo" width="320" />
   
   <h1>⚔️ GladiConnect</h1>
-  <p><strong>A Professional Ecosystem for Social Impact & NGO Operations</strong></p>
+  <p><strong>A Unified Full-Stack Next.js Ecosystem for Social Impact & NGO Operations</strong></p>
   
+  [![Next.js](https://img.shields.io/badge/Next.js_16-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
   [![React](https://img.shields.io/badge/React_19-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
-  [![NodeJS](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
-  [![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
-  [![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](https://vitejs.dev/)
+  [![Firebase](https://img.shields.io/badge/Firebase_Admin-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
+  [![Gemini AI](https://img.shields.io/badge/Gemini_2.5_Flash-8E75B2?style=for-the-badge&logo=google&logoColor=white)](https://ai.google.dev/)
 </div>
 
 <br />
 
 ## 🌐 Live Demo
-- **Frontend (Web App):** [https://gladiconnect.vercel.app/](https://gladiconnect.vercel.app/)
-- **Backend API:** [https://gladiators-ngo.onrender.com/](https://gladiators-ngo.onrender.com/)
+- **Web App & Native API:** [https://gladiconnect.vercel.app/](https://gladiconnect.vercel.app/)
 
 > _"Bridge the Gap. Amplify Impact."_
 
@@ -26,7 +25,7 @@
 
 ### 🔐 Secure Role-Based Workflows
 - **NGOs, Volunteers, and Corporate Funders** have dedicated dashboards and specialized tools.
-- Intelligent routing and session management ensures data privacy and strict access control across the platform.
+- Native Next.js App Router route guarding and session management ensures data privacy and strict access control across the platform.
 
 ### 🏢 Comprehensive NGO Dashboard
 - **Advanced Finance Suite:** Transparent end-to-end expense logging with digital bill/receipt attachments, automatic totals calculations, and campaign-specific financial tracking (Full CRUD support).
@@ -40,6 +39,10 @@
 - **Gamification (Badges):** The system automatically tracks volunteer hours and dynamically awards digital badges (e.g., *Green Horn*, *Earth Champion*) to encourage and reward social work.
 - **Premium PDF Certificates:** Volunteers can generate and download dynamically rendered, high-quality PDF certificates to officially validate their social impact.
 
+### 💬 Direct Real-Time Messaging & Collaboration Hub
+- Dedicated in-app messaging between NGOs, Volunteers, and Corporate Funders.
+- Unread message counters, instant chat threads, and collaborative task coordination.
+
 ### 🌍 Accessibility & UI Enhancements
 - **Multi-Language Support:** Seamlessly switch the platform interface between English, Hindi, and Kannada to ensure regional inclusivity.
 - **Dark/Light Mode:** A fully responsive theme engine that adapts to user preference for optimal viewing in any lighting condition.
@@ -49,63 +52,93 @@
 - **Compliance Reporting:** Extract clean, accurate impact and financial logs generated directly from the NGO Finance Suite to guarantee transparency.
 
 ### 🤖 GladiAssist (AI Chatbot)
-- Powered by the **Google Gemini 2.5 Flash API**, GladiAssist is a context-aware virtual assistant.
+- Powered by the **Google Gemini 2.5 Flash API**, GladiAssist is a context-aware virtual assistant running as a native Next.js API Route Handler.
 - It is strictly programmed to answer questions related only to the user's current page and role, maintaining a professional tone, blocking profanity, and securing sensitive database information.
 
 ---
 
 ## 🛠️ Architecture & Tech Stack
 
-GladiConnect recently underwent a massive architectural upgrade for production deployment:
+GladiConnect is fully unified into a single full-stack **Next.js** application:
 
-### Frontend (Live on Vercel)
-- **Framework:** React 19 + Vite for lightning-fast HMR and optimized builds.
-- **Styling:** Custom Vanilla CSS Design System featuring Glassmorphism, tailored color palettes, and micro-animations.
-- **Deployment:** Globally deployed and auto-scaling on **Vercel**.
-
-### Backend (Live on Render)
-- **Runtime:** Node.js with Express.js REST API.
-- **Database:** Migrated to **Google Firebase Firestore** (a cloud-hosted, highly scalable NoSQL database) for real-time capabilities and enhanced security.
-- **Deployment:** Continuously deployed on **Render** via GitHub webhooks.
-
----
-
-## 🎨 Design System
-
-Our UI/UX is built to inspire trust, maintain absolute clarity, and provide a premium feel.
-
-| Element       | Specification | Usage               |
-| ------------- | ----------- | -------------------- |
-| **Primary**   | `#1A5276` (Deep Ocean Blue) | Primary actions, branding, trust elements |
-| **Secondary** | `#1E8449` (Forest Green) | Success states, growth metrics, positive impact |
-| **Background**| `#F4F7F6` (Cool Grey) | Clean, distraction-free application backdrop |
-| **Typography**| `Outfit` (Google Fonts) | Modern, highly legible sans-serif for all UI text |
-
-- **Glassmorphism:** Elegant, translucent cards providing depth.
-- **Micro-interactions:** Smooth hover states, transition effects, and intuitive modal overlays.
+### Next.js App Router
+- **Full-Stack Framework:** Next.js 16 (App Router) with React 19.
+- **API Route Handlers:** Built directly in `src/app/api/` (no separate Express server required).
+- **Styling:** Custom Design System featuring Glassmorphism, tailored color palettes, and micro-animations.
+- **Database:** **Google Firebase Firestore** via `firebase-admin` server SDK.
+- **Deployment:** Single unified deployment on **Vercel**.
 
 ---
 
 ## 📂 Project Structure
 
 ```text
-gladiators-ngo/
-├── server/                    # Node.js + Express Backend
-│   ├── routes/                # REST API Endpoints (/api/finance, /api/auth, etc.)
-│   ├── firebase.js            # Firebase Admin SDK Initialization
-│   └── server.js              # Server entry point & configuration
+gladiconnect/
+├── next.config.mjs            # Next.js configuration
+├── jsconfig.json              # Path aliases (@/* -> ./src/*)
+├── package.json               # Full-stack dependencies & scripts
+├── public/                    # Static assets & images
 │
-├── src/                       # React 19 Frontend
-│   ├── components/            # Reusable UI components & Chatbot
-│   ├── context/               # Global State (Auth, Theme, Confirm Dialogs)
-│   ├── pages/                 # Role-based Dashboards & Onboarding Flows
-│   │   ├── ngo/               # NGO-specific tools (Finance Suite, Campaigns)
-│   │   ├── volunteer/         # Volunteer discovery & tracking
-│   │   └── company/           # Corporate CSR verification tools
-│   ├── App.jsx                # Routing & Authentication Guards
-│   └── index.css              # Global Design System tokens
-│
-└── package.json               # Frontend dependencies & scripts
+└── src/
+    ├── app/                   # Next.js App Router (Pages & API Routes)
+    │   ├── layout.jsx         # Root layout with fonts & client providers
+    │   ├── page.jsx           # Landing page
+    │   ├── login/             # Authentication & role-based login
+    │   ├── messages/          # CollabHub messaging center
+    │   ├── ngo/               # NGO onboarding, dashboard, profile
+    │   ├── volunteer/         # Volunteer onboarding, dashboard, profile
+    │   ├── company/           # Corporate CSR onboarding, dashboard, profile, search
+    │   └── api/               # Native Next.js API Route Handlers
+    │       ├── auth/          # Login, Register, OTP verification, badges
+    │       ├── chat/          # Inbox, messages, unread counts
+    │       ├── chatbot/       # Gemini AI GladiAssist route handler
+    │       ├── programs/      # Programs & campaign lifecycle
+    │       ├── applications/  # Volunteer applications & approvals
+    │       ├── finance/       # Financial reports, donations, expenses, campaigns
+    │       ├── logs/          # Activity & impact logging
+    │       └── users/         # NGO directory, search, and statistics
+    │
+    ├── components/            # Reusable UI components, Modals, Providers
+    ├── context/               # Global state (Auth, Theme, Toast, Confirm)
+    ├── lib/                   # Firebase admin, API base config, helpers
+    └── views/                 # Core view components ported from Vite
+```
+
+---
+
+## 🏃 Getting Started
+
+### Prerequisites
+- Node.js 18+ or 20+
+- Firebase Service Account Key (`firebase-key.json` or `FIREBASE_SERVICE_ACCOUNT` env var)
+- Google Gemini API Key (`GEMINI_API_KEY` env var)
+
+### Installation
+```bash
+git clone https://github.com/AniruddhaMJois/gladiators-ngo.git
+cd gladiators-ngo
+npm install
+```
+
+### Environment Variables
+Create a `.env` file in the root directory:
+```env
+GEMINI_API_KEY=your_gemini_api_key
+FIREBASE_SERVICE_ACCOUNT={"type":"service_account",...} # Optional if firebase-key.json is present
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_email_app_password
+```
+
+### Development
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Production Build
+```bash
+npm run build
+npm start
 ```
 
 ---

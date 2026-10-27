@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Shield, CheckCircle, Loader2 } from 'lucide-react';
 import { useToast } from '../context/ToastContext';

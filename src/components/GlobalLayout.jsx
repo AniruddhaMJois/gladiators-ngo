@@ -1,8 +1,11 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { jsPDF } from 'jspdf';
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
+import { API_BASE } from '@/lib/api';
 import {
   UserCircle, Phone, Globe, LogOut, ChevronDown, X, Heart, Building2,
   Briefcase, ShieldCheck, Check, Edit3, Save, User, MapPin, Hash, UserCheck, Trash2, Home, ArrowLeft, Award, Moon, Sun
@@ -33,11 +36,11 @@ const taglines = {
   ]
 };
 
-const GlobalLayout = () => {
+const GlobalLayout = ({ children }) => {
   const { user, logout, isAuthenticated, updateUserProfile } = useAuth();
   const { theme, toggleTheme } = useTheme();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
@@ -49,6 +52,7 @@ const GlobalLayout = () => {
   const [showLangDropdown, setShowLangDropdown] = useState(false);
   
   const getInitialLang = () => {
+    if (typeof document === 'undefined') return 'English';
     const match = document.cookie.match(/googtrans=\/en\/([a-z]{2})/);
     const code = match ? match[1] : 'en';
     const langObj = [
@@ -59,7 +63,11 @@ const GlobalLayout = () => {
     return langObj ? langObj.label : 'English';
   };
   
-  const [activeLang, setActiveLang] = useState(getInitialLang());
+  const [activeLang, setActiveLang] = useState('English');
+
+  useEffect(() => {
+    setActiveLang(getInitialLang());
+  }, []);
 
   const languages = [
     { code: 'en', label: 'English' },
@@ -90,7 +98,7 @@ const GlobalLayout = () => {
     if (!user || user.role !== 'volunteer') return;
     const id = user._id || user.gcId;
     try {
-      const res = await fetch(`https://gladiators-ngo.onrender.com/api/auth/volunteer/${id}/badges`);
+      const res = await fetch(`${API_BASE}/api/auth/volunteer/${id}/badges`);
       if (res.ok) {
         const data = await res.json();
         setBadgeData(data);
@@ -141,7 +149,7 @@ const GlobalLayout = () => {
     const currentBadge = newBadges[0];
     const id = user._id || user.gcId;
     try {
-      const res = await fetch(`https://gladiators-ngo.onrender.com/api/auth/volunteer/${id}/badges/mark-notified`, {
+      const res = await fetch(`${API_BASE}/api/auth/volunteer/${id}/badges/mark-notified`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ level: currentBadge.level })
@@ -323,19 +331,19 @@ const GlobalLayout = () => {
     return () => clearInterval(interval);
   }, [currentLanguageTaglines.length]);
 
-  const isLandingPage = location.pathname === '/';
+  const isLandingPage = pathname === '/';
 
   const handleLogout = () => {
     logout();
     setShowDropdown(false);
-    navigate('/');
+    router.push('/');
   };
 
   const handleLogoClick = () => {
     if (isAuthenticated && user?.role) {
-      navigate(`/${user.role}/dashboard`);
+      router.push(`/${user.role}/dashboard`);
     } else {
-      if (location.pathname === '/') {
+      if (pathname === '/') {
         const heroSection = document.querySelector('.hero-section');
         if (heroSection) {
           heroSection.scrollIntoView({ behavior: 'smooth' });
@@ -343,16 +351,16 @@ const GlobalLayout = () => {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       } else {
-        navigate('/');
+        router.push('/');
       }
     }
   };
 
   const handleBack = () => {
-    if (isAuthenticated && user?.role && location.pathname.startsWith(`/${user.role}/dashboard`)) {
+    if (isAuthenticated && user?.role && pathname?.startsWith(`/${user.role}/dashboard`)) {
       setShowLogoutConfirm(true);
     } else {
-      navigate(-1);
+      router.back();
     }
   };
 
@@ -360,7 +368,7 @@ const GlobalLayout = () => {
     if (isAuthenticated && user?.role) {
       window.location.href = `/${user.role}/dashboard`;
     } else {
-      navigate('/');
+      router.push('/');
     }
   };
 
@@ -575,11 +583,11 @@ const GlobalLayout = () => {
           cursor: 'pointer',
           padding: '1rem'
         }}
-        onClick={() => navigate(`/${user.role}/profile`)}>
+        onClick={() => router.push(`/${user.role}/profile`)}>
           {/* Left Column: Avatar */}
           <div style={{ position: 'relative' }}>
             <button
-              onClick={() => navigate(`/${user.role}/profile`)}
+              onClick={() => router.push(`/${user.role}/profile`)}
               style={{
                 width: 60, height: 60, borderRadius: '50%',
                 background: user.role === 'volunteer' ? 'linear-gradient(135deg, var(--color-primary-light), var(--color-primary))' :
@@ -910,7 +918,7 @@ const GlobalLayout = () => {
 
       {/* Main Content */}
       <main className={isLandingPage ? '' : `container ${isAuthenticated ? 'dashboard-content-shifted' : ''}`} style={{ flex: 1, paddingTop: isLandingPage ? 0 : '7.5rem', paddingBottom: isLandingPage ? 0 : '1.5rem' }}>
-        <Outlet />
+        {children}
       </main>
 
       <footer style={{
@@ -1439,7 +1447,7 @@ const GlobalLayout = () => {
                 onClick={() => {
                   setShowLogoutConfirm(false);
                   logout();
-                  navigate('/');
+                  router.push('/');
                 }}
                 className="btn"
                 style={{

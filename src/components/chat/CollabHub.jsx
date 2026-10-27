@@ -1,7 +1,10 @@
+'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, Send, Building2, User, Loader2, ArrowLeft } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
-import { useLocation } from 'react-router-dom';
+import { useSearchParams } from 'next/navigation';
+import { API_BASE } from '@/lib/api';
 
 const CollabHub = () => {
   const { user } = useAuth();
@@ -13,7 +16,7 @@ const CollabHub = () => {
   const [loadingMessages, setLoadingMessages] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [unreadCounts, setUnreadCounts] = useState({});
-  const location = useLocation();
+  const searchParams = useSearchParams();
   
   const messagesEndRef = useRef(null);
 
@@ -21,7 +24,7 @@ const CollabHub = () => {
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const response = await fetch(`https://gladiators-ngo.onrender.com/api/chat/contacts/${user.gcId}`);
+        const response = await fetch(`${API_BASE}/api/chat/contacts/${user.gcId}`);
         const data = await response.json();
         setContacts(data);
         setLoadingContacts(false);
@@ -37,23 +40,21 @@ const CollabHub = () => {
 
   // Handle navigation from NGO profile (direct connect)
   useEffect(() => {
-    if (location.state?.contactId && contacts.length > 0) {
-      const contactToSelect = contacts.find(c => c._id === location.state.contactId);
+    const contactId = searchParams?.get('contactId') || (typeof window !== 'undefined' ? window.history.state?.contactId : null);
+    const contactName = searchParams?.get('contactName') || (typeof window !== 'undefined' ? window.history.state?.contactName : null);
+    if (contactId && contacts.length > 0) {
+      const contactToSelect = contacts.find(c => c._id === contactId);
       if (contactToSelect) {
         setSelectedContact(contactToSelect);
-        // Clear state so we don't re-select it on subsequent renders
         window.history.replaceState({}, document.title);
       } else {
-        // If the contact isn't in the list (e.g., a new company chatting), we might need to fetch them
-        // But the new backend logic includes all contacted users, so it should be there unless it's a completely new user who is not an NGO.
-        // If they navigated from NGO profile, the target is an NGO, so it will be in the list.
-        if (location.state.contactName) {
-          setSelectedContact({ _id: location.state.contactId, name: location.state.contactName });
+        if (contactName) {
+          setSelectedContact({ _id: contactId, name: contactName });
           window.history.replaceState({}, document.title);
         }
       }
     }
-  }, [contacts, location.state]);
+  }, [contacts, searchParams]);
 
   // Fetch messages between current user and selected contact
   const fetchMessages = async (contactId, showLoader = false) => {
@@ -61,7 +62,7 @@ const CollabHub = () => {
     if (showLoader) setLoadingMessages(true);
     
     try {
-      const response = await fetch(`https://gladiators-ngo.onrender.com/api/chat/messages?senderId=${user.gcId}&receiverId=${contactId}`);
+      const response = await fetch(`${API_BASE}/api/chat/messages?senderId=${user.gcId}&receiverId=${contactId}`);
       const data = await response.json();
       setMessages(data);
       if (showLoader) setLoadingMessages(false);
@@ -73,7 +74,7 @@ const CollabHub = () => {
 
   const fetchUnreadCounts = async () => {
     try {
-      const response = await fetch(`https://gladiators-ngo.onrender.com/api/chat/unread-counts?receiverId=${user.gcId}`);
+      const response = await fetch(`${API_BASE}/api/chat/unread-counts?receiverId=${user.gcId}`);
       const data = await response.json();
       setUnreadCounts(data);
     } catch (error) {}
@@ -83,7 +84,7 @@ const CollabHub = () => {
     if (selectedContact) {
       fetchMessages(selectedContact._id, true);
       // Mark messages as read
-      fetch('https://gladiators-ngo.onrender.com/api/chat/mark-read', {
+      fetch(`${API_BASE}/api/chat/mark-read`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ senderId: selectedContact._id, receiverId: user.gcId })
@@ -116,7 +117,7 @@ const CollabHub = () => {
     setNewMessage(''); // optimistic clear
 
     try {
-      const response = await fetch('https://gladiators-ngo.onrender.com/api/chat/messages', {
+      const response = await fetch(`${API_BASE}/api/chat/messages`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

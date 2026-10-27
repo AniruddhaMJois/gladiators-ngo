@@ -1,7 +1,10 @@
+'use client';
+
 import React, { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
+import { usePathname } from 'next/navigation';
 import { MessageSquare, X, Send, Bot, User, HelpCircle, Maximize2, Minimize2 } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
+import { API_BASE } from '@/lib/api';
 
 const BAD_WORDS = ['fuck', 'shit', 'ass', 'bitch', 'crap', 'damn', 'hell'];
 
@@ -21,17 +24,17 @@ const GlobalChatbot = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
-  const location = useLocation();
-  const [previousPath, setPreviousPath] = useState(location.pathname);
+  const pathname = usePathname();
+  const [previousPath, setPreviousPath] = useState(pathname || '/');
   const { user } = useAuth();
   const messagesEndRef = useRef(null);
 
   // Track previous path
   useEffect(() => {
-    if (location.pathname !== previousPath) {
-      setPreviousPath(location.pathname);
+    if (pathname && pathname !== previousPath) {
+      setPreviousPath(pathname);
     }
-  }, [location.pathname, previousPath]);
+  }, [pathname, previousPath]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -72,13 +75,13 @@ const GlobalChatbot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://gladiators-ngo.onrender.com/api/chatbot', {
+      const response = await fetch(`${API_BASE}/api/chatbot`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: limitedMessages,
           context: {
-            currentPath: location.pathname,
+            currentPath: pathname,
             previousPath: previousPath,
             role: user?.role || 'guest'
           }

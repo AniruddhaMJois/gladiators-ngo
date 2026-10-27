@@ -1,4 +1,7 @@
+'use client';
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { API_BASE } from '@/lib/api';
 
 const AuthContext = createContext();
 
@@ -8,22 +11,24 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // We have removed the in-memory registeredUsers array as requested.
-  // The database will now serve as the single source of truth.
-
   useEffect(() => {
     // Attempt to load session from sessionStorage if desired
-    const storedUser = sessionStorage.getItem('gladiconnect_user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    if (typeof window !== 'undefined') {
+      const storedUser = sessionStorage.getItem('gladiconnect_user');
+      if (storedUser) {
+        try {
+          setUser(JSON.parse(storedUser));
+        } catch (e) {
+          console.error('Failed to parse stored user:', e);
+        }
+      }
     }
     setLoading(false);
   }, []);
 
   const login = async (credentials) => {
-    // credentials should include { gcId, pin, role }
     try {
-      const response = await fetch('https://gladiators-ngo.onrender.com/api/auth/login', {
+      const response = await fetch(`${API_BASE}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credentials)
@@ -36,7 +41,9 @@ export const AuthProvider = ({ children }) => {
       }
       
       setUser(data.user);
-      sessionStorage.setItem('gladiconnect_user', JSON.stringify(data.user));
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('gladiconnect_user', JSON.stringify(data.user));
+      }
       return { success: true, user: data.user };
     } catch (error) {
       console.error('AuthContext Login Error:', error);
@@ -46,12 +53,14 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    sessionStorage.removeItem('gladiconnect_user');
+    if (typeof window !== 'undefined') {
+      sessionStorage.removeItem('gladiconnect_user');
+    }
   };
 
   const registerUser = async (newUserData) => {
     try {
-      const response = await fetch('https://gladiators-ngo.onrender.com/api/auth/register', {
+      const response = await fetch(`${API_BASE}/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newUserData)
@@ -63,9 +72,10 @@ export const AuthProvider = ({ children }) => {
         throw new Error(data.message || 'Registration failed');
       }
       
-      // Auto-login after registration
       setUser(data.user);
-      sessionStorage.setItem('gladiconnect_user', JSON.stringify(data.user));
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('gladiconnect_user', JSON.stringify(data.user));
+      }
       return { success: true, user: data.user };
     } catch (error) {
       console.error('AuthContext Registration Error:', error);
@@ -77,7 +87,7 @@ export const AuthProvider = ({ children }) => {
     if (!user || !user._id) return { success: false, message: 'Not logged in' };
     
     try {
-      const response = await fetch('https://gladiators-ngo.onrender.com/api/auth/profile', {
+      const response = await fetch(`${API_BASE}/api/auth/profile`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ gcId: user._id, updatedData })
@@ -90,7 +100,9 @@ export const AuthProvider = ({ children }) => {
       }
       
       setUser(data.user);
-      sessionStorage.setItem('gladiconnect_user', JSON.stringify(data.user));
+      if (typeof window !== 'undefined') {
+        sessionStorage.setItem('gladiconnect_user', JSON.stringify(data.user));
+      }
       return { success: true, user: data.user };
     } catch (error) {
       console.error('AuthContext Update Error:', error);
