@@ -110,6 +110,8 @@ gladiators-ngo/
 
 ---
 
+**next.js implementation is in process**
+
 ## 👥 Team Gladiators
 
 Built with ❤️ and purpose by **Team Gladiators** from Vidya Vardhaka College of Engineering, Mysuru.
