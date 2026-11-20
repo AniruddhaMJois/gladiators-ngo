@@ -8,7 +8,8 @@ import { useTheme } from '../context/ThemeContext';
 import { API_BASE } from '@/lib/api';
 import {
   UserCircle, Phone, Globe, LogOut, ChevronDown, X, Heart, Building2,
-  Briefcase, ShieldCheck, Check, Edit3, Save, User, MapPin, Hash, UserCheck, Trash2, Home, ArrowLeft, Award, Moon, Sun
+  Briefcase, ShieldCheck, Check, Edit3, Save, User, MapPin, Hash, UserCheck, Trash2, Home, ArrowLeft, Award, Moon, Sun,
+  LayoutDashboard, MessageSquare, LogIn
 } from 'lucide-react';
 import GlobalChatbot from './chat/GlobalChatbot';
 
@@ -374,47 +375,55 @@ const GlobalLayout = ({ children }) => {
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
+      {/* Floating Tagline Box in the Middle of the Whole Screen */}
+      <div className="screen-center-tagline animate-fade-in" style={{
+        position: 'fixed',
+        top: '1.25rem',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: 90,
+        pointerEvents: 'none',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '0.65rem 1.75rem',
+        background: 'rgba(10, 15, 30, 0.75)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        border: '1px solid rgba(255, 255, 255, 0.12)',
+        borderRadius: '14px',
+        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.4)',
+        maxWidth: '90vw'
+      }}>
+        <span style={{
+          fontSize: '0.95rem',
+          fontWeight: 700,
+          fontStyle: 'italic',
+          letterSpacing: '0.02em',
+          color: '#FFFFFF',
+          whiteSpace: 'nowrap',
+          opacity: fadeState === 'fade-in' ? 1 : 0,
+          transform: fadeState === 'fade-in' ? 'translateY(0)' : 'translateY(-4px)',
+          transition: 'opacity 0.5s ease-in-out, transform 0.5s ease-in-out',
+        }}>
+          "{currentLanguageTaglines[currentTaglineIndex]}"
+        </span>
+      </div>
+
       <nav className="nav-island">
         {/* Top: Brand Logo */}
         <div
           className="nav-brand"
-          style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', cursor: 'pointer' }}
+          style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.35rem 0.5rem', borderRadius: 'var(--radius-md)' }}
           onClick={handleLogoClick}
+          title="GladiConnect"
         >
-          <img src="/images/logo.png" alt="GladiConnect Logo" style={{ width: 34, height: 34, objectFit: 'contain', borderRadius: '50%' }} />
-          <span style={{
-            fontWeight: 800, fontSize: '1.25rem',
-            color: 'var(--color-text-primary)',
+          <img src="/images/logo.png" alt="GladiConnect Logo" style={{ width: 34, height: 34, minWidth: 34, objectFit: 'contain', borderRadius: '50%' }} />
+          <span className="nav-btn-text" style={{
+            fontSize: '1.2rem',
             letterSpacing: '-0.01em'
           }}>
             GladiConnect
-          </span>
-        </div>
-
-        {/* Tagline Widget */}
-        <div className="hidden-mobile nav-tagline-box" style={{
-          padding: '0.6rem 0.75rem',
-          margin: '0.5rem 0',
-          borderRadius: 'var(--radius-md)',
-          background: 'rgba(255, 255, 255, 0.03)',
-          border: '1px solid var(--color-border)',
-          textAlign: 'center',
-          pointerEvents: 'none'
-        }}>
-          <span style={{
-            fontSize: '0.78rem',
-            fontWeight: 700,
-            fontStyle: 'italic',
-            letterSpacing: '0.02em',
-            background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'inherit',
-            display: 'inline-block',
-            opacity: fadeState === 'fade-in' ? 1 : 0,
-            transform: fadeState === 'fade-in' ? 'translateY(0)' : 'translateY(-4px)',
-            transition: 'opacity 0.5s ease-in-out, transform 0.5s ease-in-out',
-          }}>
-            "{currentLanguageTaglines[currentTaglineIndex]}"
           </span>
         </div>
 
@@ -425,8 +434,8 @@ const GlobalLayout = ({ children }) => {
             className="nav-action-btn"
             title="Home"
           >
-            <Home size={18} />
-            <span>Home</span>
+            <div className="nav-icon-wrapper"><Home size={22} /></div>
+            <span className="nav-btn-text">Home</span>
           </button>
 
           <button
@@ -434,88 +443,120 @@ const GlobalLayout = ({ children }) => {
             className="nav-action-btn"
             title="Back"
           >
-            <ArrowLeft size={18} />
-            <span>Back</span>
+            <div className="nav-icon-wrapper"><ArrowLeft size={22} /></div>
+            <span className="nav-btn-text">Back</span>
           </button>
 
-          <button className="nav-action-btn helpline-btn hidden-mobile">
-            <Phone size={18} style={{ color: 'var(--color-primary)' }} className="pulse-animation" />
-            <span style={{ color: 'var(--color-text-secondary)' }}>24/7 Helpline</span>
+          {isAuthenticated && user && (
+            <>
+              <button
+                onClick={() => router.push(`/${user.role}/dashboard`)}
+                className="nav-action-btn"
+                title="Dashboard"
+              >
+                <div className="nav-icon-wrapper"><LayoutDashboard size={22} /></div>
+                <span className="nav-btn-text">Dashboard</span>
+              </button>
+
+              <button
+                onClick={() => router.push(`/${user.role}/profile`)}
+                className="nav-action-btn"
+                title="Profile"
+              >
+                <div className="nav-icon-wrapper"><UserCircle size={22} /></div>
+                <span className="nav-btn-text">Profile</span>
+              </button>
+
+              <button
+                onClick={() => router.push('/messages')}
+                className="nav-action-btn"
+                title="Messages"
+              >
+                <div className="nav-icon-wrapper"><MessageSquare size={22} /></div>
+                <span className="nav-btn-text">Messages</span>
+              </button>
+            </>
+          )}
+
+          {!isAuthenticated && (
+            <button
+              onClick={() => router.push('/login')}
+              className="nav-action-btn"
+              title="Login"
+            >
+              <div className="nav-icon-wrapper"><LogIn size={22} /></div>
+              <span className="nav-btn-text">Login</span>
+            </button>
+          )}
+
+          <button className="nav-action-btn helpline-btn" title="24/7 Helpline">
+            <div className="nav-icon-wrapper"><Phone size={22} className="pulse-animation" /></div>
+            <span className="nav-btn-text">24/7 Helpline</span>
           </button>
         </div>
 
         {/* Bottom Tools & Logout */}
         <div className="nav-island-bottom">
-          <div className="nav-island-tools">
-            {/* Theme Toggle Button */}
-            <button
-              onClick={toggleTheme}
-              className="nav-tool-btn"
-              title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-            >
-              {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
-            </button>
-
-            {/* Custom Language Dropdown that controls hidden Google Translate */}
-            <div style={{ position: 'relative', flex: 1 }}>
-              <button
-                onClick={() => setShowLangDropdown(!showLangDropdown)}
-                className="nav-lang-btn"
-                style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.4rem',
-                  padding: '0.45rem 0.75rem', fontSize: '0.85rem', fontWeight: 600,
-                  borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', cursor: 'pointer',
-                  fontFamily: 'inherit', width: '100%',
-                  background: 'var(--color-nav-btn)',
-                  color: 'var(--color-text-primary)',
-                  transition: 'all var(--transition-fast)'
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                  <Globe size={16} style={{ color: 'var(--color-text-secondary)' }} />
-                  <span>{activeLang}</span>
-                </div>
-                <ChevronDown size={14} style={{ color: 'var(--color-text-secondary)', transform: showLangDropdown ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
-              </button>
-              
-              {showLangDropdown && (
-                <>
-                  <div onClick={() => setShowLangDropdown(false)} style={{ position: 'fixed', inset: 0, zIndex: 998 }} />
-                  <div className="nav-lang-menu" style={{
-                    position: 'absolute', bottom: 'calc(100% + 0.5rem)', left: 0, zIndex: 999,
-                    background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: '0.5rem',
-                    boxShadow: '0 10px 15px -3px rgba(0,0,0,0.2)', overflow: 'hidden', minWidth: '130px'
-                  }}>
-                    {languages.map((lang) => (
-                      <div
-                        key={lang.code}
-                        onClick={() => handleLanguageSelect(lang)}
-                        style={{
-                          padding: '0.6rem 1rem', fontSize: '0.85rem', fontWeight: 500,
-                          cursor: 'pointer', color: activeLang === lang.label ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
-                          background: activeLang === lang.label ? 'var(--color-nav-btn-hover)' : 'transparent',
-                          borderBottom: '1px solid var(--color-border)',
-                          display: 'flex', alignItems: 'center', justifyContent: 'space-between'
-                        }}
-                      >
-                        {lang.label}
-                        {activeLang === lang.label && <Check size={16} color="#4A6741" />}
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
+          {/* Theme Toggle Button */}
+          <button
+            onClick={toggleTheme}
+            className="nav-action-btn nav-tool-btn"
+            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+          >
+            <div className="nav-icon-wrapper">
+              {theme === 'light' ? <Moon size={22} /> : <Sun size={22} />}
             </div>
+            <span className="nav-btn-text">{theme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
+          </button>
+
+          {/* Custom Language Dropdown that controls hidden Google Translate */}
+          <div style={{ position: 'relative', width: '100%' }}>
+            <button
+              onClick={() => setShowLangDropdown(!showLangDropdown)}
+              className="nav-action-btn nav-lang-btn"
+              title="Language"
+            >
+              <div className="nav-icon-wrapper"><Globe size={22} /></div>
+              <span className="nav-btn-text">{activeLang}</span>
+            </button>
+            
+            {showLangDropdown && (
+              <>
+                <div onClick={() => setShowLangDropdown(false)} style={{ position: 'fixed', inset: 0, zIndex: 998 }} />
+                <div className="nav-lang-menu" style={{
+                  position: 'absolute', bottom: 'calc(100% + 0.5rem)', left: 0, zIndex: 999,
+                  background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: '0.5rem',
+                  boxShadow: '0 10px 15px -3px rgba(0,0,0,0.3)', overflow: 'hidden', minWidth: '130px'
+                }}>
+                  {languages.map((lang) => (
+                    <div
+                      key={lang.code}
+                      onClick={() => handleLanguageSelect(lang)}
+                      style={{
+                        padding: '0.6rem 1rem', fontSize: '0.85rem', fontWeight: 500,
+                        cursor: 'pointer', color: activeLang === lang.label ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                        background: activeLang === lang.label ? 'var(--color-nav-btn-hover)' : 'transparent',
+                        borderBottom: '1px solid var(--color-border)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between'
+                      }}
+                    >
+                      {lang.label}
+                      {activeLang === lang.label && <Check size={16} color="#4A6741" />}
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
           {isAuthenticated && (
             <button
               onClick={() => setShowLogoutConfirm(true)}
-              className="nav-logout-btn"
+              className="nav-action-btn nav-logout-btn"
               title="Logout"
             >
-              <LogOut size={16} />
-              <span>Logout</span>
+              <div className="nav-icon-wrapper"><LogOut size={22} /></div>
+              <span className="nav-btn-text">Logout</span>
             </button>
           )}
 
