@@ -414,13 +414,14 @@ const GlobalLayout = ({ children }) => {
         {/* Top: Brand Logo */}
         <div
           className="nav-brand"
-          style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', cursor: 'pointer', padding: '0.35rem 0.5rem', borderRadius: 'var(--radius-md)' }}
           onClick={handleLogoClick}
           title="GladiConnect"
         >
-          <img src="/images/logo.png" alt="GladiConnect Logo" style={{ width: 34, height: 34, minWidth: 34, objectFit: 'contain', borderRadius: '50%' }} />
+          <div className="nav-icon-wrapper">
+            <img src="/images/logo.png" alt="GladiConnect Logo" style={{ width: 34, height: 34, objectFit: 'contain', borderRadius: '50%' }} />
+          </div>
           <span className="nav-btn-text" style={{
-            fontSize: '1.2rem',
+            fontSize: '1.15rem',
             letterSpacing: '-0.01em'
           }}>
             GladiConnect
