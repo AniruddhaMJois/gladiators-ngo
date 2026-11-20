@@ -376,7 +376,7 @@ const GlobalLayout = ({ children }) => {
   return (
     <div style={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
       {/* Floating Tagline Box in the Middle of the Whole Screen */}
-      <div className="screen-center-tagline" style={{
+      <div className="screen-center-tagline" suppressHydrationWarning style={{
         position: 'fixed',
         top: '1.25rem',
         left: 0,

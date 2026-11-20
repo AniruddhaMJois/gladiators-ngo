@@ -5,13 +5,17 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
+  const [theme, setTheme] = useState('dark');
+
+  useEffect(() => {
+    try {
       const savedTheme = localStorage.getItem('app-theme');
-      return savedTheme || 'dark';
-    }
-    return 'dark';
-  });
+      if (savedTheme) {
+        setTheme(savedTheme);
+        document.documentElement.setAttribute('data-theme', savedTheme);
+      }
+    } catch (e) {}
+  }, []);
 
   useEffect(() => {
     try {
