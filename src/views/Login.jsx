@@ -140,71 +140,8 @@ const LoginPage = () => {
           </p>
         </div>
 
-        {/* Role Selector: When a specific role is opened, show only that role; show all only when generic */}
-        {hasExplicitRole ? (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            background: 'var(--color-surface)',
-            border: `1.5px solid ${selectedRole === 'ngo' ? '#0EA5E9' : selectedRole === 'company' ? '#F59E0B' : 'var(--color-primary)'}`,
-            borderRadius: '0.75rem',
-            padding: '0.65rem 1rem',
-            marginBottom: '2rem',
-            boxShadow: `0 4px 15px -4px ${selectedRole === 'ngo' ? 'rgba(14, 165, 233, 0.2)' : selectedRole === 'company' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(139, 92, 246, 0.2)'}`
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-              <div style={{
-                color: selectedRole === 'ngo' ? '#0EA5E9' : selectedRole === 'company' ? '#F59E0B' : 'var(--color-primary)',
-                background: selectedRole === 'ngo' ? 'rgba(14, 165, 233, 0.15)' : selectedRole === 'company' ? 'rgba(245, 158, 11, 0.15)' : 'rgba(139, 92, 246, 0.15)',
-                padding: '0.45rem',
-                borderRadius: '0.5rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                {selectedRole === 'volunteer' && <Users size={18} />}
-                {selectedRole === 'ngo' && <Building2 size={18} />}
-                {selectedRole === 'company' && <Briefcase size={18} />}
-              </div>
-              <div>
-                <div style={{
-                  fontWeight: 800,
-                  fontSize: '0.95rem',
-                  color: selectedRole === 'ngo' ? '#0EA5E9' : selectedRole === 'company' ? '#F59E0B' : 'var(--color-primary)',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.04em',
-                  lineHeight: 1.2
-                }}>
-                  {selectedRole === 'ngo' ? 'NGO' : selectedRole === 'company' ? 'Company' : 'Volunteer'} Portal
-                </div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', fontWeight: 500 }}>
-                  Role verified
-                </div>
-              </div>
-            </div>
-            <button
-              type="button"
-              onClick={() => {
-                setHasExplicitRole(false);
-                router.replace('/login');
-              }}
-              style={{
-                background: 'none',
-                border: 'none',
-                color: 'var(--color-text-secondary)',
-                fontSize: '0.8rem',
-                cursor: 'pointer',
-                fontWeight: 600,
-                textDecoration: 'underline',
-                padding: '0.25rem 0.5rem'
-              }}
-              title="Show all roles"
-            >
-              All roles
-            </button>
-          </div>
-        ) : (
+        {/* Role Selector Tabs (Only if generic /login without specific role) */}
+        {!hasExplicitRole && (
           <div className="role-selector-container" style={{ marginBottom: '2.5rem' }}>
             {['volunteer', 'ngo', 'company'].map(role => {
               const isActive = selectedRole === role;
