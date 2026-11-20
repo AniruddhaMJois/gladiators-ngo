@@ -376,11 +376,14 @@ const GlobalLayout = ({ children }) => {
   return (
     <div style={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
       {/* Floating Tagline Box in the Middle of the Whole Screen */}
-      <div className="screen-center-tagline animate-fade-in" style={{
+      <div className="screen-center-tagline" style={{
         position: 'fixed',
         top: '1.25rem',
-        left: '50%',
-        transform: 'translateX(-50%)',
+        left: 0,
+        right: 0,
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width: 'fit-content',
         zIndex: 90,
         pointerEvents: 'none',
         display: 'flex',

@@ -594,8 +594,12 @@ a:hover { filter: brightness(1.2); }
 .screen-center-tagline {
   position: fixed;
   top: 1.25rem;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0 !important;
+  right: 0 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: -moz-fit-content !important;
+  width: fit-content !important;
   z-index: 90;
   pointer-events: none;
   display: flex;
@@ -609,6 +613,7 @@ a:hover { filter: brightness(1.2); }
   border-radius: 14px;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
   max-width: 90vw;
+  box-sizing: border-box;
 }
 
 /* Circular Language Button in Top Right Corner */
