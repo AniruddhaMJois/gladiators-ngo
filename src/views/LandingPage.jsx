@@ -124,24 +124,6 @@ const LandingPage = () => {
           </div>
         ))}
       </div>
-
-      {/* SDG Footer Tags */}
-      <div className="animate-fade-in" style={{
-        display: 'flex', alignItems: 'center', gap: '1rem',
-        flexWrap: 'wrap', justifyContent: 'center'
-      }}>
-        <span style={{ fontSize: '0.9rem', color: 'var(--color-text-secondary)', fontWeight: 600 }}>
-          Aligned with Goals:
-        </span>
-        {[
-          'SDG 16 — Peace & Justice',
-          'SDG 17 — Partnerships',
-          'SDG 4 — Education',
-          'SDG 13 — Climate Action'
-        ].map((tag, i) => (
-          <span key={i} className="badge badge-secondary prismatic-edge" style={{ fontWeight: 800 }}>{tag}</span>
-        ))}
-      </div>
     </div>
   );
 };
