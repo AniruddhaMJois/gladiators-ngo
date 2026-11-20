@@ -10,8 +10,14 @@ const LoginPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const roleParam = searchParams.get('role');
+  const [hasExplicitRole, setHasExplicitRole] = useState(
+    Boolean(roleParam && ['volunteer', 'ngo', 'company'].includes(roleParam))
+  );
   // Selected role tab: defaults to URL query parameter or 'volunteer'
-  const [selectedRole, setSelectedRole] = useState(searchParams.get('role') || 'volunteer');
+  const [selectedRole, setSelectedRole] = useState(
+    (roleParam && ['volunteer', 'ngo', 'company'].includes(roleParam)) ? roleParam : 'volunteer'
+  );
   
   // Login input fields
   const [gcId, setGcId] = useState('');
@@ -25,9 +31,10 @@ const LoginPage = () => {
 
   // Update selected role state if query param changes
   useEffect(() => {
-    const roleParam = searchParams.get('role');
-    if (roleParam && ['volunteer', 'ngo', 'company'].includes(roleParam)) {
-      setSelectedRole(roleParam);
+    const role = searchParams.get('role');
+    if (role && ['volunteer', 'ngo', 'company'].includes(role)) {
+      setSelectedRole(role);
+      setHasExplicitRole(true);
       setErrorMessage('');
     }
   }, [searchParams]);
@@ -113,7 +120,7 @@ const LoginPage = () => {
             position: 'relative',
             zIndex: 1
           }}>
-            <img src="/images/logo.png" alt="GladiConnect Logo" style={{ width: '65%', height: '65%', objectFit: 'contain' }} />
+            <img src="/images/logo.png" alt="GladiConnect Logo" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
           </div>
           <h1 style={{ 
             fontSize: '2rem', marginBottom: '0.5rem', fontWeight: 800, 
@@ -121,7 +128,7 @@ const LoginPage = () => {
             letterSpacing: '-0.02em',
             transition: 'color 0.4s cubic-bezier(0.4, 0, 0.2, 1)'
           }}>
-            Sign In / Sign Up
+            {hasExplicitRole ? `${selectedRole === 'ngo' ? 'NGO' : selectedRole === 'company' ? 'Company' : 'Volunteer'} Login` : 'Sign In'}
           </h1>
           <p style={{ fontSize: '0.95rem', color: 'var(--color-text-secondary)', margin: 0, fontWeight: 500 }}>
             Enter your credentials to access your <span style={{
@@ -133,48 +140,113 @@ const LoginPage = () => {
           </p>
         </div>
 
-        {/* Role Selector Tabs */}
-        <div className="role-selector-container" style={{ marginBottom: '2.5rem' }}>
-          {['volunteer', 'ngo', 'company'].map(role => {
-            const isActive = selectedRole === role;
-            let btnColor = 'var(--color-primary)';
-            let btnBg = 'var(--color-primary)';
-            let btnShadow = 'rgba(139, 92, 246, 0.4)';
-            if (role === 'ngo') {
-              btnColor = '#0EA5E9'; btnBg = '#0EA5E9'; btnShadow = 'rgba(14, 165, 233, 0.4)';
-            }
-            if (role === 'company') {
-              btnColor = '#F59E0B'; btnBg = '#F59E0B'; btnShadow = 'rgba(245, 158, 11, 0.4)';
-            }
-            return (
-              <button
-                key={role}
-                onClick={() => {
-                  setSelectedRole(role);
-                  setErrorMessage('');
-                }}
-                className={`role-btn ${isActive ? 'role-btn-active prismatic-edge' : 'role-btn-inactive'}`}
-                style={{
-                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                  ...(isActive ? {
-                    borderColor: btnColor,
-                    color: '#FFFFFF',
-                    background: btnBg,
-                    boxShadow: `0 4px 12px ${btnShadow}`,
-                    fontWeight: 800
-                  } : {
-                    borderColor: 'transparent',
-                    background: 'transparent',
-                    boxShadow: 'none',
-                    fontWeight: 700
-                  })
-                }}
-              >
-                {role}
-              </button>
-            );
-          })}
-        </div>
+        {/* Role Selector: When a specific role is opened, show only that role; show all only when generic */}
+        {hasExplicitRole ? (
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            background: 'var(--color-surface)',
+            border: `1.5px solid ${selectedRole === 'ngo' ? '#0EA5E9' : selectedRole === 'company' ? '#F59E0B' : 'var(--color-primary)'}`,
+            borderRadius: '0.75rem',
+            padding: '0.65rem 1rem',
+            marginBottom: '2rem',
+            boxShadow: `0 4px 15px -4px ${selectedRole === 'ngo' ? 'rgba(14, 165, 233, 0.2)' : selectedRole === 'company' ? 'rgba(245, 158, 11, 0.2)' : 'rgba(139, 92, 246, 0.2)'}`
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+              <div style={{
+                color: selectedRole === 'ngo' ? '#0EA5E9' : selectedRole === 'company' ? '#F59E0B' : 'var(--color-primary)',
+                background: selectedRole === 'ngo' ? 'rgba(14, 165, 233, 0.15)' : selectedRole === 'company' ? 'rgba(245, 158, 11, 0.15)' : 'rgba(139, 92, 246, 0.15)',
+                padding: '0.45rem',
+                borderRadius: '0.5rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                {selectedRole === 'volunteer' && <Users size={18} />}
+                {selectedRole === 'ngo' && <Building2 size={18} />}
+                {selectedRole === 'company' && <Briefcase size={18} />}
+              </div>
+              <div>
+                <div style={{
+                  fontWeight: 800,
+                  fontSize: '0.95rem',
+                  color: selectedRole === 'ngo' ? '#0EA5E9' : selectedRole === 'company' ? '#F59E0B' : 'var(--color-primary)',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                  lineHeight: 1.2
+                }}>
+                  {selectedRole === 'ngo' ? 'NGO' : selectedRole === 'company' ? 'Company' : 'Volunteer'} Portal
+                </div>
+                <div style={{ fontSize: '0.75rem', color: 'var(--color-text-secondary)', fontWeight: 500 }}>
+                  Role verified
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                setHasExplicitRole(false);
+                router.replace('/login');
+              }}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: 'var(--color-text-secondary)',
+                fontSize: '0.8rem',
+                cursor: 'pointer',
+                fontWeight: 600,
+                textDecoration: 'underline',
+                padding: '0.25rem 0.5rem'
+              }}
+              title="Show all roles"
+            >
+              All roles
+            </button>
+          </div>
+        ) : (
+          <div className="role-selector-container" style={{ marginBottom: '2.5rem' }}>
+            {['volunteer', 'ngo', 'company'].map(role => {
+              const isActive = selectedRole === role;
+              let btnColor = 'var(--color-primary)';
+              let btnBg = 'var(--color-primary)';
+              let btnShadow = 'rgba(139, 92, 246, 0.4)';
+              if (role === 'ngo') {
+                btnColor = '#0EA5E9'; btnBg = '#0EA5E9'; btnShadow = 'rgba(14, 165, 233, 0.4)';
+              }
+              if (role === 'company') {
+                btnColor = '#F59E0B'; btnBg = '#F59E0B'; btnShadow = 'rgba(245, 158, 11, 0.4)';
+              }
+              return (
+                <button
+                  key={role}
+                  onClick={() => {
+                    setSelectedRole(role);
+                    setErrorMessage('');
+                  }}
+                  className={`role-btn ${isActive ? 'role-btn-active prismatic-edge' : 'role-btn-inactive'}`}
+                  style={{
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    ...(isActive ? {
+                      borderColor: btnColor,
+                      color: '#FFFFFF',
+                      background: btnBg,
+                      boxShadow: `0 4px 12px ${btnShadow}`,
+                      fontWeight: 800
+                    } : {
+                      borderColor: 'transparent',
+                      background: 'transparent',
+                      boxShadow: 'none',
+                      fontWeight: 700
+                    })
+                  }}
+                >
+                  {role}
+                </button>
+              );
+            })}
+          </div>
+        )}
 
         {errorMessage && (
           <div style={{
@@ -305,15 +377,16 @@ const LoginPage = () => {
             Don't have an account?
           </p>
           <button
+            type="button"
             onClick={() => {
-              if (selectedRole === 'volunteer') router.push('/volunteer/onboarding');
-              else if (selectedRole === 'ngo') router.push('/ngo/onboarding');
-              else if (selectedRole === 'company') router.push('/company/onboarding');
+              if (selectedRole === 'volunteer') router.push('/volunteer/onboarding?mode=register');
+              else if (selectedRole === 'ngo') router.push('/ngo/onboarding?mode=register');
+              else if (selectedRole === 'company') router.push('/company/onboarding?mode=register');
             }}
             style={{
               background: 'none',
               border: 'none',
-              color: 'var(--color-primary-dark)',
+              color: selectedRole === 'ngo' ? '#0EA5E9' : selectedRole === 'company' ? '#F59E0B' : 'var(--color-primary-dark)',
               fontWeight: 800,
               cursor: 'pointer',
               fontSize: '0.85rem',
@@ -321,7 +394,7 @@ const LoginPage = () => {
               textDecoration: 'underline'
             }}
           >
-            Register Now
+            Register as {selectedRole === 'ngo' ? 'NGO' : selectedRole === 'company' ? 'Company' : 'Volunteer'}
           </button>
         </div>
 

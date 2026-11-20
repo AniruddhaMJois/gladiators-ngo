@@ -65,7 +65,7 @@ const NgoProfile = () => {
       <div className="glass-card" style={{ padding: '3rem', textAlign: 'center', maxWidth: 500, margin: '4rem auto' }}>
         <h2 style={{ color: 'var(--color-primary)' }}>Access Denied</h2>
         <p style={{ margin: '1rem 0 2rem' }}>Please log in to view your NGO profile page.</p>
-        <button className="btn btn-primary" onClick={() => router.push('/login')}>Go to Login</button>
+        <button className="btn btn-primary" onClick={() => router.push('/login?role=ngo')}>Go to Login</button>
       </div>
     );
   }

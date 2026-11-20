@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { 
   Users, CheckCircle, Loader2, Shield, Heart, Lock, Plus, X, 
@@ -11,6 +11,7 @@ import {
 const VolunteerOnboarding = () => {
   const { login, registerUser } = useAuth();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   // Steps: 
   // 0 - Choice (Login vs Register)
@@ -18,7 +19,13 @@ const VolunteerOnboarding = () => {
   // 2 - Primary Interests Tag Box
   // 3 - Set 6-Digit PIN
   // 4 - DigiLocker Verification (Aadhaar 12-digit)
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(searchParams?.get('mode') === 'register' ? 1 : 0);
+
+  useEffect(() => {
+    if (searchParams?.get('mode') === 'register') {
+      setStep(1);
+    }
+  }, [searchParams]);
 
   // Form states
   const [formData, setFormData] = useState({
