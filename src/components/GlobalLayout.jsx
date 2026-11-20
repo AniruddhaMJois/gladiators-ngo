@@ -439,15 +439,6 @@ const GlobalLayout = ({ children }) => {
             <span className="nav-btn-text">Home</span>
           </button>
 
-          <button
-            onClick={handleBack}
-            className="nav-action-btn"
-            title="Back"
-          >
-            <div className="nav-icon-wrapper"><ArrowLeft size={22} /></div>
-            <span className="nav-btn-text">Back</span>
-          </button>
-
           {isAuthenticated && user && (
             <>
               <button
@@ -477,17 +468,6 @@ const GlobalLayout = ({ children }) => {
                 <span className="nav-btn-text">Messages</span>
               </button>
             </>
-          )}
-
-          {!isAuthenticated && (
-            <button
-              onClick={() => router.push('/login')}
-              className="nav-action-btn"
-              title="Login"
-            >
-              <div className="nav-icon-wrapper"><LogIn size={22} /></div>
-              <span className="nav-btn-text">Login</span>
-            </button>
           )}
 
           <button className="nav-action-btn helpline-btn" title="24/7 Helpline">
