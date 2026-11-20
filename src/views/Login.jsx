@@ -50,8 +50,8 @@ const LoginPage = () => {
       return;
     }
 
-    const isHardcodedPattern = /^(?:NGO|VLT|CPY)?([123][0-3xX])$/i.test(formattedId);
-    if (!isHardcodedPattern && (cleanPin.length !== 6 || isNaN(cleanPin))) {
+    const isDefaultLoginPattern = /^(?:NGO|VLT|CPY)?([123](\d+|[xX]))$/i.test(formattedId);
+    if (!isDefaultLoginPattern && (cleanPin.length !== 6 || isNaN(cleanPin))) {
       setErrorMessage('PIN must be a 6-digit number.');
       return;
     }
