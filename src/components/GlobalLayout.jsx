@@ -373,14 +373,15 @@ const GlobalLayout = ({ children }) => {
   };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <div style={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
       <nav className="nav-island">
-        {/* Left side: Logo */}
+        {/* Top: Brand Logo */}
         <div
-          style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
+          className="nav-brand"
+          style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', cursor: 'pointer' }}
           onClick={handleLogoClick}
         >
-          <img src="/images/logo.png" alt="GladiConnect Logo" style={{ width: 30, height: 30, objectFit: 'contain', borderRadius: '50%' }} />
+          <img src="/images/logo.png" alt="GladiConnect Logo" style={{ width: 34, height: 34, objectFit: 'contain', borderRadius: '50%' }} />
           <span style={{
             fontWeight: 800, fontSize: '1.25rem',
             color: 'var(--color-text-primary)',
@@ -390,159 +391,127 @@ const GlobalLayout = ({ children }) => {
           </span>
         </div>
 
-        {/* Middle: Creative Tagline Slider */}
-        <div className="hidden-mobile" style={{
-          flex: 1,
-          justifyContent: 'center',
-          alignItems: 'center',
+        {/* Tagline Widget */}
+        <div className="hidden-mobile nav-tagline-box" style={{
+          padding: '0.6rem 0.75rem',
+          margin: '0.5rem 0',
+          borderRadius: 'var(--radius-md)',
+          background: 'rgba(255, 255, 255, 0.03)',
+          border: '1px solid var(--color-border)',
           textAlign: 'center',
-          padding: '0 1.5rem',
           pointerEvents: 'none'
         }}>
           <span style={{
-            fontSize: '0.9rem',
+            fontSize: '0.78rem',
             fontWeight: 700,
             fontStyle: 'italic',
-            letterSpacing: '0.03em',
+            letterSpacing: '0.02em',
             background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'inherit',
             display: 'inline-block',
             opacity: fadeState === 'fade-in' ? 1 : 0,
-            transform: fadeState === 'fade-in' ? 'translateY(0)' : 'translateY(-6px)',
+            transform: fadeState === 'fade-in' ? 'translateY(0)' : 'translateY(-4px)',
             transition: 'opacity 0.5s ease-in-out, transform 0.5s ease-in-out',
           }}>
             "{currentLanguageTaglines[currentTaglineIndex]}"
           </span>
         </div>
 
-        {/* Right side */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+        {/* Navigation Items */}
+        <div className="nav-island-actions">
+          <button
+            onClick={handleHome}
+            className="nav-action-btn"
+            title="Home"
+          >
+            <Home size={18} />
+            <span>Home</span>
+          </button>
+
           <button
             onClick={handleBack}
-            style={{
-              display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem',
-              background: 'var(--color-nav-btn)', color: 'var(--color-text-secondary)', border: '1px solid var(--color-border)',
-              borderRadius: 'var(--radius-md)', padding: '0.45rem 0.9rem', fontWeight: 600, fontSize: '0.9rem',
-              cursor: 'pointer', transition: 'all 0.2s ease', outline: 'none'
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'var(--color-nav-btn-hover)'; e.currentTarget.style.color = 'var(--color-text-primary)'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'var(--color-nav-btn)'; e.currentTarget.style.color = 'var(--color-text-secondary)'; }}
+            className="nav-action-btn"
             title="Back"
           >
             <ArrowLeft size={18} />
-            <span className="hidden-mobile">Back</span>
+            <span>Back</span>
           </button>
 
-          <button
-            onClick={handleHome}
-            style={{
-              display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem',
-              background: 'var(--color-nav-btn)', color: 'var(--color-text-primary)', border: '1px solid var(--color-border)',
-              borderRadius: 'var(--radius-md)', padding: '0.35rem 0.8rem', fontWeight: 600, fontSize: '0.85rem',
-              cursor: 'pointer', transition: 'all 0.2s ease', outline: 'none'
-            }}
-            onMouseEnter={e => e.currentTarget.style.background = 'var(--color-nav-btn-hover)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'var(--color-nav-btn)'}
-            title="Home"
-          >
-            <Home size={16} />
-            <span className="hidden-mobile">Home</span>
-          </button>
-
-          <button className="btn-ghost hidden-mobile" style={{
-            display: 'flex', alignItems: 'center', gap: '0.4rem',
-            border: '1px solid var(--color-border)',
-            borderRadius: 'var(--radius-md)',
-            padding: '0.35rem 0.8rem',
-            background: 'var(--color-nav-btn)',
-            cursor: 'pointer', fontFamily: 'inherit', fontWeight: 600, fontSize: '0.85rem'
-          }}>
-            <Phone size={16} style={{ color: 'var(--color-primary)' }} className="pulse-animation" />
+          <button className="nav-action-btn helpline-btn hidden-mobile">
+            <Phone size={18} style={{ color: 'var(--color-primary)' }} className="pulse-animation" />
             <span style={{ color: 'var(--color-text-secondary)' }}>24/7 Helpline</span>
           </button>
+        </div>
 
-          {/* Theme Toggle Button */}
-          <button
-            onClick={toggleTheme}
-            style={{
-              display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
-              width: '36px', height: '36px',
-              borderRadius: '50%', border: '1px solid var(--color-border)', cursor: 'pointer',
-              background: 'var(--color-nav-btn)',
-              color: 'var(--color-text-secondary)',
-              transition: 'all var(--transition-fast)'
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = 'var(--color-nav-btn-hover)'; e.currentTarget.style.color = 'var(--color-text-primary)'; }}
-            onMouseLeave={e => { e.currentTarget.style.background = 'var(--color-nav-btn)'; e.currentTarget.style.color = 'var(--color-text-secondary)'; }}
-            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
-          >
-            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
-          </button>
-
-          {/* Custom Language Dropdown that controls hidden Google Translate */}
-          <div style={{ position: 'relative' }}>
+        {/* Bottom Tools & Logout */}
+        <div className="nav-island-bottom">
+          <div className="nav-island-tools">
+            {/* Theme Toggle Button */}
             <button
-              onClick={() => setShowLangDropdown(!showLangDropdown)}
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                padding: '0.35rem 0.8rem', fontSize: '0.85rem', fontWeight: 600,
-                borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', cursor: 'pointer',
-                fontFamily: 'inherit',
-                background: 'var(--color-nav-btn)',
-                color: 'var(--color-text-primary)',
-                transition: 'all var(--transition-fast)'
-              }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'var(--color-nav-btn-hover)'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'var(--color-nav-btn)'; }}
+              onClick={toggleTheme}
+              className="nav-tool-btn"
+              title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
             >
-              <Globe size={16} style={{ color: 'var(--color-text-secondary)' }} />
-              {activeLang}
-              <ChevronDown size={16} style={{ color: 'var(--color-text-secondary)', transform: showLangDropdown ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+              {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
             </button>
-            
-            {showLangDropdown && (
-              <>
-                <div onClick={() => setShowLangDropdown(false)} style={{ position: 'fixed', inset: 0, zIndex: 998 }} />
-                <div style={{
-                  position: 'absolute', top: 'calc(100% + 0.5rem)', right: 0, zIndex: 999,
-                  background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: '0.5rem',
-                  boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', overflow: 'hidden', minWidth: '120px'
-                }}>
-                  {languages.map((lang) => (
-                    <div
-                      key={lang.code}
-                      onClick={() => handleLanguageSelect(lang)}
-                      style={{
-                        padding: '0.6rem 1rem', fontSize: '0.9rem', fontWeight: 500,
-                        cursor: 'pointer', color: activeLang === lang.label ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
-                        background: activeLang === lang.label ? 'var(--color-nav-btn-hover)' : 'transparent',
-                        borderBottom: '1px solid #F1F5F9',
-                        display: 'flex', alignItems: 'center', justifyContent: 'space-between'
-                      }}
-                      onMouseEnter={e => e.currentTarget.style.background = 'var(--color-nav-btn)'}
-                      onMouseLeave={e => e.currentTarget.style.background = activeLang === lang.label ? 'var(--color-nav-btn-hover)' : 'transparent'}
-                    >
-                      {lang.label}
-                      {activeLang === lang.label && <Check size={16} color="#4A6741" />}
-                    </div>
-                  ))}
+
+            {/* Custom Language Dropdown that controls hidden Google Translate */}
+            <div style={{ position: 'relative', flex: 1 }}>
+              <button
+                onClick={() => setShowLangDropdown(!showLangDropdown)}
+                className="nav-lang-btn"
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '0.4rem',
+                  padding: '0.45rem 0.75rem', fontSize: '0.85rem', fontWeight: 600,
+                  borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', cursor: 'pointer',
+                  fontFamily: 'inherit', width: '100%',
+                  background: 'var(--color-nav-btn)',
+                  color: 'var(--color-text-primary)',
+                  transition: 'all var(--transition-fast)'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  <Globe size={16} style={{ color: 'var(--color-text-secondary)' }} />
+                  <span>{activeLang}</span>
                 </div>
-              </>
-            )}
+                <ChevronDown size={14} style={{ color: 'var(--color-text-secondary)', transform: showLangDropdown ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s' }} />
+              </button>
+              
+              {showLangDropdown && (
+                <>
+                  <div onClick={() => setShowLangDropdown(false)} style={{ position: 'fixed', inset: 0, zIndex: 998 }} />
+                  <div className="nav-lang-menu" style={{
+                    position: 'absolute', bottom: 'calc(100% + 0.5rem)', left: 0, zIndex: 999,
+                    background: 'var(--color-surface)', border: '1px solid var(--color-border)', borderRadius: '0.5rem',
+                    boxShadow: '0 10px 15px -3px rgba(0,0,0,0.2)', overflow: 'hidden', minWidth: '130px'
+                  }}>
+                    {languages.map((lang) => (
+                      <div
+                        key={lang.code}
+                        onClick={() => handleLanguageSelect(lang)}
+                        style={{
+                          padding: '0.6rem 1rem', fontSize: '0.85rem', fontWeight: 500,
+                          cursor: 'pointer', color: activeLang === lang.label ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                          background: activeLang === lang.label ? 'var(--color-nav-btn-hover)' : 'transparent',
+                          borderBottom: '1px solid var(--color-border)',
+                          display: 'flex', alignItems: 'center', justifyContent: 'space-between'
+                        }}
+                      >
+                        {lang.label}
+                        {activeLang === lang.label && <Check size={16} color="#4A6741" />}
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
           </div>
+
           {isAuthenticated && (
             <button
               onClick={() => setShowLogoutConfirm(true)}
-              style={{
-                display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.35rem',
-                background: '#EF4444', color: '#FFFFFF', border: 'none',
-                borderRadius: 'var(--radius-md)', padding: '0.35rem 0.8rem', fontWeight: 600, fontSize: '0.85rem',
-                cursor: 'pointer', boxShadow: '0 4px 6px -1px rgba(239, 68, 68, 0.2)',
-                transition: 'all 0.2s ease', outline: 'none'
-              }}
-              onMouseEnter={e => e.currentTarget.style.background = '#DC2626'}
-              onMouseLeave={e => e.currentTarget.style.background = '#EF4444'}
+              className="nav-logout-btn"
               title="Logout"
             >
               <LogOut size={16} />
@@ -570,7 +539,7 @@ const GlobalLayout = ({ children }) => {
 
       {/* Left-Side Profile Widget */}
       {isAuthenticated && user && !isLandingPage && (
-        <div className="bento-item" style={{
+        <div className="bento-item profile-floating-widget" style={{
           position: 'fixed', left: '1.5rem', top: '6.5rem', zIndex: 900,
           borderLeft: `4px solid ${
             user.role === 'volunteer' ? 'var(--color-primary)' :
@@ -916,22 +885,27 @@ const GlobalLayout = ({ children }) => {
         </div>
       )}
 
-      {/* Main Content */}
-      <main className={isLandingPage ? '' : `container ${isAuthenticated ? 'dashboard-content-shifted' : ''}`} style={{ flex: 1, paddingTop: isLandingPage ? 0 : '7.5rem', paddingBottom: isLandingPage ? 0 : '1.5rem' }}>
-        {children}
-      </main>
+      {/* Main Content Layout Wrapper */}
+      <div className="app-main-layout" style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh', minWidth: 0 }}>
+        {/* Main Content */}
+        <main className={isLandingPage ? '' : `container ${isAuthenticated ? 'dashboard-content-shifted' : ''}`} style={{ flex: 1, paddingTop: isLandingPage ? 0 : '3rem', paddingBottom: '2rem' }}>
+          {children}
+        </main>
 
-      <footer style={{
-        textAlign: 'center',
-        padding: '1rem',
-        color: '#FFFFFF',
-        fontSize: '0.9rem',
-        fontWeight: 600,
-        letterSpacing: '0.02em',
-        background: 'var(--color-surface)'
-      }}>
-        Made for the world by Gladiators
-      </footer>
+        <footer style={{
+          textAlign: 'center',
+          padding: '1.25rem',
+          color: 'var(--color-text-secondary)',
+          fontSize: '0.85rem',
+          fontWeight: 600,
+          letterSpacing: '0.02em',
+          background: 'var(--color-surface)',
+          borderTop: '1px solid var(--color-border)',
+          marginTop: 'auto'
+        }}>
+          Made for the world by Gladiators
+        </footer>
+      </div>
 
       {/* Edit Profile Modal */}
       {showEditProfileModal && (

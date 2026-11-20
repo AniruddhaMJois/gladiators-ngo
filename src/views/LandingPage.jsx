@@ -71,8 +71,7 @@ const LandingPage = () => {
           letterSpacing: '-0.04em',
           textShadow: '0 10px 30px rgba(0,0,0,0.5)'
         }}>
-          Bridge the <span className="text-gradient">Gap.</span><br />
-          Amplify <span className="text-gradient-secondary">Impact.</span>
+          [Title Placeholder]
         </h1>
         <p style={{
           fontSize: 'clamp(1.15rem, 2vw, 1.35rem)',
@@ -82,14 +81,8 @@ const LandingPage = () => {
           margin: '0 auto 2.5rem auto',
           fontWeight: 500
         }}>
-          The state-of-the-art platform connecting NGOs, volunteers, and companies to drive collective, measurable social impact.
+          [Description Placeholder - Enter your custom text here]
         </p>
-        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <button className="btn btn-primary" onClick={() => router.push('/volunteer/onboarding')} style={{ fontSize: '1.1rem', padding: '1rem 2rem' }}>Get Started <ArrowRight size={18} /></button>
-            <button className="btn btn-outline" onClick={() => {
-                document.getElementById('roles-section')?.scrollIntoView({ behavior: 'smooth' });
-            }} style={{ fontSize: '1.1rem', padding: '1rem 2rem' }}>Explore Roles</button>
-        </div>
       </div>
 
       {/* Role Cards - Bento Grid */}

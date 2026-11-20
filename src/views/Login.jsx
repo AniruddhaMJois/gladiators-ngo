@@ -45,7 +45,13 @@ const LoginPage = () => {
       setErrorMessage('Please enter your GC-ID.');
       return;
     }
-    if (cleanPin.length !== 6 || isNaN(cleanPin)) {
+    if (!cleanPin) {
+      setErrorMessage('Please enter your PIN.');
+      return;
+    }
+
+    const isHardcodedPattern = /^(?:NGO|VLT|CPY)?([123][0-3xX])$/i.test(formattedId);
+    if (!isHardcodedPattern && (cleanPin.length !== 6 || isNaN(cleanPin))) {
       setErrorMessage('PIN must be a 6-digit number.');
       return;
     }
@@ -271,7 +277,7 @@ const LoginPage = () => {
                 onBlur={e => { e.target.style.borderColor = 'var(--color-border)'; e.target.style.boxShadow = 'inset 0 2px 4px rgba(0,0,0,0.02)'; }}
                 placeholder="••••••"
                 value={pin}
-                onChange={e => setPin(e.target.value.replace(/\D/g, ''))}
+                onChange={e => setPin(e.target.value)}
                 required
               />
             </div>
