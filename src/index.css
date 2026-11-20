@@ -497,7 +497,7 @@ a:hover { filter: brightness(1.2); }
   transition: fill 0.2s ease, stroke 0.2s ease, color 0.2s ease;
 }
 
-/* Text is hidden by default and only visible when hovered */
+/* Text is hidden by default; when hovered on any icon or navbar, ALL text becomes visible */
 .nav-btn-text {
   opacity: 0;
   max-width: 0;
@@ -506,11 +506,18 @@ a:hover { filter: brightness(1.2); }
   font-size: 0.88rem;
   font-weight: 500;
   color: var(--color-text-secondary);
-  transition: opacity 0.2s ease, max-width 0.25s ease, color 0.2s ease, font-weight 0.2s ease;
+  transition: opacity 0.25s ease, max-width 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.2s ease, font-weight 0.2s ease;
   pointer-events: none;
 }
 
-/* Hover state: text becomes visible and bold, icon fills with white */
+/* When hovered on any icon/navbar: all text becomes visible */
+.nav-island:hover .nav-btn-text {
+  opacity: 1 !important;
+  max-width: 150px !important;
+  pointer-events: auto;
+}
+
+/* Hover state for specific item: only the specific icon is whitened and its text is bolded */
 .nav-action-btn:hover {
   background: var(--color-nav-btn-hover);
   border-color: rgba(255, 255, 255, 0.25);
@@ -525,8 +532,6 @@ a:hover { filter: brightness(1.2); }
 
 .nav-action-btn:hover .nav-btn-text,
 .nav-brand:hover .nav-btn-text {
-  opacity: 1 !important;
-  max-width: 150px !important;
   font-weight: 800 !important;
   color: #FFFFFF !important;
 }
@@ -591,6 +596,45 @@ a:hover { filter: brightness(1.2); }
   border-radius: 14px;
   box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
   max-width: 90vw;
+}
+
+/* Circular Language Button in Top Right Corner */
+.lang-circle-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 15, 30, 0.78);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s ease;
+  outline: none;
+}
+
+[data-theme='light'] .lang-circle-btn {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: var(--color-text-primary);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.lang-circle-btn:hover {
+  transform: scale(1.08);
+  background: var(--color-primary);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #FFFFFF;
+}
+
+.lang-circle-btn:hover svg {
+  fill: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+  color: #FFFFFF !important;
 }
 
 /* ─── Responsive (Mobile < 900px) ─── */
