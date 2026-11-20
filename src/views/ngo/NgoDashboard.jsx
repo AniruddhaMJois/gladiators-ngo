@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
 import { Camera, Users, WifiOff, Wifi, IndianRupee, MessageSquare, Plus, Save, Building2, ChevronLeft, ChevronRight, X, Trash2, Edit3, Clock, Activity, FileText, Image as ImageIcon } from 'lucide-react';
@@ -1505,7 +1505,11 @@ const NgoDashboard = () => {
         {activeTab === 'management' && <ManagementSuite />}
         {activeTab === 'offline' && <OfflineEventLogger />}
         {activeTab === 'finance' && <FinanceSuite />}
-        {activeTab === 'collab' && <CollabHub />}
+        {activeTab === 'collab' && (
+          <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Loading Collab Hub...</div>}>
+            <CollabHub />
+          </Suspense>
+        )}
       </div>
 
       {/* Floating Checklist Notification */}
