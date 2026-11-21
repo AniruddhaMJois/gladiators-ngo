@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, Suspense } from 'react';
 import { useAuth } from '../../context/AuthContext';
-import { Camera, Users, WifiOff, Wifi, IndianRupee, MessageSquare, Plus, Save, ChevronLeft, ChevronRight, X, Trash2, Edit3, Clock, Activity, FileText, Image as ImageIcon } from 'lucide-react';
+import { Camera, Users, WifiOff, IndianRupee, MessageSquare, Plus, Save, ChevronLeft, ChevronRight, X, Trash2, Edit3, Clock, Activity, FileText, Image as ImageIcon } from 'lucide-react';
 import { useToast } from '../../context/ToastContext';
 import { useConfirm } from '../../context/ConfirmContext';
 import NgoProfile from './NgoProfile';
@@ -828,227 +828,86 @@ const ManagementSuite = () => {
   );
 };
 
-/* ─── Offline Event Logger ─── */
+/* ─── Offline Event Logger (Suspended / Entirely Inactive) ─── */
 const OfflineEventLogger = () => {
-  const { user } = useAuth();
-  const { showToast } = useToast();
-  const { askConfirm } = useConfirm();
-  const [events, setEvents] = useState([]);
-  const [isOnline, setIsOnline] = useState(typeof navigator !== 'undefined' ? navigator.onLine : true);
-  const [formData, setFormData] = useState({ _id: null, title: '', notes: '' });
-  const [pendingActions, setPendingActions] = useState([]);
-
-  const fetchLogs = async () => {
-    if (!user?.gcId) return;
-    try {
-      const res = await fetch(`${API_BASE}/api/logs/ngo/${user.gcId}`);
-      if (!res.ok) throw new Error('Network response was not ok');
-      const data = await res.json();
-      setEvents(data);
-      localStorage.setItem('gladiconnect_cached_logs', JSON.stringify(data));
-    } catch (e) {
-      const stored = localStorage.getItem('gladiconnect_cached_logs');
-      if (stored) setEvents(JSON.parse(stored));
-    }
-  };
-
-  useEffect(() => {
-    fetchLogs();
-    const storedPending = localStorage.getItem('gladiconnect_pending_actions');
-    if (storedPending) setPendingActions(JSON.parse(storedPending));
-
-    const on = () => setIsOnline(true);
-    const off = () => setIsOnline(false);
-    window.addEventListener('online', on);
-    window.addEventListener('offline', off);
-    return () => { window.removeEventListener('online', on); window.removeEventListener('offline', off); };
-  }, [user]);
-
-  const handleSave = async (e) => {
-    e.preventDefault();
-    if (!user?.gcId) return;
-
-    const logData = { ngoId: user.gcId, title: formData.title, notes: formData.notes, date: new Date().toISOString() };
-    
-    if (formData._id && !formData._id.toString().startsWith('temp-')) {
-      if (isOnline) {
-        try {
-          await fetch(`${API_BASE}/api/logs/${formData._id}`, {
-            method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(logData)
-          });
-          fetchLogs();
-        } catch (err) {
-          queueAction({ type: 'UPDATE', id: formData._id, data: logData });
-        }
-      } else {
-        queueAction({ type: 'UPDATE', id: formData._id, data: logData });
-      }
-    } else {
-      if (isOnline) {
-        try {
-          await fetch(`${API_BASE}/api/logs`, {
-            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(logData)
-          });
-          fetchLogs();
-        } catch (err) {
-          queueAction({ type: 'CREATE', id: `temp-${Date.now()}`, data: logData });
-        }
-      } else {
-        queueAction({ type: 'CREATE', id: `temp-${Date.now()}`, data: logData });
-      }
-    }
-    setFormData({ _id: null, title: '', notes: '' });
-  };
-
-  const queueAction = (action) => {
-    const updatedActions = [...pendingActions, action];
-    setPendingActions(updatedActions);
-    localStorage.setItem('gladiconnect_pending_actions', JSON.stringify(updatedActions));
-    
-    let updatedEvents = [...events];
-    if (action.type === 'CREATE') {
-      updatedEvents.unshift({ _id: action.id, ...action.data });
-    } else if (action.type === 'UPDATE') {
-      updatedEvents = updatedEvents.map(e => e._id === action.id ? { ...e, ...action.data } : e);
-    } else if (action.type === 'DELETE') {
-      updatedEvents = updatedEvents.filter(e => e._id !== action.id);
-    }
-    setEvents(updatedEvents);
-    localStorage.setItem('gladiconnect_cached_logs', JSON.stringify(updatedEvents));
-  };
-
-  const handleDelete = async (id) => {
-    if (!(await askConfirm('Delete this log?'))) return;
-    if (id.toString().startsWith('temp-')) {
-      const updatedActions = pendingActions.filter(a => a.id !== id);
-      setPendingActions(updatedActions);
-      localStorage.setItem('gladiconnect_pending_actions', JSON.stringify(updatedActions));
-      setEvents(events.filter(e => e._id !== id));
-      localStorage.setItem('gladiconnect_cached_logs', JSON.stringify(events.filter(e => e._id !== id)));
-      return;
-    }
-
-    if (isOnline) {
-      try {
-        await fetch(`${API_BASE}/api/logs/${id}`, { method: 'DELETE' });
-        fetchLogs();
-      } catch (err) {
-        queueAction({ type: 'DELETE', id });
-      }
-    } else {
-      queueAction({ type: 'DELETE', id });
-    }
-  };
-
-  const handleEdit = (log) => {
-    setFormData({ _id: log._id, title: log.title, notes: log.notes });
-  };
-
-  const handleSync = async () => {
-    if (!isOnline) return;
-    let successCount = 0;
-    
-    for (const action of pendingActions) {
-      try {
-        if (action.type === 'CREATE') {
-          await fetch(`${API_BASE}/api/logs`, {
-            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(action.data)
-          });
-        } else if (action.type === 'UPDATE') {
-          await fetch(`${API_BASE}/api/logs/${action.id}`, {
-            method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(action.data)
-          });
-        } else if (action.type === 'DELETE') {
-          await fetch(`${API_BASE}/api/logs/${action.id}`, { method: 'DELETE' });
-        }
-        successCount++;
-      } catch (e) {
-        console.error('Failed to sync action', action, e);
-      }
-    }
-    
-    setPendingActions([]);
-    localStorage.removeItem('gladiconnect_pending_actions');
-    fetchLogs();
-    if (successCount > 0) showToast(`Successfully synced ${successCount} items.`, 'success');
-  };
-
-  const unsyncedCount = pendingActions.length;
-
   return (
-    <div className="animate-fade-in grid grid-md-2">
-      {/* Form */}
-      <div className="glass-card" style={{ padding: '1.5rem', alignSelf: 'start' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-          <h3 className="section-title" style={{ marginBottom: 0 }}>{formData._id ? 'Edit Event Log' : 'Log New Event'}</h3>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-            {isOnline ? <Wifi size={14} style={{ color: 'var(--color-secondary)' }} /> : <WifiOff size={14} style={{ color: 'var(--color-warning)' }} />}
-            <span style={{ fontSize: '0.8rem', fontWeight: 600, color: isOnline ? 'var(--color-secondary)' : 'var(--color-warning)' }}>
-              {isOnline ? 'Online' : 'Offline'}
-            </span>
-          </div>
+    <div className="animate-fade-in" style={{ padding: '2rem 1rem' }}>
+      <div className="glass-card" style={{
+        padding: '3rem 2rem',
+        textAlign: 'center',
+        maxWidth: 580,
+        margin: '0 auto',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        borderRadius: '1.25rem',
+        border: '1px solid var(--color-border)',
+        boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.15)'
+      }}>
+        <div style={{
+          width: 64,
+          height: 64,
+          borderRadius: '50%',
+          background: 'rgba(239, 68, 68, 0.12)',
+          color: '#EF4444',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginBottom: '1.25rem',
+          border: '1px solid rgba(239, 68, 68, 0.25)'
+        }}>
+          <WifiOff size={32} />
         </div>
-        <form onSubmit={handleSave}>
-          <div className="form-group">
-            <label className="form-label">Event Title</label>
-            <input type="text" className="form-input" placeholder="Program Title" required value={formData.title} onChange={e => setFormData({...formData, title: e.target.value})} />
-          </div>
-          <div className="form-group">
-            <label className="form-label">Notes / Description</label>
-            <textarea className="form-input" rows="4" placeholder="Enter notes here..." required value={formData.notes} onChange={e => setFormData({...formData, notes: e.target.value})} />
-          </div>
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            <button type="submit" className="btn btn-primary" style={{ flex: 1 }}><Save size={16} /> {formData._id ? 'Update Log' : 'Save Event'}</button>
-            {formData._id && (
-              <button type="button" className="btn btn-outline" style={{ flex: 1 }} onClick={() => setFormData({ _id: null, title: '', notes: '' })}>Cancel</button>
-            )}
-          </div>
-        </form>
-      </div>
 
-      {/* Event List */}
-      <div className="glass-card" style={{ padding: '1.5rem', alignSelf: 'start' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
-          <h3 className="section-title" style={{ marginBottom: 0 }}>Event Logs</h3>
-          {isOnline && unsyncedCount > 0 && (
-            <button onClick={handleSync} className="btn btn-secondary" style={{ fontSize: '0.8rem', padding: '0.4rem 0.9rem' }}>
-              Sync items ({unsyncedCount})
-            </button>
-          )}
+        <span style={{
+          fontSize: '0.72rem',
+          fontWeight: 800,
+          padding: '0.3rem 0.85rem',
+          borderRadius: '9999px',
+          background: 'rgba(239, 68, 68, 0.15)',
+          color: '#EF4444',
+          border: '1px solid rgba(239, 68, 68, 0.3)',
+          marginBottom: '1rem',
+          letterSpacing: '0.06em',
+          textTransform: 'uppercase'
+        }}>
+          Feature Suspended
+        </span>
+
+        <h3 style={{
+          fontSize: '1.45rem',
+          fontWeight: 800,
+          color: 'var(--color-text-primary)',
+          marginBottom: '0.75rem',
+          fontFamily: '"Outfit", sans-serif'
+        }}>
+          Offline Event Logger Inactive
+        </h3>
+
+        <p style={{
+          color: 'var(--color-text-secondary)',
+          fontSize: '0.92rem',
+          lineHeight: 1.6,
+          maxWidth: 460,
+          marginBottom: '1.75rem'
+        }}>
+          The use of the Offline Event Logger has been suspended and made entirely inactive. Offline event recording, background synchronization, and local event queuing are currently disabled for this organization.
+        </p>
+
+        <div style={{
+          display: 'flex',
+          gap: '0.75rem',
+          alignItems: 'center',
+          background: 'rgba(255, 255, 255, 0.03)',
+          border: '1px solid var(--color-border)',
+          borderRadius: '0.75rem',
+          padding: '0.75rem 1.25rem',
+          fontSize: '0.82rem',
+          color: 'var(--color-text-muted)'
+        }}>
+          <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#EF4444', display: 'inline-block', flexShrink: 0 }} />
+          <span>All offline event tracking services and background listeners are halted.</span>
         </div>
-        {events.length === 0 ? (
-          <p style={{ textAlign: 'center', padding: '3rem 0', fontSize: '0.9rem' }}>No event logs yet.</p>
-        ) : (
-          <div className="space-y-4" style={{ maxHeight: 500, overflowY: 'auto', paddingRight: '0.5rem' }}>
-            {events.map(ev => {
-              const isPending = pendingActions.some(a => a.id === ev._id);
-              return (
-                <div key={ev._id} className="list-item" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', alignItems: 'flex-start', padding: '1rem' }}>
-                  <div style={{ width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                    <div>
-                      <p style={{ fontWeight: 700, color: 'var(--color-text-primary)', fontSize: '1.05rem', margin: 0 }}>{ev.title}</p>
-                      <p style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginTop: '0.2rem', marginBottom: 0 }}>
-                        {new Date(ev.date).toLocaleDateString()}
-                      </p>
-                    </div>
-                    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                      <span className={`badge ${isPending ? 'badge-warning' : 'badge-secondary'}`}>
-                        {isPending ? 'Pending Sync' : 'Synced'}
-                      </span>
-                      <button onClick={() => handleEdit(ev)} style={{ background: 'none', border: 'none', color: 'var(--color-text-muted)', cursor: 'pointer', padding: '4px' }} title="Edit"><Edit3 size={16} /></button>
-                      <button onClick={() => handleDelete(ev._id)} style={{ background: 'none', border: 'none', color: '#EF4444', cursor: 'pointer', padding: '4px' }} title="Delete"><Trash2 size={16} /></button>
-                    </div>
-                  </div>
-                  {ev.notes && (
-                    <div style={{ fontSize: '0.9rem', color: 'var(--color-text-primary)', width: '100%', whiteSpace: 'pre-wrap', background: 'rgba(0,0,0,0.02)', padding: '0.75rem', borderRadius: '8px', borderLeft: '3px solid var(--color-primary)' }}>
-                      {ev.notes}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        )}
       </div>
     </div>
   );
@@ -1445,7 +1304,7 @@ const NgoDashboard = () => {
   const tabs = [
     { id: 'impact', label: 'Impact Profile', icon: <Camera size={16} /> },
     { id: 'management', label: 'Management', icon: <Users size={16} /> },
-    { id: 'offline', label: 'Offline Logger', icon: <WifiOff size={16} /> },
+    { id: 'offline', label: 'Offline Logger', icon: <WifiOff size={16} />, suspended: true },
     { id: 'finance', label: 'Finance', icon: <IndianRupee size={16} /> },
     { id: 'collab', label: 'Collab Hub', icon: <MessageSquare size={16} />, badge: totalUnread },
   ];
@@ -1461,12 +1320,35 @@ const NgoDashboard = () => {
         {tabs.map(tab => (
           <button
             key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
+            onClick={() => {
+              if (tab.suspended) {
+                showToast('Offline Logger is suspended and inactive entirely.', 'info');
+              }
+              setActiveTab(tab.id);
+            }}
             className={`tab-btn ${activeTab === tab.id ? 'tab-btn-active' : 'tab-btn-inactive'}`}
-            style={{ position: 'relative' }}
+            style={{
+              position: 'relative',
+              opacity: tab.suspended ? 0.7 : 1,
+            }}
           >
             {tab.icon}
             {tab.label}
+            {tab.suspended && (
+              <span style={{
+                fontSize: '0.65rem',
+                fontWeight: 800,
+                padding: '0.15rem 0.5rem',
+                borderRadius: '9999px',
+                background: 'rgba(239, 68, 68, 0.15)',
+                color: '#EF4444',
+                border: '1px solid rgba(239, 68, 68, 0.3)',
+                letterSpacing: '0.04em',
+                textTransform: 'uppercase'
+              }}>
+                Suspended
+              </span>
+            )}
             {tab.badge > 0 && (
               <span style={{
                 position: 'absolute', top: '-6px', right: '-6px',
