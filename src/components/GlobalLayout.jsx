@@ -567,7 +567,7 @@ const GlobalLayout = ({ children }) => {
               >
                 <div className="nav-icon-wrapper" style={{ color: pathRoleColor }}>
                   {pathRole === 'ngo' && <Building2 size={22} />}
-                  {pathRole === 'volunteer' && <Heart size={22} fill="currentColor" />}
+                  {pathRole === 'volunteer' && <Heart size={22} />}
                   {pathRole === 'company' && <Briefcase size={22} />}
                 </div>
                 <span className="nav-btn-text">
@@ -588,7 +588,7 @@ const GlobalLayout = ({ children }) => {
                   color: pathname?.startsWith(`/${user.role}/dashboard`) ? roleColor : undefined
                 }}>
                   {user.role === 'ngo' && <Building2 size={22} />}
-                  {user.role === 'volunteer' && <Heart size={22} fill={pathname?.startsWith(`/${user.role}/dashboard`) ? 'currentColor' : 'none'} />}
+                  {user.role === 'volunteer' && <Heart size={22} />}
                   {user.role === 'company' && <Briefcase size={22} />}
                   {!['ngo', 'volunteer', 'company'].includes(user.role) && <LayoutDashboard size={22} />}
                 </div>

@@ -505,7 +505,13 @@ a:hover { filter: brightness(1.2); }
   height: 22px;
   fill: none;
   stroke: currentColor;
-  transition: fill 0.2s ease, stroke 0.2s ease, color 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-action-btn svg * {
+  fill: none;
+  stroke: currentColor;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Text is hidden by default; when hovered on any icon or navbar, ALL text becomes visible */
@@ -529,7 +535,7 @@ a:hover { filter: brightness(1.2); }
   pointer-events: auto;
 }
 
-/* Hover state for specific item: only the specific icon is whitened and its text is bolded */
+/* Hover state for specific item */
 .nav-action-btn:hover {
   background: var(--color-nav-btn-hover);
   border-color: rgba(255, 255, 255, 0.25);
@@ -537,9 +543,95 @@ a:hover { filter: brightness(1.2); }
 }
 
 .nav-action-btn:hover svg {
-  fill: #FFFFFF !important;
   stroke: #FFFFFF !important;
   color: #FFFFFF !important;
+}
+
+/* Specific filled-up versions of line drawing icons on hover (no random filling) */
+
+/* 1. Heart: solid filled heart on hover */
+.nav-action-btn:hover svg.lucide-heart,
+.nav-action-btn:hover svg.lucide-heart path {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+/* 2. Home: solid house with cutout door */
+.nav-action-btn:hover svg.lucide-house path:last-child,
+.nav-action-btn:hover svg.lucide-home path:last-child {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+.nav-action-btn:hover svg.lucide-house path:first-child,
+.nav-action-btn:hover svg.lucide-home path:first-child {
+  fill: #0B0F19 !important;
+  stroke: #0B0F19 !important;
+}
+[data-theme='light'] .nav-action-btn:hover svg.lucide-house path:first-child,
+[data-theme='light'] .nav-action-btn:hover svg.lucide-home path:first-child {
+  fill: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
+/* 3. User Circle: outline circle with solid filled head and shoulders */
+.nav-action-btn:hover svg.lucide-circle-user circle:first-child {
+  fill: none !important;
+  stroke: currentColor !important;
+}
+.nav-action-btn:hover svg.lucide-circle-user circle:last-of-type,
+.nav-action-btn:hover svg.lucide-circle-user path {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+/* 4. Settings: solid gear with hollow center hole */
+.nav-action-btn:hover svg.lucide-settings path {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+.nav-action-btn:hover svg.lucide-settings circle {
+  fill: #0B0F19 !important;
+  stroke: #0B0F19 !important;
+}
+[data-theme='light'] .nav-action-btn:hover svg.lucide-settings circle {
+  fill: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
+/* 5. Phone: solid phone receiver */
+.nav-action-btn:hover svg.lucide-phone path {
+  fill: currentColor !important;
+  stroke: currentColor !important;
+}
+
+/* 6. Building: solid tower with cutout windows */
+.nav-action-btn:hover svg.lucide-building2 path,
+.nav-action-btn:hover svg.lucide-building-2 path {
+  fill: currentColor !important;
+}
+.nav-action-btn:hover svg.lucide-building2 path[d*="h4"],
+.nav-action-btn:hover svg.lucide-building-2 path[d*="h4"],
+.nav-action-btn:hover svg.lucide-building2 path[d*="v-3"],
+.nav-action-btn:hover svg.lucide-building-2 path[d*="v-3"] {
+  fill: none !important;
+  stroke: #0B0F19 !important;
+  stroke-width: 2.2 !important;
+}
+[data-theme='light'] .nav-action-btn:hover svg.lucide-building2 path[d*="h4"],
+[data-theme='light'] .nav-action-btn:hover svg.lucide-building-2 path[d*="h4"],
+[data-theme='light'] .nav-action-btn:hover svg.lucide-building2 path[d*="v-3"],
+[data-theme='light'] .nav-action-btn:hover svg.lucide-building-2 path[d*="v-3"] {
+  stroke: #FFFFFF !important;
+}
+
+/* 7. Briefcase: outline handle with solid filled case body */
+.nav-action-btn:hover svg.lucide-briefcase path {
+  fill: none !important;
+  stroke: currentColor !important;
+}
+.nav-action-btn:hover svg.lucide-briefcase rect {
+  fill: currentColor !important;
+  stroke: currentColor !important;
 }
 
 .nav-action-btn:hover .nav-btn-text,
@@ -575,9 +667,10 @@ a:hover { filter: brightness(1.2); }
 }
 
 .nav-logout-btn:hover svg {
-  fill: #FFFFFF !important;
+  fill: none !important;
   stroke: #FFFFFF !important;
   color: #FFFFFF !important;
+  stroke-width: 2.4 !important;
 }
 
 .nav-logout-btn:hover .nav-btn-text {
