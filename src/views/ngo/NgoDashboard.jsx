@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useState, useEffect, Suspense } from 'react';
-import { useRouter } from 'next/navigation';
 import { useAuth } from '../../context/AuthContext';
-import { Camera, Users, WifiOff, Wifi, IndianRupee, MessageSquare, Plus, Save, Building2, ChevronLeft, ChevronRight, X, Trash2, Edit3, Clock, Activity, FileText, Image as ImageIcon } from 'lucide-react';
+import { Camera, Users, WifiOff, Wifi, IndianRupee, MessageSquare, Plus, Save, ChevronLeft, ChevronRight, X, Trash2, Edit3, Clock, Activity, FileText, Image as ImageIcon } from 'lucide-react';
 import { useToast } from '../../context/ToastContext';
 import { useConfirm } from '../../context/ConfirmContext';
 import NgoProfile from './NgoProfile';
@@ -15,7 +14,6 @@ const ImpactProfile = () => {
   const { user, updateUserProfile } = useAuth();
   const { showToast } = useToast();
   const { askConfirm } = useConfirm();
-  const router = useRouter();
   
   const [isGalleryModalOpen, setIsGalleryModalOpen] = useState(false);
   const [selectedGalleryItem, setSelectedGalleryItem] = useState(null);
@@ -144,33 +142,18 @@ const ImpactProfile = () => {
             )}
           </div>
           <div style={{ flex: 1, minWidth: 200 }}>
-            <h2 style={{ fontSize: '1.4rem', marginBottom: '0.35rem', color: 'var(--color-primary)' }}>
-              {user?.name || 'NGO Name'}
-            </h2>
-            <p style={{ fontSize: '0.9rem', marginBottom: '0.75rem', lineHeight: 1.6 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.35rem' }}>
+              <h2 style={{ fontSize: '1.4rem', margin: 0, color: 'var(--color-primary)' }}>
+                {user?.name || 'NGO Name'}
+              </h2>
+              <span className="badge badge-primary">
+                {user?.domain || 'Education'}
+              </span>
+            </div>
+            <p style={{ fontSize: '0.9rem', margin: 0, lineHeight: 1.6 }}>
               {user?.about || 'No about information provided.'}
             </p>
-            <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
-              <span className="badge badge-primary">{user?.domain || 'Environment'}</span>
-              <div style={{
-                display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                padding: '0.35rem 0.75rem', fontSize: '0.8rem', fontWeight: 700, borderRadius: '2rem',
-                background: 'linear-gradient(135deg, #E0F2F1, #B2DFDB)',
-                border: '1px solid #4DB6AC', color: '#00695C',
-                boxShadow: '0 2px 4px rgba(0, 105, 92, 0.05)'
-              }}>
-                <Building2 size={14} />
-                <span>GC-NGO Verified</span>
-              </div>
-            </div>
           </div>
-          <button 
-            className="btn btn-outline" 
-            style={{ alignSelf: 'flex-start' }}
-            onClick={() => router.push('/ngo/profile')}
-          >
-            Edit Profile
-          </button>
         </div>
         
         {/* Impact Stats */}
