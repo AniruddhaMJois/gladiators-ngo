@@ -1310,59 +1310,60 @@ const NgoDashboard = () => {
   ];
 
   return (
-    <div>
-      <div className="page-header">
-        <h1 className="text-gradient">NGO Dashboard</h1>
-        <p>Welcome back, <span style={{ fontWeight: 600, color: 'var(--color-text-primary)' }}>{user?.name}</span></p>
+    <div className="role-ngo">
+      {/* Floating Sticky Tab Bar at Top of Screen (Does not move on scroll) */}
+      <div className="dashboard-floating-nav-bar">
+        <div className="dashboard-floating-tabs-box">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => {
+                if (tab.suspended) {
+                  showToast('Offline Logger is suspended and inactive entirely.', 'info');
+                }
+                setActiveTab(tab.id);
+              }}
+              className={`dashboard-tab-item ${activeTab === tab.id ? 'active' : ''}`}
+              style={{
+                opacity: tab.suspended ? 0.7 : 1,
+              }}
+            >
+              {tab.icon}
+              <span>{tab.label}</span>
+              {tab.suspended && (
+                <span style={{
+                  fontSize: '0.62rem',
+                  fontWeight: 800,
+                  padding: '0.12rem 0.45rem',
+                  borderRadius: '9999px',
+                  background: 'rgba(239, 68, 68, 0.18)',
+                  color: '#EF4444',
+                  border: '1px solid rgba(239, 68, 68, 0.35)',
+                  letterSpacing: '0.04em',
+                  textTransform: 'uppercase'
+                }}>
+                  Suspended
+                </span>
+              )}
+              {tab.badge > 0 && (
+                <span style={{
+                  background: '#EF4444', color: 'white', fontSize: '0.68rem',
+                  fontWeight: 'bold', minWidth: '18px', height: '18px',
+                  borderRadius: '50%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                  padding: '0 4px', marginLeft: '0.2rem'
+                }}>
+                  {tab.badge > 99 ? '99+' : tab.badge}
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
       </div>
 
-      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '2rem', overflowX: 'auto', paddingTop: '0.5rem', paddingRight: '0.5rem', paddingBottom: '0.5rem' }}>
-        {tabs.map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => {
-              if (tab.suspended) {
-                showToast('Offline Logger is suspended and inactive entirely.', 'info');
-              }
-              setActiveTab(tab.id);
-            }}
-            className={`tab-btn ${activeTab === tab.id ? 'tab-btn-active' : 'tab-btn-inactive'}`}
-            style={{
-              position: 'relative',
-              opacity: tab.suspended ? 0.7 : 1,
-            }}
-          >
-            {tab.icon}
-            {tab.label}
-            {tab.suspended && (
-              <span style={{
-                fontSize: '0.65rem',
-                fontWeight: 800,
-                padding: '0.15rem 0.5rem',
-                borderRadius: '9999px',
-                background: 'rgba(239, 68, 68, 0.15)',
-                color: '#EF4444',
-                border: '1px solid rgba(239, 68, 68, 0.3)',
-                letterSpacing: '0.04em',
-                textTransform: 'uppercase'
-              }}>
-                Suspended
-              </span>
-            )}
-            {tab.badge > 0 && (
-              <span style={{
-                position: 'absolute', top: '-6px', right: '-6px',
-                background: '#EF4444', color: 'white', fontSize: '0.7rem',
-                fontWeight: 'bold', minWidth: '20px', height: '20px',
-                borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                boxShadow: '0 2px 4px rgba(239, 68, 68, 0.3)', border: '2px solid #F8FAFC',
-                padding: '0 4px'
-              }}>
-                {tab.badge > 99 ? '99+' : tab.badge}
-              </span>
-            )}
-          </button>
-        ))}
+      {/* Page Header (Welcome etc.) BELOW the Floating Tab Bar */}
+      <div className="page-header" style={{ marginTop: '0.75rem', marginBottom: '1.75rem' }}>
+        <h1 className="text-gradient">NGO Dashboard</h1>
+        <p>Welcome back, <span style={{ fontWeight: 600, color: 'var(--color-text-primary)' }}>{user?.name}</span></p>
       </div>
 
       <div style={{ minHeight: 400 }}>

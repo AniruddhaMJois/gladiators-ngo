@@ -1036,15 +1036,31 @@ const VolunteerDashboard = () => {
   }, [user]);
 
   const tabs = [
-    { id: 'ngos', label: 'NGO Directory' },
-    { id: 'broadcasts', label: 'Broadcasts' },
-    { id: 'impact', label: 'My Impact' },
-    { id: 'inbox', label: 'Inbox' }
+    { id: 'ngos', label: 'NGO Directory', icon: <Search size={16} /> },
+    { id: 'broadcasts', label: 'Broadcasts', icon: <Activity size={16} /> },
+    { id: 'impact', label: 'My Impact', icon: <Award size={16} /> },
+    { id: 'inbox', label: 'Inbox', icon: <Clock size={16} /> }
   ];
 
   return (
-    <div>
-      <div className="page-header">
+    <div className="role-volunteer">
+      {/* Floating Sticky Tab Bar at Top of Screen (Does not move on scroll) */}
+      <div className="dashboard-floating-nav-bar">
+        <div className="dashboard-floating-tabs-box">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => { setActiveTab(tab.id); setSelectedNgoProfile(null); }}
+              className={`dashboard-tab-item ${activeTab === tab.id ? 'active' : ''}`}
+            >
+              {tab.icon}
+              <span>{tab.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="page-header" style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
         <h1 className="text-gradient">Volunteer Dashboard</h1>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap', marginTop: '0.25rem' }}>
           <p style={{ margin: 0 }}>
@@ -1215,18 +1231,6 @@ const VolunteerDashboard = () => {
             </div>
           );
         })()}
-      </div>
-
-      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '2rem' }}>
-        {tabs.map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => { setActiveTab(tab.id); setSelectedNgoProfile(null); }}
-            className={`tab-btn ${activeTab === tab.id ? 'tab-btn-active' : 'tab-btn-inactive'}`}
-          >
-            {tab.label}
-          </button>
-        ))}
       </div>
 
       <div style={{ minHeight: 400 }}>

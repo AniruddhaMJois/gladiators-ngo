@@ -1001,6 +1001,115 @@ a:hover { filter: brightness(1.2); }
   }
 }
 
+/* ─── Floating Top Dashboard Tab Island ─── */
+.dashboard-floating-nav-bar {
+  position: sticky;
+  top: 4.5rem;
+  z-index: 80;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1.25rem;
+  pointer-events: none;
+}
+
+.dashboard-floating-tabs-box {
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.45rem;
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  max-width: 95vw;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.dashboard-floating-tabs-box::-webkit-scrollbar {
+  display: none;
+}
+
+[data-theme='light'] .dashboard-floating-tabs-box {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.02);
+}
+
+.dashboard-tab-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  font-family: 'Inter', sans-serif;
+}
+
+.dashboard-tab-item:hover:not(.active) {
+  color: var(--color-text-primary);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+[data-theme='light'] .dashboard-tab-item:hover:not(.active) {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Active tab state */
+.dashboard-tab-item.active {
+  color: #FFFFFF !important;
+  font-weight: 700;
+  background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
+}
+
+.role-ngo .dashboard-tab-item.active {
+  background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+  box-shadow: 0 4px 14px rgba(139, 92, 246, 0.4);
+}
+
+.role-volunteer .dashboard-tab-item.active {
+  background: linear-gradient(135deg, #0EA5E9, #0284C7);
+  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.4);
+}
+
+.role-company .dashboard-tab-item.active {
+  background: linear-gradient(135deg, #F59E0B, #D97706);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4);
+}
+
+@media (max-width: 768px) {
+  .dashboard-floating-nav-bar {
+    top: 4.25rem;
+    margin-bottom: 1rem;
+  }
+  .dashboard-floating-tabs-box {
+    border-radius: 12px;
+    padding: 0.3rem 0.35rem;
+    gap: 0.25rem;
+    width: 100%;
+    justify-content: flex-start;
+  }
+  .dashboard-tab-item {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.82rem;
+    gap: 0.35rem;
+  }
+}
+
 /* ─── Tabs - Absolute Clarity ─── */
 .tab-btn {
   padding: 0.75rem 1.75rem;

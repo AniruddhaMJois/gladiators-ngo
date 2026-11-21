@@ -705,7 +705,7 @@ const GlobalLayout = ({ children }) => {
       {/* Main Content Layout Wrapper */}
       <div className="app-main-layout" style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh', minWidth: 0 }}>
         {/* Main Content */}
-        <main className={isLandingPage ? '' : 'container'} style={{ flex: 1, paddingTop: isLandingPage ? 0 : '6.75rem', paddingBottom: '2rem' }}>
+        <main className={isLandingPage ? '' : 'container'} style={{ flex: 1, paddingTop: isLandingPage ? 0 : '4.75rem', paddingBottom: '2rem' }}>
           {children}
         </main>
 

@@ -114,13 +114,29 @@ const CompanyDashboard = () => {
   const [activeTab, setActiveTab] = useState('impact');
 
   const tabs = [
-    { id: 'impact', label: 'Impact Tracker' },
-    { id: 'reports', label: 'CSR Reports' }
+    { id: 'impact', label: 'Impact Tracker', icon: <TrendingUp size={16} /> },
+    { id: 'reports', label: 'CSR Reports', icon: <FileText size={16} /> }
   ];
 
   return (
-    <div>
-      <div className="page-header">
+    <div className="role-company">
+      {/* Floating Sticky Tab Bar at Top of Screen (Does not move on scroll) */}
+      <div className="dashboard-floating-nav-bar">
+        <div className="dashboard-floating-tabs-box">
+          {tabs.map(tab => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`dashboard-tab-item ${activeTab === tab.id ? 'active' : ''}`}
+            >
+              {tab.icon}
+              <span>{tab.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="page-header" style={{ marginTop: '0.75rem', marginBottom: '1.5rem' }}>
         <h1 className="text-gradient">Company Dashboard</h1>
         <p>Manage your CSR impact, verify NGOs, and track every dollar.</p>
       </div>
@@ -133,18 +149,6 @@ const CompanyDashboard = () => {
         <button className="btn btn-secondary" onClick={() => router.push('/messages')} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', padding: '1rem' }}>
           <MessageSquare size={20} /> Direct Connect
         </button>
-      </div>
-
-      <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '2rem' }}>
-        {tabs.map(tab => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={`tab-btn ${activeTab === tab.id ? 'tab-btn-active' : 'tab-btn-inactive'}`}
-          >
-            {tab.label}
-          </button>
-        ))}
       </div>
 
       <div style={{ minHeight: 400 }}>
