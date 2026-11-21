@@ -732,15 +732,15 @@ const GlobalLayout = ({ children }) => {
         <div style={{
           position: 'fixed', inset: 0, zIndex: 9999,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: 'rgba(0, 0, 0, 0.4)',
-          backdropFilter: 'blur(4px)',
+          background: 'rgba(0, 0, 0, 0.7)',
+          backdropFilter: 'blur(8px)',
           animation: 'fadeIn 0.2s ease-out'
         }}>
-          <div className="glass-card animate-scale-up" style={{
+          <div className="animate-scale-up" style={{
             width: '90%', maxWidth: 500, padding: '2rem',
-            border: '1px solid var(--color-border)',
-            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2)',
-            background: 'var(--color-surface)', borderRadius: '1.25rem',
+            border: theme === 'light' ? '1px solid #E2E8F0' : '1px solid rgba(255, 255, 255, 0.12)',
+            boxShadow: '0 25px 60px -12px rgba(0, 0, 0, 0.65)',
+            background: theme === 'light' ? '#FFFFFF' : '#111522', borderRadius: '1.25rem',
             color: 'var(--color-text-primary)', maxHeight: '90vh', overflowY: 'auto'
           }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
@@ -1202,8 +1202,9 @@ const GlobalLayout = ({ children }) => {
         <div style={{
           position: 'fixed', inset: 0, zIndex: 9999,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: 'rgba(0, 0, 0, 0.5)',
-          backdropFilter: 'blur(6px)',
+          background: 'rgba(0, 0, 0, 0.75)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
           animation: 'fadeIn 0.2s ease-out'
         }}>
           {/* Backdrop Click */}
@@ -1212,12 +1213,12 @@ const GlobalLayout = ({ children }) => {
             style={{ position: 'absolute', inset: 0 }}
           />
 
-          <div className="glass-card animate-fade-in" style={{
+          <div className="animate-fade-in" style={{
             position: 'relative', zIndex: 1,
             width: '90%', maxWidth: 460, padding: '1.75rem',
-            background: 'var(--color-surface)',
-            border: '1px solid var(--color-border)',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.35)',
+            background: theme === 'light' ? '#FFFFFF' : '#111522',
+            border: theme === 'light' ? '1px solid #E2E8F0' : '1px solid rgba(255, 255, 255, 0.15)',
+            boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08)',
             borderRadius: '1.25rem',
             color: 'var(--color-text-primary)'
           }}>
@@ -1225,7 +1226,7 @@ const GlobalLayout = ({ children }) => {
             <div style={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
               marginBottom: '1.5rem', paddingBottom: '0.85rem',
-              borderBottom: '1px solid var(--color-border)'
+              borderBottom: theme === 'light' ? '1px solid #E2E8F0' : '1px solid rgba(255, 255, 255, 0.1)'
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
                 <div style={{
@@ -1273,10 +1274,10 @@ const GlobalLayout = ({ children }) => {
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr',
                   gap: '0.75rem',
-                  background: 'rgba(255, 255, 255, 0.03)',
+                  background: theme === 'light' ? '#F8FAFC' : '#191F33',
                   padding: '0.35rem',
                   borderRadius: '0.75rem',
-                  border: '1px solid var(--color-border)'
+                  border: theme === 'light' ? '1px solid #E2E8F0' : '1px solid rgba(255, 255, 255, 0.1)'
                 }}>
                   <button
                     type="button"
@@ -1344,8 +1345,8 @@ const GlobalLayout = ({ children }) => {
                           display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                           padding: '0.75rem 0.5rem', borderRadius: '0.65rem',
                           fontWeight: 700, fontSize: '0.88rem', cursor: 'pointer',
-                          border: isSelected ? '1.5px solid var(--color-primary)' : '1px solid var(--color-border)',
-                          background: isSelected ? 'rgba(139, 92, 246, 0.22)' : 'rgba(255, 255, 255, 0.03)',
+                          border: isSelected ? '1.5px solid var(--color-primary)' : (theme === 'light' ? '1px solid #E2E8F0' : '1px solid rgba(255, 255, 255, 0.1)'),
+                          background: isSelected ? 'rgba(139, 92, 246, 0.25)' : (theme === 'light' ? '#F8FAFC' : '#191F33'),
                           color: isSelected ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
                           transition: 'all 0.2s ease', gap: '0.2rem'
                         }}
@@ -1364,7 +1365,7 @@ const GlobalLayout = ({ children }) => {
               {isAuthenticated && (
                 <div style={{
                   paddingTop: '0.5rem',
-                  borderTop: '1px solid var(--color-border)'
+                  borderTop: theme === 'light' ? '1px solid #E2E8F0' : '1px solid rgba(255, 255, 255, 0.1)'
                 }}>
                   <button
                     type="button"
@@ -1412,15 +1413,16 @@ const GlobalLayout = ({ children }) => {
         <div style={{
           position: 'fixed', inset: 0, zIndex: 9999,
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          background: 'rgba(0, 0, 0, 0.4)',
-          backdropFilter: 'blur(4px)',
+          background: 'rgba(0, 0, 0, 0.75)',
+          backdropFilter: 'blur(8px)',
           animation: 'fadeIn 0.2s ease-out'
         }}>
-          <div className="glass-card animate-fade-in" style={{
+          <div className="animate-fade-in" style={{
             width: '90%', maxWidth: 400, padding: '2rem',
-            textAlign: 'center', border: '1px solid var(--color-border)',
-            boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.2)',
-            background: 'var(--color-surface)', borderRadius: '1.25rem',
+            textAlign: 'center',
+            border: theme === 'light' ? '1px solid #E2E8F0' : '1px solid rgba(255, 255, 255, 0.15)',
+            boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.8)',
+            background: theme === 'light' ? '#FFFFFF' : '#111522', borderRadius: '1.25rem',
             color: 'var(--color-text-primary)'
           }}>
             <div style={{
