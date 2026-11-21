@@ -53,8 +53,6 @@ const GlobalLayout = ({ children }) => {
   const roleColor = user?.role === 'volunteer' ? '#0EA5E9' : user?.role === 'ngo' ? '#8B5CF6' : user?.role === 'company' ? '#F59E0B' : '#8B5CF6';
   const roleColorLight = user?.role === 'volunteer' ? '#38BDF8' : user?.role === 'ngo' ? '#A78BFA' : user?.role === 'company' ? '#FBBF24' : '#A78BFA';
 
-  const [showLangDropdown, setShowLangDropdown] = useState(false);
-  
   const getInitialLang = () => {
     if (typeof document === 'undefined') return 'English';
     const match = document.cookie.match(/googtrans=\/en\/([a-z]{2})/);
@@ -628,65 +626,6 @@ const GlobalLayout = ({ children }) => {
 
         <div id="google_translate_element" style={{ opacity: 0, position: 'absolute', pointerEvents: 'none', zIndex: -1 }}></div>
       </nav>
-
-      {/* Top Right Corner: Circular Language Selector */}
-      <div className="top-right-lang-widget" style={{
-        position: 'fixed',
-        top: '1.25rem',
-        right: '1.5rem',
-        zIndex: 100
-      }}>
-        <button
-          onClick={() => setShowLangDropdown(!showLangDropdown)}
-          className="lang-circle-btn"
-          title={`Language: ${activeLang}`}
-        >
-          <Globe size={20} />
-        </button>
-
-        {showLangDropdown && (
-          <>
-            <div onClick={() => setShowLangDropdown(false)} style={{ position: 'fixed', inset: 0, zIndex: 998 }} />
-            <div className="lang-circle-dropdown animate-fade-in" style={{
-              position: 'absolute',
-              top: 'calc(100% + 0.6rem)',
-              right: 0,
-              zIndex: 999,
-              background: 'var(--color-surface)',
-              border: '1px solid var(--color-border)',
-              borderRadius: '0.75rem',
-              boxShadow: '0 12px 25px -4px rgba(0, 0, 0, 0.35)',
-              overflow: 'hidden',
-              minWidth: '140px'
-            }}>
-              {languages.map((lang) => (
-                <div
-                  key={lang.code}
-                  onClick={() => handleLanguageSelect(lang)}
-                  style={{
-                    padding: '0.65rem 1rem',
-                    fontSize: '0.88rem',
-                    fontWeight: 600,
-                    cursor: 'pointer',
-                    color: activeLang === lang.label ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
-                    background: activeLang === lang.label ? 'var(--color-nav-btn-hover)' : 'transparent',
-                    borderBottom: '1px solid var(--color-border)',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    transition: 'background 0.15s ease'
-                  }}
-                  onMouseEnter={e => e.currentTarget.style.background = 'var(--color-nav-btn-hover)'}
-                  onMouseLeave={e => e.currentTarget.style.background = activeLang === lang.label ? 'var(--color-nav-btn-hover)' : 'transparent'}
-                >
-                  <span>{lang.label}</span>
-                  {activeLang === lang.label && <Check size={16} color="#10B981" />}
-                </div>
-              ))}
-            </div>
-          </>
-        )}
-      </div>
 
       {/* Hide the top Google Translate frame that gets injected */}
       <style>{`
