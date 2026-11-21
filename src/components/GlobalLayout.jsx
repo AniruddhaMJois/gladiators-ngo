@@ -9,7 +9,7 @@ import { API_BASE } from '@/lib/api';
 import {
   UserCircle, Phone, Globe, LogOut, X, Heart, Building2,
   Briefcase, Check, Edit3, Save, Trash2, Home, Award, Moon, Sun,
-  LayoutDashboard, MessageSquare, Settings
+  LayoutDashboard, Settings
 } from 'lucide-react';
 import GlobalChatbot from './chat/GlobalChatbot';
 
@@ -606,15 +606,6 @@ const GlobalLayout = ({ children }) => {
               >
                 <div className="nav-icon-wrapper"><UserCircle size={22} /></div>
                 <span className="nav-btn-text">Profile</span>
-              </button>
-
-              <button
-                onClick={() => router.push('/messages')}
-                className="nav-action-btn"
-                title="Messages"
-              >
-                <div className="nav-icon-wrapper"><MessageSquare size={22} /></div>
-                <span className="nav-btn-text">Messages</span>
               </button>
             </>
           )}
