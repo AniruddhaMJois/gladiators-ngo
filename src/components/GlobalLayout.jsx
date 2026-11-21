@@ -7,9 +7,9 @@ import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 import { API_BASE } from '@/lib/api';
 import {
-  UserCircle, Phone, Globe, LogOut, ChevronDown, X, Heart, Building2,
-  Briefcase, ShieldCheck, Check, Edit3, Save, User, MapPin, Hash, UserCheck, Trash2, Home, ArrowLeft, Award, Moon, Sun,
-  LayoutDashboard, MessageSquare, LogIn
+  UserCircle, Phone, Globe, LogOut, X, Heart, Building2,
+  Briefcase, Check, Edit3, Save, Trash2, Home, Award, Moon, Sun,
+  LayoutDashboard, MessageSquare
 } from 'lucide-react';
 import GlobalChatbot from './chat/GlobalChatbot';
 
@@ -44,7 +44,6 @@ const GlobalLayout = ({ children }) => {
   const pathname = usePathname();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
-  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
   const [showEditProfileModal, setShowEditProfileModal] = useState(false);
   const [editFormData, setEditFormData] = useState({});
   const [interestInput, setInterestInput] = useState('');
@@ -334,12 +333,6 @@ const GlobalLayout = ({ children }) => {
 
   const isLandingPage = pathname === '/';
 
-  const handleLogout = () => {
-    logout();
-    setShowDropdown(false);
-    router.push('/');
-  };
-
   const handleLogoClick = () => {
     if (isAuthenticated && user?.role) {
       router.push(`/${user.role}/dashboard`);
@@ -354,14 +347,6 @@ const GlobalLayout = ({ children }) => {
       } else {
         router.push('/');
       }
-    }
-  };
-
-  const handleBack = () => {
-    if (isAuthenticated && user?.role && pathname?.startsWith(`/${user.role}/dashboard`)) {
-      setShowLogoutConfirm(true);
-    } else {
-      router.back();
     }
   };
 
@@ -430,6 +415,121 @@ const GlobalLayout = ({ children }) => {
             GladiConnect
           </span>
         </div>
+
+        {/* Profile Card in Left Navbar */}
+        {isAuthenticated && user && (() => {
+          const roleColor = user.role === 'volunteer' ? '#0EA5E9' : user.role === 'ngo' ? '#8B5CF6' : '#F59E0B';
+          const roleColorLight = user.role === 'volunteer' ? '#38BDF8' : user.role === 'ngo' ? '#A78BFA' : '#FBBF24';
+          return (
+            <div
+              className="nav-profile-card"
+              onClick={() => router.push(`/${user.role}/profile`)}
+              title={`View ${user.name || 'Profile'} (${user.gcId || ''})`}
+              style={{
+                '--profile-accent': roleColor,
+                '--profile-accent-light': roleColorLight,
+              }}
+            >
+              <div className="nav-profile-card-inner">
+                {/* Avatar with White Ring & Green Check Badge */}
+                <div className="nav-profile-avatar-wrap">
+                  <div
+                    className="nav-profile-avatar"
+                    style={{
+                      background: `linear-gradient(135deg, ${roleColorLight}, ${roleColor})`
+                    }}
+                  >
+                    {user.profilePhoto ? (
+                      <img src={user.profilePhoto} alt={user.name || 'Profile'} />
+                    ) : (
+                      user.name ? user.name.charAt(0).toUpperCase() : 'U'
+                    )}
+                  </div>
+                  <div className="nav-profile-check-badge">
+                    <Check size={11} strokeWidth={3.5} />
+                  </div>
+                </div>
+
+                {/* Expanded Details on Hover: Name, Role Verified Badge, GC ID Box */}
+                <div className="nav-profile-details">
+                  <div className="nav-profile-name" title={user.name}>
+                    {user.name}
+                  </div>
+
+                  {/* Role Verified Badge Pill */}
+                  {user.role === 'volunteer' && (
+                    <div
+                      className="nav-profile-verified-badge"
+                      style={{
+                        background: '#D1FAE5',
+                        color: '#059669',
+                        border: '1px solid #A7F3D0'
+                      }}
+                    >
+                      <Heart size={12} fill="#059669" color="#059669" />
+                      <span>GC-VLT Verified</span>
+                    </div>
+                  )}
+                  {user.role === 'ngo' && (
+                    <div
+                      className="nav-profile-verified-badge"
+                      style={{
+                        background: '#B2F5EA',
+                        color: '#7C3AED',
+                        border: '1px solid #80E5D3'
+                      }}
+                    >
+                      <Building2 size={12} color="#7C3AED" />
+                      <span>GC-NGO Verified</span>
+                    </div>
+                  )}
+                  {user.role === 'company' && (
+                    <div
+                      className="nav-profile-verified-badge"
+                      style={{
+                        background: '#FEF3C7',
+                        color: '#D97706',
+                        border: '1px solid #FDE68A'
+                      }}
+                    >
+                      <Briefcase size={12} color="#D97706" />
+                      <span>GC-CPY Verified</span>
+                    </div>
+                  )}
+
+                  {/* Volunteer Badges if available */}
+                  {user.role === 'volunteer' && badgeData.badges && badgeData.badges.length > 0 && (
+                    <div style={{ display: 'flex', gap: '0.25rem', flexWrap: 'wrap', justifyContent: 'center', margin: '0.1rem 0' }}>
+                      {badgeData.badges.map((badge, idx) => {
+                        const imgMap = {
+                          'Bronze': '/badges/bronze.png',
+                          'Silver': '/badges/silver.png',
+                          'Gold': '/badges/gold.png',
+                          'Platinum': '/badges/platinum.png'
+                        };
+                        return (
+                          <img 
+                            key={idx} 
+                            src={imgMap[badge.level]} 
+                            alt={badge.name} 
+                            title={`${badge.name} (${badge.level} Tier)`} 
+                            style={{ width: 16, height: 16, objectFit: 'contain' }} 
+                          />
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* GladiConnect ID Box */}
+                  <div className="nav-profile-id-box">
+                    <span className="nav-profile-id-label">GLADICONNECT ID</span>
+                    <span className="nav-profile-id-val">{user.gcId}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })()}
 
         {/* Navigation Items */}
         <div className="nav-island-actions">
@@ -581,358 +681,10 @@ const GlobalLayout = ({ children }) => {
         />
       )}
 
-      {/* Left-Side Profile Widget */}
-      {isAuthenticated && user && !isLandingPage && (
-        <div className="bento-item profile-floating-widget" style={{
-          position: 'fixed', left: '1.5rem', top: '6.5rem', zIndex: 900,
-          borderLeft: `4px solid ${
-            user.role === 'volunteer' ? 'var(--color-primary)' :
-            user.role === 'ngo' ? 'var(--color-primary)' : 'var(--color-accent)'
-          }`,
-          display: 'flex',
-          alignItems: 'center',
-          gap: '1rem',
-          animation: 'slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
-          cursor: 'pointer',
-          padding: '1rem'
-        }}
-        onClick={() => router.push(`/${user.role}/profile`)}>
-          {/* Left Column: Avatar */}
-          <div style={{ position: 'relative' }}>
-            <button
-              onClick={() => router.push(`/${user.role}/profile`)}
-              style={{
-                width: 60, height: 60, borderRadius: '50%',
-                background: user.role === 'volunteer' ? 'linear-gradient(135deg, var(--color-primary-light), var(--color-primary))' :
-                            user.role === 'ngo' ? 'linear-gradient(135deg, var(--color-primary-light), var(--color-primary))' :
-                            'linear-gradient(135deg, var(--color-accent-light), var(--color-accent))',
-                border: '2px solid #FFFFFF', color: '#FFFFFF',
-                fontSize: '1.5rem', fontWeight: 800, cursor: 'pointer',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                boxShadow: 'var(--shadow-md)',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                outline: 'none',
-                overflow: 'hidden'
-              }}
-              onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.08)'}
-              onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-              title="View Profile Details"
-            >
-              {user.profilePhoto ? (
-                <img src={user.profilePhoto} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              ) : (
-                user.name ? user.name.charAt(0).toUpperCase() : 'U'
-              )}
-            </button>
-            {/* Check mark badge overlay on bottom right */}
-            <div style={{
-              position: 'absolute', bottom: -2, right: -2,
-              background: '#10B981', border: '2px solid #FFFFFF',
-              borderRadius: '50%', width: 20, height: 20,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: '#FFFFFF', boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
-            }}>
-              <Check size={12} strokeWidth={3} />
-            </div>
-          </div>
-
-          {/* Right Column: Name, Badge, ID */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', alignItems: 'flex-start' }}>
-            {/* Name */}
-            <span style={{
-              fontSize: '1.2rem',
-              fontWeight: 800,
-              color: 'var(--color-text-primary)',
-              fontFamily: '"Outfit", "Inter", sans-serif',
-              lineHeight: 1
-            }}>
-              {user.name}
-            </span>
-
-            {/* Verified Badge */}
-            {(() => {
-              const logoSize = 14;
-              const iconSize = 10;
-              const padding = '0.2rem 0.5rem';
-              const fontSize = '0.7rem';
-
-              if (user.role === 'volunteer') {
-                return (
-                  <div style={{
-                    display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
-                    padding, fontSize, fontWeight: 700, borderRadius: '2rem',
-                    background: 'linear-gradient(135deg, #E8F5E9, #C8E6C9)',
-                    border: '1px solid #81C784', color: '#2E7D32',
-                    boxShadow: '0 2px 4px rgba(46, 125, 50, 0.05)'
-                  }}>
-                    <Heart size={iconSize} fill="#2E7D32" />
-                    <span>GC-VLT Verified</span>
-                  </div>
-                );
-              }
-              if (user.role === 'ngo') {
-                return (
-                  <div style={{
-                    display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
-                    padding, fontSize, fontWeight: 700, borderRadius: '2rem',
-                    background: 'linear-gradient(135deg, #E0F2F1, #B2DFDB)',
-                    border: '1px solid #4DB6AC', color: 'var(--color-primary)',
-                    boxShadow: '0 2px 4px rgba(0, 105, 92, 0.05)'
-                  }}>
-                    <Building2 size={iconSize} />
-                    <span>GC-NGO Verified</span>
-                  </div>
-                );
-              }
-              if (user.role === 'company') {
-                return (
-                  <div style={{
-                    display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
-                    padding, fontSize, fontWeight: 700, borderRadius: '2rem',
-                    background: 'linear-gradient(135deg, #FFF9C4, #FFF59D)',
-                    border: '1px solid #FBC02D', color: '#F57F17',
-                    boxShadow: '0 2px 4px rgba(245, 127, 23, 0.05)'
-                  }}>
-                    <Briefcase size={iconSize} />
-                    <span>GC-CPY Verified</span>
-                  </div>
-                );
-              }
-            })()}
-
-            {/* Earned Badges in Left-Side Profile Widget */}
-            {user.role === 'volunteer' && badgeData.badges && badgeData.badges.length > 0 && (
-              <div style={{ display: 'flex', gap: '0.25rem', flexWrap: 'wrap', margin: '0.1rem 0' }}>
-                {badgeData.badges.map((badge, idx) => {
-                  const imgMap = {
-                    'Bronze': '/badges/bronze.png',
-                    'Silver': '/badges/silver.png',
-                    'Gold': '/badges/gold.png',
-                    'Platinum': '/badges/platinum.png'
-                  };
-                  return (
-                    <img 
-                      key={idx} 
-                      src={imgMap[badge.level]} 
-                      alt={badge.name} 
-                      title={`${badge.name} (${badge.level} Tier)`} 
-                      style={{ width: 18, height: 18, objectFit: 'contain', filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.1))' }} 
-                    />
-                  );
-                })}
-              </div>
-            )}
-
-            {/* GladiConnect ID Box */}
-            <div style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid var(--color-border)',
-              borderRadius: '0.5rem',
-              padding: '0.25rem 0.5rem',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              gap: '0.1rem',
-              width: '100%',
-              boxSizing: 'border-box'
-            }}>
-              <span style={{
-                fontSize: '0.6rem',
-                fontWeight: 700,
-                color: 'var(--color-text-secondary)',
-                letterSpacing: '0.05em',
-                lineHeight: 1
-              }}>
-                GLADICONNECT ID
-              </span>
-              <span style={{
-                fontSize: '0.85rem',
-                fontWeight: 800,
-                color: 'var(--color-text-primary)',
-                fontFamily: 'monospace',
-                lineHeight: 1
-              }}>
-                {user.gcId}
-              </span>
-            </div>
-          </div>
-
-          {/* Dropdown panel */}
-          {showProfileDropdown && (
-            <>
-              {/* Click away layer */}
-              <div 
-                onClick={() => setShowProfileDropdown(false)} 
-                style={{ position: 'fixed', inset: 0, zIndex: 899, background: 'rgba(255,255,255,0.05)' }} 
-              />
-              <div className="glass-card animate-fade-in" style={{
-                position: 'absolute', left: 0, top: '3.75rem', zIndex: 900,
-                width: 320, padding: '1.5rem',
-                background: 'var(--color-surface)',
-                border: '1px solid var(--color-border)',
-                boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.15), 0 10px 10px -5px rgba(0, 0, 0, 0.08)',
-                borderRadius: '1.25rem'
-              }}>
-                {/* Header */}
-                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', marginBottom: '1.25rem' }}>
-                  <div style={{
-                    width: 60, height: 60, borderRadius: '50%',
-                    background: 'linear-gradient(135deg, var(--color-primary-light), var(--color-primary))',
-                    color: '#FFFFFF', fontSize: '1.5rem', fontWeight: 800,
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    marginBottom: '0.75rem', border: '3px solid #E2E8F0'
-                  }}>
-                    {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
-                  </div>
-                  <h4 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>{user.name}</h4>
-                  <div style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', fontWeight: 600, marginTop: '0.15rem' }}>
-                    ID: {user.gcId}
-                  </div>
-                  <div style={{ marginTop: '0.6rem' }}>
-                    {(() => {
-                      const logoSize = 22;
-                      const iconSize = 15;
-                      const padding = '0.4rem 0.8rem';
-                      const fontSize = '0.8rem';
-
-                      if (user.role === 'volunteer') {
-                        return (
-                          <div style={{
-                            display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                            padding, fontSize, fontWeight: 700, borderRadius: '2rem',
-                            background: 'linear-gradient(135deg, #E8F5E9, #C8E6C9)',
-                            border: '1px solid #81C784', color: '#2E7D32',
-                            boxShadow: '0 2px 4px rgba(46, 125, 50, 0.1)'
-                          }}>
-                            <img src="/images/logo.png" alt="" style={{ width: logoSize, height: logoSize, borderRadius: '50%' }} />
-                            <Heart size={iconSize} fill="#2E7D32" />
-                            <span>GC-VLT Verified</span>
-                          </div>
-                        );
-                      }
-                      if (user.role === 'ngo') {
-                        return (
-                          <div style={{
-                            display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                            padding, fontSize, fontWeight: 700, borderRadius: '2rem',
-                            background: 'linear-gradient(135deg, #E0F2F1, #B2DFDB)',
-                            border: '1px solid #4DB6AC', color: 'var(--color-primary)',
-                            boxShadow: '0 2px 4px rgba(0, 105, 92, 0.1)'
-                          }}>
-                            <img src="/images/logo.png" alt="" style={{ width: logoSize, height: logoSize, borderRadius: '50%' }} />
-                            <Building2 size={iconSize} />
-                            <span>GC-NGO Verified</span>
-                          </div>
-                        );
-                      }
-                      if (user.role === 'company') {
-                        return (
-                          <div style={{
-                            display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                            padding, fontSize, fontWeight: 700, borderRadius: '2rem',
-                            background: 'linear-gradient(135deg, #FFF9C4, #FFF59D)',
-                            border: '1px solid #FBC02D', color: '#F57F17',
-                            boxShadow: '0 2px 4px rgba(245, 127, 23, 0.1)'
-                          }}>
-                            <img src="/images/logo.png" alt="" style={{ width: logoSize, height: logoSize, borderRadius: '50%' }} />
-                            <Briefcase size={iconSize} />
-                            <span>GC-CPY Verified</span>
-                          </div>
-                        );
-                      }
-                      return null;
-                    })()}
-                  </div>
-                </div>
-
-                <hr style={{ border: 'none', borderTop: '1px solid var(--color-border)', margin: '0.75rem 0' }} />
-
-                {/* User Details */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.85rem', color: 'var(--color-text-secondary)', marginBottom: '1.25rem' }}>
-                  {user.role === 'volunteer' && (
-                    <>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><MapPin size={14} /> <span>{user.location || 'Bangalore'}</span></div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><User size={14} /> <span>Age: {user.age}</span></div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Phone size={14} /> <span>{user.phone}</span></div>
-                      <div style={{ marginTop: '0.5rem' }}>
-                        <div style={{ fontWeight: 700, fontSize: '0.8rem', color: 'var(--color-text-primary)', marginBottom: '0.25rem' }}>Interests:</div>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.25rem' }}>
-                          {user.interests?.map((interest, i) => (
-                            <span key={i} style={{ background: 'rgba(255, 255, 255, 0.06)', color: 'var(--color-text-secondary)', padding: '0.15rem 0.4rem', borderRadius: '0.25rem', fontSize: '0.75rem', fontWeight: 600 }}>{interest}</span>
-                          )) || <span style={{ fontStyle: 'italic' }}>None specified</span>}
-                        </div>
-                      </div>
-                    </>
-                  )}
-                  {user.role === 'ngo' && (
-                    <>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><MapPin size={14} /> <span>HQ: {user.headquarters || 'Bangalore'}</span></div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Globe size={14} /> <a href={user.website} target="_blank" rel="noreferrer" style={{ color: 'var(--color-primary-dark)', textDecoration: 'none', fontWeight: 600 }}>{user.website ? user.website.replace(/^https?:\/\//, '') : 'Website'}</a></div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><User size={14} /> <span>POC: {user.pocName} ({user.pocDesignation})</span></div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Phone size={14} /> <span>{user.pocPhone}</span></div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Hash size={14} /> <span style={{ fontSize: '0.75rem', wordBreak: 'break-all' }}>Darpan ID: {user.ngoDarpanId}</span></div>
-                    </>
-                  )}
-                  {user.role === 'company' && (
-                    <>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><MapPin size={14} /> <span>HQ: {user.headquarters || 'Mumbai'}</span></div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Globe size={14} /> <a href={user.website} target="_blank" rel="noreferrer" style={{ color: 'var(--color-primary-dark)', textDecoration: 'none', fontWeight: 600 }}>{user.website ? user.website.replace(/^https?:\/\//, '') : 'Website'}</a></div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><User size={14} /> <span>POC: {user.pocName} ({user.pocDesignation})</span></div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Phone size={14} /> <span>{user.pocPhone}</span></div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Hash size={14} /> <span style={{ fontSize: '0.75rem', wordBreak: 'break-all' }}>CIN: {user.cin}</span></div>
-                      <div style={{ marginTop: '0.5rem' }}>
-                        <div style={{ fontWeight: 700, fontSize: '0.8rem', color: 'var(--color-text-primary)', marginBottom: '0.25rem' }}>Preferred CSR Focus:</div>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.25rem' }}>
-                          {user.csrFocus?.map((focus, i) => (
-                            <span key={i} style={{ background: '#FFF9C4', color: '#F57F17', padding: '0.15rem 0.4rem', borderRadius: '0.25rem', fontSize: '0.75rem', fontWeight: 600 }}>{focus}</span>
-                          )) || <span style={{ fontStyle: 'italic' }}>None specified</span>}
-                        </div>
-                      </div>
-                    </>
-                  )}
-                </div>
-                {/* Action Buttons */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                  <button
-                    onClick={() => {
-                      setShowProfileDropdown(false);
-                      setShowEditProfileModal(true);
-                    }}
-                    style={{
-                      width: '100%', padding: '0.6rem', background: 'rgba(255, 255, 255, 0.06)', color: 'var(--color-text-primary)',
-                      border: '1px solid #CBD5E1', borderRadius: '0.5rem', fontWeight: 700,
-                      fontSize: '0.85rem', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem'
-                    }}
-                  >
-                    <Edit3 size={15} /> Edit Profile
-                  </button>
-                  <button
-                    onClick={() => {
-                      setShowProfileDropdown(false);
-                      setShowLogoutConfirm(true);
-                    }}
-                    style={{
-                      width: '100%', padding: '0.6rem 1.25rem', background: '#EF4444', color: '#FFFFFF',
-                      border: 'none', borderRadius: '9999px', fontWeight: 700,
-                      fontSize: '0.85rem', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
-                      transition: 'all 0.2s ease', outline: 'none', boxShadow: '0 4px 6px -1px rgba(239, 68, 68, 0.2)'
-                    }}
-                    onMouseEnter={e => e.currentTarget.style.background = '#DC2626'}
-                    onMouseLeave={e => e.currentTarget.style.background = '#EF4444'}
-                  >
-                    <LogOut size={15} /> Logout
-                  </button>
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-      )}
-
       {/* Main Content Layout Wrapper */}
       <div className="app-main-layout" style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh', minWidth: 0 }}>
         {/* Main Content */}
-        <main className={isLandingPage ? '' : `container ${isAuthenticated ? 'dashboard-content-shifted' : ''}`} style={{ flex: 1, paddingTop: isLandingPage ? 0 : '3rem', paddingBottom: '2rem' }}>
+        <main className={isLandingPage ? '' : 'container'} style={{ flex: 1, paddingTop: isLandingPage ? 0 : '3rem', paddingBottom: '2rem' }}>
           {children}
         </main>
 
