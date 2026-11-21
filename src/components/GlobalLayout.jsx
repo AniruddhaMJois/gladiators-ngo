@@ -9,7 +9,7 @@ import { API_BASE } from '@/lib/api';
 import {
   UserCircle, Phone, Globe, LogOut, X, Heart, Building2,
   Briefcase, Check, Edit3, Save, Trash2, Home, Award, Moon, Sun,
-  LayoutDashboard, MessageSquare
+  LayoutDashboard, MessageSquare, Settings
 } from 'lucide-react';
 import GlobalChatbot from './chat/GlobalChatbot';
 
@@ -44,6 +44,7 @@ const GlobalLayout = ({ children }) => {
   const pathname = usePathname();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [showEditProfileModal, setShowEditProfileModal] = useState(false);
   const [editFormData, setEditFormData] = useState({});
   const [interestInput, setInterestInput] = useState('');
@@ -577,35 +578,19 @@ const GlobalLayout = ({ children }) => {
             <div className="nav-icon-wrapper"><Phone size={22} className="pulse-animation" /></div>
             <span className="nav-btn-text">24/7 Helpline</span>
           </button>
-        </div>
 
-        {/* Bottom Tools & Logout */}
-        <div className="nav-island-bottom">
-          {/* Theme Toggle Button */}
+          {/* Settings Button: Below Contact Button */}
           <button
-            onClick={toggleTheme}
-            className="nav-action-btn nav-tool-btn"
-            title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+            onClick={() => setShowSettingsModal(true)}
+            className="nav-action-btn nav-settings-btn"
+            title="Settings (Colour Mode, Language, Logout)"
           >
-            <div className="nav-icon-wrapper">
-              {theme === 'light' ? <Moon size={22} /> : <Sun size={22} />}
-            </div>
-            <span className="nav-btn-text">{theme === 'light' ? 'Dark Mode' : 'Light Mode'}</span>
+            <div className="nav-icon-wrapper"><Settings size={22} /></div>
+            <span className="nav-btn-text">Settings</span>
           </button>
-
-          {isAuthenticated && (
-            <button
-              onClick={() => setShowLogoutConfirm(true)}
-              className="nav-action-btn nav-logout-btn"
-              title="Logout"
-            >
-              <div className="nav-icon-wrapper"><LogOut size={22} /></div>
-              <span className="nav-btn-text">Logout</span>
-            </button>
-          )}
-
-          <div id="google_translate_element" style={{ opacity: 0, position: 'absolute', pointerEvents: 'none', zIndex: -1 }}></div>
         </div>
+
+        <div id="google_translate_element" style={{ opacity: 0, position: 'absolute', pointerEvents: 'none', zIndex: -1 }}></div>
       </nav>
 
       {/* Top Right Corner: Circular Language Selector */}
@@ -1169,6 +1154,216 @@ const GlobalLayout = ({ children }) => {
                 </button>
               </div>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Settings Modal (App Colour Mode, Language Change, Logout) */}
+      {showSettingsModal && (
+        <div style={{
+          position: 'fixed', inset: 0, zIndex: 9999,
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          background: 'rgba(0, 0, 0, 0.5)',
+          backdropFilter: 'blur(6px)',
+          animation: 'fadeIn 0.2s ease-out'
+        }}>
+          {/* Backdrop Click */}
+          <div
+            onClick={() => setShowSettingsModal(false)}
+            style={{ position: 'absolute', inset: 0 }}
+          />
+
+          <div className="glass-card animate-fade-in" style={{
+            position: 'relative', zIndex: 1,
+            width: '90%', maxWidth: 460, padding: '1.75rem',
+            background: 'var(--color-surface)',
+            border: '1px solid var(--color-border)',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.35)',
+            borderRadius: '1.25rem',
+            color: 'var(--color-text-primary)'
+          }}>
+            {/* Header */}
+            <div style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+              marginBottom: '1.5rem', paddingBottom: '0.85rem',
+              borderBottom: '1px solid var(--color-border)'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                <div style={{
+                  width: 38, height: 38, borderRadius: '50%',
+                  background: 'rgba(139, 92, 246, 0.15)',
+                  color: 'var(--color-primary)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center'
+                }}>
+                  <Settings size={20} />
+                </div>
+                <div>
+                  <h3 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800, fontFamily: 'inherit' }}>
+                    Settings
+                  </h3>
+                  <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--color-text-secondary)', fontWeight: 500 }}>
+                    Preferences & Session Controls
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setShowSettingsModal(false)}
+                style={{
+                  background: 'none', border: 'none', color: 'var(--color-text-secondary)',
+                  cursor: 'pointer', padding: '0.35rem', borderRadius: '50%',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center'
+                }}
+                title="Close"
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+              {/* Option 1: App Colour Mode */}
+              <div>
+                <label style={{
+                  display: 'flex', alignItems: 'center', gap: '0.5rem',
+                  fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)',
+                  marginBottom: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.04em'
+                }}>
+                  {theme === 'light' ? <Sun size={15} /> : <Moon size={15} />}
+                  App Colour Mode
+                </label>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '0.75rem',
+                  background: 'rgba(255, 255, 255, 0.03)',
+                  padding: '0.35rem',
+                  borderRadius: '0.75rem',
+                  border: '1px solid var(--color-border)'
+                }}>
+                  <button
+                    type="button"
+                    onClick={() => { if (theme !== 'dark') toggleTheme(); }}
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                      padding: '0.65rem 1rem', borderRadius: '0.55rem',
+                      fontWeight: 700, fontSize: '0.88rem', cursor: 'pointer',
+                      border: theme === 'dark' ? '1px solid var(--color-primary)' : '1px solid transparent',
+                      background: theme === 'dark' ? 'rgba(139, 92, 246, 0.2)' : 'transparent',
+                      color: theme === 'dark' ? '#FFFFFF' : 'var(--color-text-secondary)',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    <Moon size={16} />
+                    <span>Dark Mode</span>
+                    {theme === 'dark' && <Check size={14} style={{ color: 'var(--color-primary-light)' }} />}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => { if (theme !== 'light') toggleTheme(); }}
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                      padding: '0.65rem 1rem', borderRadius: '0.55rem',
+                      fontWeight: 700, fontSize: '0.88rem', cursor: 'pointer',
+                      border: theme === 'light' ? '1px solid var(--color-primary)' : '1px solid transparent',
+                      background: theme === 'light' ? 'rgba(139, 92, 246, 0.2)' : 'transparent',
+                      color: theme === 'light' ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                      transition: 'all 0.2s ease'
+                    }}
+                  >
+                    <Sun size={16} />
+                    <span>Light Mode</span>
+                    {theme === 'light' && <Check size={14} style={{ color: 'var(--color-primary)' }} />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Option 2: Language Change */}
+              <div>
+                <label style={{
+                  display: 'flex', alignItems: 'center', gap: '0.5rem',
+                  fontSize: '0.82rem', fontWeight: 700, color: 'var(--color-text-secondary)',
+                  marginBottom: '0.65rem', textTransform: 'uppercase', letterSpacing: '0.04em'
+                }}>
+                  <Globe size={15} />
+                  Language Change
+                </label>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(3, 1fr)',
+                  gap: '0.5rem'
+                }}>
+                  {languages.map(lang => {
+                    const isSelected = activeLang === lang.label;
+                    return (
+                      <button
+                        key={lang.code}
+                        type="button"
+                        onClick={() => {
+                          handleLanguageSelect(lang);
+                        }}
+                        style={{
+                          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                          padding: '0.75rem 0.5rem', borderRadius: '0.65rem',
+                          fontWeight: 700, fontSize: '0.88rem', cursor: 'pointer',
+                          border: isSelected ? '1.5px solid var(--color-primary)' : '1px solid var(--color-border)',
+                          background: isSelected ? 'rgba(139, 92, 246, 0.22)' : 'rgba(255, 255, 255, 0.03)',
+                          color: isSelected ? 'var(--color-text-primary)' : 'var(--color-text-secondary)',
+                          transition: 'all 0.2s ease', gap: '0.2rem'
+                        }}
+                      >
+                        <span style={{ fontSize: '1rem', fontWeight: 800 }}>{lang.label}</span>
+                        <span style={{ fontSize: '0.68rem', opacity: 0.75, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                          {lang.code === 'en' ? 'English' : lang.code === 'hi' ? 'Hindi' : 'Kannada'}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Option 3: Logout */}
+              {isAuthenticated && (
+                <div style={{
+                  paddingTop: '0.5rem',
+                  borderTop: '1px solid var(--color-border)'
+                }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowSettingsModal(false);
+                      setShowLogoutConfirm(true);
+                    }}
+                    style={{
+                      width: '100%',
+                      padding: '0.75rem 1rem',
+                      borderRadius: '0.75rem',
+                      background: 'rgba(239, 68, 68, 0.12)',
+                      border: '1px solid rgba(239, 68, 68, 0.3)',
+                      color: '#EF4444',
+                      fontWeight: 700,
+                      fontSize: '0.9rem',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.5rem',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={e => {
+                      e.currentTarget.style.background = '#EF4444';
+                      e.currentTarget.style.color = '#FFFFFF';
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.background = 'rgba(239, 68, 68, 0.12)';
+                      e.currentTarget.style.color = '#EF4444';
+                    }}
+                  >
+                    <LogOut size={16} />
+                    <span>Logout</span>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}
