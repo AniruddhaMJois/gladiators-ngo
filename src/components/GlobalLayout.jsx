@@ -703,9 +703,12 @@ const GlobalLayout = ({ children }) => {
       )}
 
       {/* Main Content Layout Wrapper */}
-      <div className="app-main-layout" style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: '100vh', minWidth: 0 }}>
+      <div className="app-main-layout" suppressHydrationWarning>
         {/* Main Content */}
-        <main className={isLandingPage ? '' : 'container'} style={{ flex: 1, paddingTop: isLandingPage ? 0 : '4.75rem', paddingBottom: '2rem' }}>
+        <main
+          className={`app-main-content ${isLandingPage ? 'is-landing' : 'container'}`}
+          suppressHydrationWarning
+        >
           {children}
         </main>
 
