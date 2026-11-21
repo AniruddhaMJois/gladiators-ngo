@@ -2,7 +2,6 @@
 
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { LogIn, UserPlus } from 'lucide-react';
 
 const roles = [
   {
@@ -10,27 +9,21 @@ const roles = [
     title: 'NGO',
     description: 'Manage, collaborate & grow',
     image: '/images/ngo_hero.png',
-    loginPath: '/login?role=ngo',
-    registerPath: '/ngo/onboarding?mode=register',
-    onboardingPath: '/ngo/onboarding'
+    loginPath: '/login?role=ngo'
   },
   {
     key: 'volunteer',
     title: 'Volunteer',
     description: 'Discover & contribute',
     image: '/images/volunteer_hero.png',
-    loginPath: '/login?role=volunteer',
-    registerPath: '/volunteer/onboarding?mode=register',
-    onboardingPath: '/volunteer/onboarding'
+    loginPath: '/login?role=volunteer'
   },
   {
     key: 'company',
     title: 'Company',
     description: 'CSR & partnerships',
     image: '/images/company_hero.png',
-    loginPath: '/login?role=company',
-    registerPath: '/company/onboarding?mode=register',
-    onboardingPath: '/company/onboarding'
+    loginPath: '/login?role=company'
   }
 ];
 
@@ -100,83 +93,32 @@ const LandingPage = () => {
         {roles.map((role, idx) => (
           <div
             key={role.key}
+            onClick={() => router.push(role.loginPath)}
             className="bento-item role-card prismatic-edge bento-col-4"
             style={{ 
-                animationDelay: `${idx * 150}ms`,
-                display: 'flex', flexDirection: 'column', height: '100%',
-                padding: '1.25rem'
+              animationDelay: `${idx * 150}ms`,
+              display: 'flex', flexDirection: 'column', height: '100%',
+              padding: '1.25rem',
+              cursor: 'pointer'
             }}
+            title={`Access ${role.title} Portal (Sign in / Register)`}
           >
             <div 
-              onClick={() => router.push(role.onboardingPath)}
               style={{
-                width: '100%', flex: 1, minHeight: 240, marginBottom: '1.25rem',
-                borderRadius: 'var(--radius-md)', overflow: 'hidden', position: 'relative',
-                cursor: 'pointer'
+                width: '100%', flex: 1, minHeight: 280,
+                borderRadius: 'var(--radius-md)', overflow: 'hidden', position: 'relative'
               }}
-              title={`View ${role.title} overview`}
             >
               <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, transparent 100%)', zIndex: 1 }} />
               <img src={role.image} alt={role.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-              <div style={{ position: 'absolute', bottom: '1rem', left: '1rem', zIndex: 2, right: '1rem' }}>
-                  <h3 style={{ fontSize: '1.75rem', marginBottom: '0.25rem', color: '#fff' }}>
-                    {role.title}
-                  </h3>
-                  <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.7)', margin: 0, fontWeight: 500 }}>
-                    {role.description}
-                  </p>
+              <div style={{ position: 'absolute', bottom: '1.25rem', left: '1.25rem', zIndex: 2, right: '1.25rem' }}>
+                <h3 style={{ fontSize: '1.75rem', marginBottom: '0.25rem', color: '#fff' }}>
+                  {role.title}
+                </h3>
+                <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.7)', margin: 0, fontWeight: 500 }}>
+                  {role.description}
+                </p>
               </div>
-            </div>
-
-            {/* Dedicated Role Actions: Login & Register for this specific role */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem', zIndex: 2 }}>
-              <button
-                type="button"
-                className="btn btn-outline"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  router.push(role.loginPath);
-                }}
-                style={{
-                  padding: '0.65rem 0.5rem',
-                  fontSize: '0.85rem',
-                  fontWeight: 700,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.35rem',
-                  borderRadius: 'var(--radius-md)',
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  backdropFilter: 'blur(8px)',
-                  border: '1px solid var(--color-border)',
-                  color: 'var(--color-text-primary)',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                <LogIn size={15} /> Login
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary prismatic-edge"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  router.push(role.registerPath);
-                }}
-                style={{
-                  padding: '0.65rem 0.5rem',
-                  fontSize: '0.85rem',
-                  fontWeight: 700,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.35rem',
-                  borderRadius: 'var(--radius-md)',
-                  cursor: 'pointer'
-                }}
-              >
-                <UserPlus size={15} /> Register
-              </button>
             </div>
           </div>
         ))}
