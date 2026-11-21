@@ -50,6 +50,9 @@ const GlobalLayout = ({ children }) => {
   const [interestInput, setInterestInput] = useState('');
   const [csrFocusInput, setCsrFocusInput] = useState('');
   
+  const roleColor = user?.role === 'volunteer' ? '#0EA5E9' : user?.role === 'ngo' ? '#8B5CF6' : user?.role === 'company' ? '#F59E0B' : '#8B5CF6';
+  const roleColorLight = user?.role === 'volunteer' ? '#38BDF8' : user?.role === 'ngo' ? '#A78BFA' : user?.role === 'company' ? '#FBBF24' : '#A78BFA';
+
   const [showLangDropdown, setShowLangDropdown] = useState(false);
   
   const getInitialLang = () => {
@@ -432,7 +435,7 @@ const GlobalLayout = ({ children }) => {
               }}
             >
               <div className="nav-profile-card-inner">
-                {/* Avatar with White Ring & Green Check Badge */}
+                {/* Avatar with White Ring, Role Badge & Green Check Badge */}
                 <div className="nav-profile-avatar-wrap">
                   <div
                     className="nav-profile-avatar"
@@ -446,6 +449,16 @@ const GlobalLayout = ({ children }) => {
                       user.name ? user.name.charAt(0).toUpperCase() : 'U'
                     )}
                   </div>
+                  {/* Role Icon Badge at Top-Left */}
+                  <div
+                    className="nav-profile-role-badge"
+                    title={`${user.role === 'ngo' ? 'NGO' : user.role === 'volunteer' ? 'Volunteer' : 'Company'} Role`}
+                  >
+                    {user.role === 'ngo' && <Building2 size={10} />}
+                    {user.role === 'volunteer' && <Heart size={10} fill="currentColor" />}
+                    {user.role === 'company' && <Briefcase size={10} />}
+                  </div>
+                  {/* Verified Checkmark Badge at Bottom-Right */}
                   <div className="nav-profile-check-badge">
                     <Check size={11} strokeWidth={3.5} />
                   </div>
@@ -543,15 +556,47 @@ const GlobalLayout = ({ children }) => {
             <span className="nav-btn-text">Home</span>
           </button>
 
+          {/* Unauthenticated Role Portal Link (when browsing a role's pages) */}
+          {!isAuthenticated && (() => {
+            const pathRole = pathname?.startsWith('/ngo') ? 'ngo' : pathname?.startsWith('/volunteer') ? 'volunteer' : pathname?.startsWith('/company') ? 'company' : null;
+            if (!pathRole) return null;
+            const pathRoleColor = pathRole === 'volunteer' ? '#0EA5E9' : pathRole === 'ngo' ? '#8B5CF6' : '#F59E0B';
+            return (
+              <button
+                onClick={() => router.push(`/${pathRole}/login`)}
+                className="nav-action-btn"
+                title={`${pathRole === 'ngo' ? 'NGO' : pathRole === 'volunteer' ? 'Volunteer' : 'Company'} Portal`}
+              >
+                <div className="nav-icon-wrapper" style={{ color: pathRoleColor }}>
+                  {pathRole === 'ngo' && <Building2 size={22} />}
+                  {pathRole === 'volunteer' && <Heart size={22} fill="currentColor" />}
+                  {pathRole === 'company' && <Briefcase size={22} />}
+                </div>
+                <span className="nav-btn-text">
+                  {pathRole === 'ngo' ? 'NGO Portal' : pathRole === 'volunteer' ? 'Volunteer Portal' : 'Company Portal'}
+                </span>
+              </button>
+            );
+          })()}
+
           {isAuthenticated && user && (
             <>
               <button
                 onClick={() => router.push(`/${user.role}/dashboard`)}
-                className="nav-action-btn"
-                title="Dashboard"
+                className={`nav-action-btn ${pathname?.startsWith(`/${user.role}/dashboard`) ? 'active-nav-btn' : ''}`}
+                title={`${user.role === 'ngo' ? 'NGO' : user.role === 'volunteer' ? 'Volunteer' : 'Company'} Portal`}
               >
-                <div className="nav-icon-wrapper"><LayoutDashboard size={22} /></div>
-                <span className="nav-btn-text">Dashboard</span>
+                <div className="nav-icon-wrapper" style={{
+                  color: pathname?.startsWith(`/${user.role}/dashboard`) ? roleColor : undefined
+                }}>
+                  {user.role === 'ngo' && <Building2 size={22} />}
+                  {user.role === 'volunteer' && <Heart size={22} fill={pathname?.startsWith(`/${user.role}/dashboard`) ? 'currentColor' : 'none'} />}
+                  {user.role === 'company' && <Briefcase size={22} />}
+                  {!['ngo', 'volunteer', 'company'].includes(user.role) && <LayoutDashboard size={22} />}
+                </div>
+                <span className="nav-btn-text">
+                  {user.role === 'ngo' ? 'NGO Portal' : user.role === 'volunteer' ? 'Volunteer Portal' : user.role === 'company' ? 'Company Portal' : 'Dashboard'}
+                </span>
               </button>
 
               <button

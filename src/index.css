@@ -667,6 +667,28 @@ a:hover { filter: brightness(1.2); }
   transition: width 0.3s ease, height 0.3s ease;
 }
 
+.nav-profile-role-badge {
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 17px;
+  height: 17px;
+  background: var(--profile-accent, #8B5CF6);
+  border: 2px solid #FFFFFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+  transition: width 0.3s ease, height 0.3s ease;
+  z-index: 2;
+}
+
+[data-theme='dark'] .nav-profile-role-badge {
+  border-color: #0F172A;
+}
+
 /* Expanded state on hover of navbar */
 .nav-island:hover .nav-profile-card {
   width: 100%;
@@ -701,6 +723,11 @@ a:hover { filter: brightness(1.2); }
 .nav-island:hover .nav-profile-check-badge {
   width: 19px;
   height: 19px;
+}
+
+.nav-island:hover .nav-profile-role-badge {
+  width: 20px;
+  height: 20px;
 }
 
 .nav-profile-details {
@@ -946,6 +973,11 @@ a:hover { filter: brightness(1.2); }
   }
 
   .nav-profile-check-badge {
+    width: 14px;
+    height: 14px;
+  }
+
+  .nav-profile-role-badge {
     width: 14px;
     height: 14px;
   }
