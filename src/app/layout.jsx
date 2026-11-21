@@ -5,7 +5,13 @@ export const metadata = {
   title: 'GladiConnect - Bridge the Gap. Amplify Impact.',
   description: 'The state-of-the-art platform connecting NGOs, volunteers, and companies to drive collective, measurable social impact.',
   icons: {
-    icon: '/favicon.svg',
+    icon: [
+      { url: '/images/logo.png', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+    ],
+    shortcut: '/images/logo.png',
+    apple: '/images/logo.png',
   },
 };
 
